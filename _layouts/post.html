@@ -1,0 +1,36 @@
+---
+layout: default
+---
+<article class="post">
+  <header class="post-header">
+    {% assign competition_doc = nil %}
+    {%- if page.competition -%}
+      {%- assign competition_doc = site.competitions | where: 'key', page.competition | first -%}
+    {%- endif -%}
+    <p class="post-meta">
+      <span class="post-date">{{ page.date | date: "%B %d, %Y" }}</span>
+      {%- if competition_doc -%}
+      <a class="post-tag" href="{{ competition_doc.url | relative_url }}">{{ competition_doc.name }}</a>
+      {%- endif -%}
+      {%- if page.category %}
+      <span class="post-tag">{{ page.category }}</span>
+      {%- endif %}
+    </p>
+    <h1 class="post-title">{{ page.title }}</h1>
+    {%- if page.summary %}
+    <p class="post-summary">{{ page.summary }}</p>
+    {%- endif %}
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+
+  <footer class="post-footer">
+    {%- if competition_doc -%}
+    <a class="back-link" href="{{ competition_doc.url | relative_url }}">&larr; Back to {{ competition_doc.name }}</a>
+    {%- else -%}
+    <a class="back-link" href="{{ '/' | relative_url }}">&larr; Back to all competitions</a>
+    {%- endif -%}
+  </footer>
+</article>

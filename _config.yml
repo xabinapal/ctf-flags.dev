@@ -1,0 +1,41 @@
+# Site settings
+name: CTF Signals
+title: CTF Signals
+email: your-email@example.com
+github_username: your-github-username
+description: >-
+  A collection of CTF writeups with a modern terminal-inspired aesthetic.
+baseurl: ""
+url: "https://your-github-username.github.io/ctf-writeups"
+permalink: /:categories/:year/:month/:day/:title/
+
+markdown: kramdown
+theme: null
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+collections:
+  posts:
+    output: true
+  competitions:
+    output: true
+    permalink: /competitions/:name/
+
+defaults:
+  - scope:
+      path: ""
+      type: competitions
+    values:
+      layout: competition
+
+sass:
+  sass_dir: _sass
+
+# Exclude development files that GitHub Pages should ignore
+exclude:
+  - README.md
+  - node_modules
+  - vendor
+  - Gemfile
+  - Gemfile.lock
