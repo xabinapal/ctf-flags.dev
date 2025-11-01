@@ -56,19 +56,18 @@ readable on large and small screens.
 
 ### Using Docker (recommended)
 
-Run the site inside the official GitHub Pages container so you get the same plugin set and Ruby version that
-the production build uses:
+Run the site inside a pre-built Jekyll container that installs the GitHub Pages gem bundle on startup:
 
 ```bash
 docker compose up
 ```
 
-The first run will install the bundle inside the container. Once the build is ready, visit
+The first run installs the bundle before launching the server. Once the build is ready, visit
 <http://localhost:4000> for the rendered site and <http://localhost:35729> for live-reload events. Changes to
 Markdown, layouts, or styles automatically trigger a rebuild.
 
-Bundler may create or update a `Gemfile.lock` file inside the repository while installing dependencies. You can
-commit it to pin versions or discard it after you are done previewing.
+Bundler caches the gems inside the container. It may still create or update a `Gemfile.lock` file in the
+repository; commit it to pin versions or discard it after you finish previewing.
 
 Stop the server with <kbd>Ctrl+C</kbd> and remove the container with `docker compose down` if needed.
 

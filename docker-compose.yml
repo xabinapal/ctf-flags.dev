@@ -1,7 +1,7 @@
 services:
   site:
-    image: ghcr.io/github/pages:latest
-    command: bundle exec jekyll serve --livereload --host 0.0.0.0 --force_polling
+    image: jekyll/jekyll:4.3.3
+    command: bash -c "bundle install && bundle exec jekyll serve --livereload --host 0.0.0.0 --force_polling"
     working_dir: /srv/jekyll
     ports:
       - "4000:4000"
@@ -9,6 +9,5 @@ services:
     volumes:
       - ./:/srv/jekyll:delegated
     environment:
+      BUNDLE_PATH: /tmp/bundle
       JEKYLL_ENV: development
-    # Avoids permission issues when bundler caches gems inside the mounted volume
-    user: "1000:1000"
