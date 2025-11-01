@@ -1,0 +1,6 @@
+Echo Capture: Sample artifacts
+================================
+
+This placeholder file represents challenge data that would normally ship with the writeup.
+Replace this text file with the actual archive, packet capture, or script bundle for the
+challenge when publishing the writeup.

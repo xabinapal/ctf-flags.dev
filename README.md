@@ -49,7 +49,20 @@ readable on large and small screens.
    Your writeup here in Markdown.
    ```
 
-3. Commit and push to `main`. GitHub Pages will build the site automatically. The rendered post will appear at
+3. (Optional) Attach challenge files by placing them under `assets/files/<competition>/<slug>/` and listing
+   them in the post front matter:
+
+   ```yaml
+   attachments:
+     - title: Challenge artifacts
+       url: /assets/files/signalfest-2024/echo-capture/echo-capture-artifacts.txt
+       description: Packet capture and helper scripts.
+   ```
+
+   Each attachment renders as a download card near the end of the post. The `url` can point to any static file
+   tracked in the repository or uploaded alongside the post.
+
+4. Commit and push to `main`. GitHub Pages will build the site automatically. The rendered post will appear at
    `https://your-github-username.github.io/ctf-writeups/`.
 
 ## Local preview
