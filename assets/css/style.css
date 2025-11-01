@@ -253,20 +253,26 @@ li {
   color: var(--text-secondary);
 }
 
-.post-content pre,
-.post-content code {
+.post-content pre {
   font-family: "IBM Plex Mono", monospace;
   background: var(--code-bg);
   border: 1px solid var(--border-color);
   border-radius: 12px;
-}
-
-.post-content pre {
   padding: 1rem;
   overflow-x: auto;
 }
 
-.post-content code {
+.post-content pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.post-content :not(pre) > code {
+  font-family: "IBM Plex Mono", monospace;
+  background: var(--code-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 0.6em;
   padding: 0.15rem 0.35rem;
 }
 
