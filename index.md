@@ -1,12 +1,10 @@
 ---
 layout: default
-title: Signal Log
 ---
 <section class="hero">
-  <h1>Trace the Exploit.</h1>
+  <h1>Unravel the puzzle.</h1>
   <p>
-    Drop into the logbook for past CTF operations grouped by competition. Pick an event to see every
-    payload dissection, exploit walk-through, and signal capture we documented during the run.
+    Welcome to one of those strange corners of the Internet where people break things to have fun. A playground of cursed binaries, glitchy websites, and riddles that make you question your sanity. Here you will find writeups of all this chaos.
   </p>
 </section>
 
@@ -19,25 +17,22 @@ title: Signal Log
     <li class="competition-card">
       {%- assign competition_key = competition.key | default: competition.slug -%}
       <a class="competition-card-link" href="{{ competition.url | relative_url }}">
+        <h3 class="competition-card-title">{{ competition.name | default: competition.title }}</h3>
         <div class="competition-card-meta">
           <span>{{ competition.start_date | date: "%b %d, %Y" }} &mdash; {{ competition.end_date | date: "%b %d, %Y" }}</span>
-          {%- if competition.location -%}
-          <span>{{ competition.location }}</span>
-          {%- endif -%}
         </div>
-        <h3 class="competition-card-title">{{ competition.name | default: competition.title }}</h3>
-        {%- assign competition_posts = site.posts | where: 'competition', competition_key -%}
+        {%- assign competition_writeups = site.writeups | where: 'competition', competition_key -%}
         <p class="competition-card-summary">
           {{ competition.summary | default: competition.excerpt | strip_html | truncate: 140 }}
         </p>
-        {%- assign post_count = competition_posts | size -%}
+        {%- assign writeup_count = competition_writeups | size -%}
         <p class="competition-card-count">
-          {%- if post_count == 0 -%}
+          {%- if writeup_count == 0 -%}
           No writeups yet
-          {%- elsif post_count == 1 -%}
+          {%- elsif writeup_count == 1 -%}
           1 writeup
           {%- else -%}
-          {{ post_count }} writeups
+          {{ writeup_count }} writeups
           {%- endif -%}
         </p>
       </a>

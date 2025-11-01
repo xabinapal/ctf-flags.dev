@@ -4,7 +4,6 @@ key: signalfest-2024
 name: SignalFest 2024
 start_date: 2024-04-26
 end_date: 2024-04-28
-location: Remote
 summary: A multi-day wireless exploitation event focusing on RF reversing and signal analysis challenges.
 ---
 

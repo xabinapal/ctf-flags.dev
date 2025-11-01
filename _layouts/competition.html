@@ -2,13 +2,10 @@
 layout: default
 ---
 <section class="competition-hero">
+  <h1 class="competition-title">{{ page.name | default: page.title }}</h1>
   <div class="competition-meta">
     <span class="competition-date">{{ page.start_date | date: "%b %d, %Y" }} &mdash; {{ page.end_date | date: "%b %d, %Y" }}</span>
-    {%- if page.location -%}
-    <span class="competition-location">{{ page.location }}</span>
-    {%- endif -%}
   </div>
-  <h1 class="competition-title">{{ page.name | default: page.title }}</h1>
   {%- assign overview_summary = page.summary | default: page.excerpt | strip_html -%}
   {%- if overview_summary -%}
   <p class="competition-summary">{{ overview_summary }}</p>
@@ -22,25 +19,26 @@ layout: default
 </section>
 
 {%- assign competition_key = page.key | default: page.slug -%}
-{%- assign competition_posts = site.posts | where: 'competition', competition_key | sort: 'date' | reverse -%}
-{%- if competition_posts and competition_posts.size > 0 -%}
+{%- assign competition_writeups = site.writeups | where: 'competition', competition_key | sort: 'name' | reverse -%}
+{%- if competition_writeups and competition_writeups.size > 0 -%}
 <section class="listing">
   <h2>Writeups from {{ page.name | default: page.title }}</h2>
-  <ul class="post-list">
-    {%- for post in competition_posts -%}
-    <li class="post-card">
-      <div class="post-card-meta">
-        <span>{{ post.date | date: "%b %d, %Y" }}</span>
-        {%- if post.challenge_type -%}
-        <span>{{ post.challenge_type }}</span>
+  <ul class="writeup-list">
+    {%- for writeup in competition_writeups -%}
+    <li class="writeup-card">
+      <a href="{{ writeup.url | relative_url }}">
+        <h3 class="writeup-card-title">{{ writeup.title }}</h3>
+        <div class="writeup-card-meta">
+          {%- if writeup.challenge_type -%}
+          <span>{{ writeup.challenge_type }}</span>
+          {%- endif -%}
+        </div>
+        {%- if writeup.summary -%}
+        <p class="writeup-card-summary">{{ writeup.summary }}</p>
+        {%- else -%}
+        <p class="writeup-card-summary">{{ writeup.excerpt | strip_html | truncate: 140 }}</p>
         {%- endif -%}
-      </div>
-      <h3 class="post-card-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-      {%- if post.summary -%}
-      <p class="post-card-summary">{{ post.summary }}</p>
-      {%- else -%}
-      <p class="post-card-summary">{{ post.excerpt | strip_html | truncate: 140 }}</p>
-      {%- endif -%}
+      </a>
     </li>
     {%- endfor -%}
   </ul>
@@ -48,7 +46,7 @@ layout: default
 {%- else -%}
 <section class="listing">
   <h2>No writeups yet</h2>
-  <p class="empty-state">We haven't published any posts for this competition yet. Check back soon.</p>
+  <p class="empty-state">We haven't published any writeups for this competition yet. Check back soon.</p>
 </section>
 {%- endif -%}
 

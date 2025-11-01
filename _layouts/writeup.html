@@ -1,33 +1,28 @@
 ---
 layout: default
 ---
-<article class="post">
-  <header class="post-header">
+<article class="writeup">
+  <header class="hero">
     {% assign competition_doc = nil %}
+    <h1 class="writeup-title">{{ page.title }}</h1>
     {%- if page.competition -%}
       {%- assign competition_doc = site.competitions | where: 'key', page.competition | first -%}
     {%- endif -%}
-    <p class="post-meta">
-      <span class="post-date">{{ page.date | date: "%B %d, %Y" }}</span>
+    <p class="writeup-meta">
       {%- if competition_doc -%}
-      <a class="post-tag" href="{{ competition_doc.url | relative_url }}">{{ competition_doc.name }}</a>
+      <a class="writeup-tag" href="{{ competition_doc.url | relative_url }}">{{ competition_doc.name }}</a>
       {%- endif -%}
       {%- if page.challenge_type -%}
-      <span class="post-tag">{{ page.challenge_type }}</span>
+      <span class="writeup-tag">{{ page.challenge_type }}</span>
       {%- endif -%}
     </p>
-    <h1 class="post-title">{{ page.title }}</h1>
     {%- if page.summary %}
-    <p class="post-summary">{{ page.summary }}</p>
+    <p class="writeup-summary">{{ page.summary }}</p>
     {%- endif %}
   </header>
 
-  <div class="post-content">
-    {{ content }}
-  </div>
-
   {%- if page.attachments and page.attachments.size > 0 -%}
-  <section class="post-section attachments">
+  <section class="writeup-section attachments">
     <h2 class="section-title">Challenge files</h2>
     <ul class="attachment-list">
       {%- for attachment in page.attachments -%}
@@ -48,7 +43,11 @@ layout: default
   </section>
   {%- endif -%}
 
-  <footer class="post-footer">
+  <div class="writeup-content">
+    {{ content }}
+  </div>
+
+  <footer class="writeup-footer">
     {%- if competition_doc -%}
     <a class="back-link" href="{{ competition_doc.url | relative_url }}">&larr; Back to {{ competition_doc.name }}</a>
     {%- else -%}

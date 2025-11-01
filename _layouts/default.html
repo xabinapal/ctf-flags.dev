@@ -3,8 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ page.title | default: site.title }}</title>
-    {%- seo -%}
+    <title>
+      {%- if page.competition -%}
+        {%- assign competition_doc = site.competitions | where: 'key', page.competition | first -%}
+        {%- if competition_doc.name -%}
+          {{ competition_doc.name }} | {{ ' ' }}
+        {%- endif -%}
+      {%- endif -%}
+      {%- if page.title and page.title != '' -%}
+        {{ page.title }} | {{ ' ' }}
+      {%- endif -%}
+      {{ site.title }}
+    </title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -20,11 +30,6 @@
         <span class="pulse"></span>
         <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
       </div>
-      <nav class="site-nav">
-        <a href="{{ '/' | relative_url }}">Home</a>
-        <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
-        <a href="https://github.com/{{ site.github_username | default: 'your-github-username' }}">GitHub</a>
-      </nav>
     </header>
 
     <main class="site-content">
@@ -33,7 +38,10 @@
 
     <footer class="site-footer">
       <p>
-        Built for writeups and signal traces &mdash; {{ site.title }} &copy; {{ site.time | date: '%Y' }}.
+        Built with love by @xabito.
+      </p>
+      <p>
+        May your exploits land and your flags submit on the first try. 
       </p>
     </footer>
   </body>

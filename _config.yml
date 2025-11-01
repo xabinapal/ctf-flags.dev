@@ -1,22 +1,14 @@
 # Site settings
-name: CTF Signals
-title: CTF Signals
-email: your-email@example.com
-github_username: your-github-username
-description: >-
-  A collection of CTF writeups with a modern terminal-inspired aesthetic.
-baseurl: ""
-url: "https://your-github-username.github.io/ctf-writeups"
-permalink: /:categories/:year/:month/:day/:title/
+title: ctf_flags.sh
+github_username: xabinapal
+description: A collection of CTF writeups with a modern terminal-inspired aesthetic.
+url: https://ctf.dvzr.io
 
 markdown: kramdown
 theme: null
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
 
 collections:
-  posts:
+  writeups:
     output: true
   competitions:
     output: true
@@ -25,9 +17,9 @@ collections:
 defaults:
   - scope:
       path: ""
-      type: posts
+      type: writeups
     values:
-      layout: post
+      layout: writeup
       permalink: /competitions/:categories/:title/
   - scope:
       path: ""

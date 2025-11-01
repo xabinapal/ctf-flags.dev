@@ -1,4 +1,4 @@
-# CTF Signals
+# ctf_flags.sh
 
 A modern, terminal-inspired GitHub Pages blog for collecting Capture The Flag writeups. The site is powered by
 [Jekyll](https://jekyllrb.com/) and renders Markdown posts with a neon console aesthetic that stays
@@ -10,8 +10,8 @@ readable on large and small screens.
 
 - `index.md` &mdash; homepage that lists competitions with available writeups.
 - `_competitions/` &mdash; one Markdown file per competition with metadata, schedule, and overview.
-- `_posts/` &mdash; Markdown posts following the `YYYY-MM-DD-title.md` naming convention.
-- `_layouts/` &mdash; HTML templates for pages and posts.
+- `_writeups/` &mdash; Markdown writeups following the `YYYY-MM-DD-title.md` naming convention.
+- `_layouts/` &mdash; HTML templates for pages and writeups.
 - `assets/css/style.css` &mdash; custom styling for the modern terminal look.
 - `_config.yml` &mdash; Jekyll configuration and metadata.
 - `.github/workflows/pages.yml` &mdash; GitHub Actions workflow that builds and deploys the site to Pages.
@@ -22,24 +22,23 @@ readable on large and small screens.
 
    ```markdown
    ---
-   key: signalfest-2024          # short identifier used by posts
+   key: signalfest-2024          # short identifier used by writeups
    name: SignalFest 2024         # human friendly name
    start_date: 2024-04-26        # ISO date so ordering works
    end_date: 2024-04-28
-   location: Remote
    summary: Optional short blurb that appears on the homepage.
    ---
 
    Longer Markdown description, highlights, or preparation notes.
    ```
 
-2. Create a Markdown file in `_posts/` with front matter linking it to the competition via the `competition`
+2. Create a Markdown file in `_writeups/` with front matter linking it to the competition via the `competition`
    key. Add the competition slug to `categories` so the permalink nests under the event URL and set
    `challenge_type` (or your preferred label) for the discipline badge:
 
    ```markdown
    ---
-   layout: post
+   layout: writeup
    title: "Challenge name"
    summary: Quick one-liner description.
    competition: signalfest-2024
@@ -53,7 +52,7 @@ readable on large and small screens.
    ```
 
 3. (Optional) Attach challenge files by placing them under `assets/files/<competition>/<slug>/` and listing
-   them in the post front matter:
+   them in the writeup front matter:
 
    ```yaml
    attachments:
@@ -62,10 +61,10 @@ readable on large and small screens.
        description: Packet capture and helper scripts.
    ```
 
-   Each attachment renders as a download card near the end of the post. The `url` can point to any static file
-   tracked in the repository or uploaded alongside the post.
+   Each attachment renders as a download card near the end of the writeup. The `url` can point to any static file
+   tracked in the repository or uploaded alongside the writeup.
 
-4. Commit and push to `main`. GitHub Pages will build the site automatically. The rendered post will appear at
+4. Commit and push to `main`. GitHub Pages will build the site automatically. The rendered writeup will appear at
    `https://your-github-username.github.io/ctf-writeups/`.
 
 ## Local preview

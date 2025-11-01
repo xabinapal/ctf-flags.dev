@@ -27,6 +27,7 @@ body.page {
   color: var(--text-primary);
   position: relative;
   overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 body.page::before {
@@ -69,6 +70,11 @@ body.page::before {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.site-header {
+  flex-direction: row;
+  align-items: flex-start;
   gap: 1.5rem;
 }
 
@@ -110,31 +116,9 @@ body.page::before {
   text-decoration: none;
 }
 
-.site-nav {
-  display: inline-flex;
-  gap: 1rem;
-  font-size: 0.95rem;
-}
-
-.site-nav a {
-  color: var(--text-secondary);
-  text-decoration: none;
-  padding: 0.4rem 0.65rem;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  transition: color var(--transition), border var(--transition), background var(--transition);
-}
-
-.site-nav a:hover,
-.site-nav a:focus-visible {
-  color: var(--text-primary);
-  background: rgba(0, 255, 159, 0.08);
-  border-color: var(--border-color);
-}
-
 .site-content {
   width: min(var(--max-width), 92vw);
-  margin: 0 auto 6rem;
+  margin: 0 auto 3rem;
 }
 
 h1,
@@ -152,14 +136,14 @@ li {
   color: var(--text-secondary);
 }
 
-.post-list {
+.writeup-list {
   display: grid;
   gap: 1.5rem;
   padding: 0;
   list-style: none;
 }
 
-.post-card {
+.writeup-card {
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: 18px;
@@ -169,7 +153,7 @@ li {
   transition: transform var(--transition), border var(--transition), box-shadow var(--transition);
 }
 
-.post-card::before {
+.writeup-card::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -179,22 +163,22 @@ li {
   pointer-events: none;
 }
 
-.post-card:hover {
+.writeup-card:hover {
   transform: translateY(-6px);
   border-color: rgba(0, 255, 159, 0.35);
   box-shadow: var(--shadow);
 }
 
-.post-card:hover::before {
+.writeup-card:hover::before {
   opacity: 1;
 }
 
-.post-card-title {
+.writeup-card-title {
   margin: 0;
   font-size: 1.4rem;
 }
 
-.post-card-meta {
+.writeup-card-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -205,12 +189,12 @@ li {
   color: var(--accent-muted);
 }
 
-.post-card-summary {
+.writeup-card-summary {
   margin: 0.6rem 0 0;
   color: var(--text-secondary);
 }
 
-.post-meta {
+.writeup-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
@@ -222,7 +206,7 @@ li {
   color: var(--accent-muted);
 }
 
-.post-tag {
+.writeup-tag {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
@@ -235,25 +219,25 @@ li {
   transition: background var(--transition), border var(--transition);
 }
 
-.post-tag:hover,
-.post-tag:focus-visible {
+.writeup-tag:hover,
+.writeup-tag:focus-visible {
   background: rgba(0, 255, 159, 0.16);
   border-color: rgba(0, 255, 159, 0.36);
   text-decoration: none;
 }
 
-.post-summary {
+.writeup-summary {
   margin-top: 0.5rem;
   font-size: 1rem;
   color: var(--text-secondary);
 }
 
-.post-content {
+.writeup-content {
   margin-top: 2rem;
   color: var(--text-secondary);
 }
 
-.post-content pre {
+.writeup-content pre {
   font-family: "IBM Plex Mono", monospace;
   background: var(--code-bg);
   border: 1px solid var(--border-color);
@@ -262,13 +246,13 @@ li {
   overflow-x: auto;
 }
 
-.post-content pre code {
+.writeup-content pre code {
   background: transparent;
   border: 0;
   padding: 0;
 }
 
-.post-content :not(pre) > code {
+.writeup-content :not(pre) > code {
   font-family: "IBM Plex Mono", monospace;
   background: var(--code-bg);
   border: 1px solid var(--border-color);
@@ -276,7 +260,7 @@ li {
   padding: 0.15rem 0.35rem;
 }
 
-.post-section.attachments {
+.writeup-section.attachments {
   margin-top: 3rem;
   padding: 1.75rem;
   border-radius: 18px;
@@ -285,7 +269,7 @@ li {
   box-shadow: 0 0 35px rgba(0, 255, 159, 0.12);
 }
 
-.post-section.attachments .section-title {
+.writeup-section.attachments .section-title {
   margin: 0 0 1.5rem;
   font-size: 1.1rem;
   letter-spacing: 0.12em;
@@ -325,6 +309,7 @@ li {
 
 .attachment-icon {
   display: inline-flex;
+  flex-shrink: 0;
   width: 36px;
   height: 36px;
   align-items: center;
@@ -379,9 +364,16 @@ hr {
 }
 
 .site-footer {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
   font-size: 0.8rem;
   color: var(--accent-muted);
   border-top: 1px solid rgba(0, 255, 159, 0.08);
+}
+
+.site-footer p {
+  margin: 0;
 }
 
 .back-link {
@@ -395,25 +387,12 @@ hr {
   color: var(--accent);
 }
 
-@media (max-width: 720px) {
-  .site-header,
-  .site-footer {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .site-nav {
-    flex-wrap: wrap;
-    gap: 0.6rem;
-  }
-}
-
 .hero {
   margin: 4rem 0 3rem;
 }
 
 .hero h1 {
-  font-size: clamp(2.4rem, 4vw + 1rem, 3.6rem);
+  font-size: clamp(2.2rem, 4vw + 1rem, 3.2rem);
   margin-bottom: 1rem;
 }
 
