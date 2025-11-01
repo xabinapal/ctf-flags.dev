@@ -1,0 +1,10 @@
+# Jekyll build artifacts
+_site/
+.sass-cache/
+.jekyll-cache/
+.bundle/
+vendor/bundle/
+
+# Operating system cruft
+.DS_Store
+Thumbs.db

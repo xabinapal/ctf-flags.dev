@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      {%- if page.title and page.title != '' -%}
+        {{ page.title }} | {{ ' ' }}
+      {%- endif -%}
+      {%- if page.competition -%}
+        {%- assign competition_doc = site.competitions | where: 'key', page.competition | first -%}
+        {%- if competition_doc.title -%}
+          {{ competition_doc.title }} | {{ ' ' }}
+        {%- endif -%}
+      {%- endif -%}
+      {{ site.title }}
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Space+Grotesk:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
+  </head>
+  <body class="page">
+    <div class="glow"></div>
+    <header class="site-header">
+      <div class="logo">
+        <span class="pulse"></span>
+        <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      </div>
+    </header>
+
+    <main class="site-content">
+      {{ content }}
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        Built with love by @xabito.
+      </p>
+      <p>
+        May your exploits land and your flags submit on the first try. 
+      </p>
+    </footer>
+  </body>
+</html>

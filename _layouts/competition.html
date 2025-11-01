@@ -1,0 +1,78 @@
+---
+layout: default
+---
+<section class="competition-hero">
+  <h1 class="competition-title">{{ page.name | default: page.title }}</h1>
+  <div class="competition-meta">
+    <span class="competition-date">{{ page.start_date | date: "%b %d, %Y" }} &mdash; {{ page.end_date | date: "%b %d, %Y" }}</span>
+  </div>
+  {%- assign overview_summary = page.summary | strip_html -%}
+  {%- if overview_summary -%}
+  <p class="competition-summary">{{ overview_summary }}</p>
+  {%- endif -%}
+</section>
+
+{%- assign content_stripped = content | strip_newlines | strip -%}
+{%- if content_stripped != "" -%}
+  <section class="competition-body">
+    <div class="competition-content">
+      {{ content }}
+    </div>
+  </section>
+{%- endif -%}
+
+{%- assign competition_key = page.key | default: page.slug -%}
+{%- assign competition_writeups = site.writeups | where: 'competition', competition_key | sort: 'name' -%}
+{%- if competition_writeups and competition_writeups.size > 0 -%}
+<section class="listing">
+  <h2>Writeups from {{ page.name | default: page.title }}</h2>
+  <ul class="writeup-list">
+    {%- for writeup in competition_writeups -%}
+    <li class="writeup-card">
+      <a href="{{ writeup.url | relative_url }}">
+        <h3 class="writeup-card-title">{{ writeup.title }}</h3>
+        <div class="writeup-card-meta">
+          {%- assign meta_fields = "" -%}
+          {%- if writeup.challenge_type -%}
+            {%- assign meta_fields = meta_fields | append: '<span>' | append: writeup.challenge_type | append: '</span>' -%}
+          {%- endif -%}
+          {%- if writeup.difficulty -%}
+            {%- if meta_fields != "" -%}
+              {%- assign meta_fields = meta_fields | append: ' <span>|</span> ' -%}
+            {%- endif -%}
+            {%- assign meta_fields = meta_fields | append: '<span>' | append: writeup.difficulty | append: '</span>' -%}
+          {%- endif -%}
+          {%- if writeup.author -%}
+            {%- if meta_fields != "" -%}
+              {%- assign meta_fields = meta_fields | append: ' <span>|</span> ' -%}
+            {%- endif -%}
+            {%- assign meta_fields = meta_fields | append: '<span>' | append: 'By ' | append: writeup.author | append: '</span>' -%}
+          {%- endif -%}
+          {%- if writeup.writeup_author -%}
+            {%- if meta_fields != "" -%}
+              {%- assign meta_fields = meta_fields | append: ' <span>|</span> ' -%}
+            {%- endif -%}
+            {%- assign meta_fields = meta_fields | append: '<span>' | append: 'Writeup by ' | append: writeup.writeup_author | append: '</span>' -%}
+          {%- endif -%}
+          {{ meta_fields | raw }}
+        </div>
+        {%- if writeup.summary -%}
+        <p class="writeup-card-summary">{{ writeup.summary | markdownify | remove: '<p>' | remove: '</p>' }}</p>
+        {%- else -%}
+        <p class="writeup-card-summary">{{ writeup.excerpt | strip_html | truncate: 140 }}</p>
+        {%- endif -%}
+      </a>
+    </li>
+    {%- endfor -%}
+  </ul>
+</section>
+{%- else -%}
+<section class="listing">
+  <h2>No writeups yet</h2>
+  <p class="empty-state">We haven't published any writeups for this competition yet. Check back soon.</p>
+</section>
+{%- endif -%}
+
+<section class="back-bar">
+  <a class="back-link" href="{{ '/' | relative_url }}">&larr; Back to all competitions</a>
+</section>
