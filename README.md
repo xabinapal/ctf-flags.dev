@@ -53,11 +53,31 @@ readable on large and small screens.
 
 ## Local preview
 
-GitHub Pages can build directly from your commits, but for a local preview you can install Ruby, Bundler, and
-Jekyll:
+### Using Docker (recommended)
+
+Run the site inside the official GitHub Pages container so you get the same plugin set and Ruby version that
+the production build uses:
 
 ```bash
-gem install bundler jekyll
+docker compose up
+```
+
+The first run will install the bundle inside the container. Once the build is ready, visit
+<http://localhost:4000> for the rendered site and <http://localhost:35729> for live-reload events. Changes to
+Markdown, layouts, or styles automatically trigger a rebuild.
+
+Bundler may create or update a `Gemfile.lock` file inside the repository while installing dependencies. You can
+commit it to pin versions or discard it after you are done previewing.
+
+Stop the server with <kbd>Ctrl+C</kbd> and remove the container with `docker compose down` if needed.
+
+### Using a local Ruby toolchain
+
+If you prefer running Jekyll directly on your machine, install Ruby (>= 3.0), Bundler, and the dependencies in
+the `Gemfile`:
+
+```bash
+bundle install
 bundle exec jekyll serve
 ```
 
