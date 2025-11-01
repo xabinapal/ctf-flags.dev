@@ -14,6 +14,7 @@ readable on large and small screens.
 - `_layouts/` &mdash; HTML templates for pages and posts.
 - `assets/css/style.css` &mdash; custom styling for the modern terminal look.
 - `_config.yml` &mdash; Jekyll configuration and metadata.
+- `.github/workflows/pages.yml` &mdash; GitHub Actions workflow that builds and deploys the site to Pages.
 
 ## Creating a new writeup
 
