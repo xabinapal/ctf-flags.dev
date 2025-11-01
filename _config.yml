@@ -27,7 +27,8 @@ defaults:
       path: ""
       type: posts
     values:
-      permalink: /competitions/:competition/:slug/
+      layout: post
+      permalink: /competitions/:categories/:title/
   - scope:
       path: ""
       type: competitions

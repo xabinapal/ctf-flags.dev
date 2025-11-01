@@ -12,9 +12,9 @@ layout: default
       {%- if competition_doc -%}
       <a class="post-tag" href="{{ competition_doc.url | relative_url }}">{{ competition_doc.name }}</a>
       {%- endif -%}
-      {%- if page.category %}
-      <span class="post-tag">{{ page.category }}</span>
-      {%- endif %}
+      {%- if page.challenge_type -%}
+      <span class="post-tag">{{ page.challenge_type }}</span>
+      {%- endif -%}
     </p>
     <h1 class="post-title">{{ page.title }}</h1>
     {%- if page.summary %}

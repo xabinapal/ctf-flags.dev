@@ -1,9 +1,10 @@
 ---
-layout: post
 title: "Echo Capture - Warmup Reverse"
 summary: Dissecting a signal repeater binary to recover the encoded flag.
 competition: signalfest-2024
-category: reverse engineering
+categories:
+  - signalfest-2024
+challenge_type: Reverse Engineering
 attachments:
   - title: Challenge artifacts
     url: /assets/files/signalfest-2024/echo-capture/echo-capture-artifacts.txt

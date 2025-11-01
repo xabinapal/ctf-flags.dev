@@ -34,7 +34,8 @@ readable on large and small screens.
    ```
 
 2. Create a Markdown file in `_posts/` with front matter linking it to the competition via the `competition`
-   key:
+   key. Add the competition slug to `categories` so the permalink nests under the event URL and set
+   `challenge_type` (or your preferred label) for the discipline badge:
 
    ```markdown
    ---
@@ -42,7 +43,9 @@ readable on large and small screens.
    title: "Challenge name"
    summary: Quick one-liner description.
    competition: signalfest-2024
-   category: reverse engineering
+   categories:
+     - signalfest-2024
+   challenge_type: Reverse Engineering
    ---
 
    ## Heading

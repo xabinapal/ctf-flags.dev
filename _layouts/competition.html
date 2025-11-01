@@ -31,8 +31,8 @@ layout: default
     <li class="post-card">
       <div class="post-card-meta">
         <span>{{ post.date | date: "%b %d, %Y" }}</span>
-        {%- if post.category -%}
-        <span>{{ post.category }}</span>
+        {%- if post.challenge_type -%}
+        <span>{{ post.challenge_type }}</span>
         {%- endif -%}
       </div>
       <h3 class="post-card-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
