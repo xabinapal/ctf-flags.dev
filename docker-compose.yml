@@ -11,3 +11,7 @@ services:
     environment:
       BUNDLE_PATH: /tmp/bundle
       JEKYLL_ENV: development
+
+      GIT_CONFIG_COUNT: 1
+      GIT_CONFIG_KEY_0: safe.directory
+      GIT_CONFIG_VALUE_0: /srv/jekyll

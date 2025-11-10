@@ -38,6 +38,10 @@ jobs:
         env:
           JEKYLL_ENV: production
 
+          GIT_CONFIG_COUNT: 1
+          GIT_CONFIG_KEY_0: safe.directory
+          GIT_CONFIG_VALUE_0: /__w/ctf-flags.dev/ctf-flags.dev/
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

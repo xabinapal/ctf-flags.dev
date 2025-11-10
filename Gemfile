@@ -5,4 +5,5 @@ gem 'webrick', '~> 1.9'
 gem 'jekyll', '~> 4.4', group: :jekyll_plugins
 
 group :jekyll_plugins do
+  gem 'jekyll-sitemap', git: 'https://github.com/xabinapal/jekyll-sitemap.git', branch: 'git-lastmod'
 end

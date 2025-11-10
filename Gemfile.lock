@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/xabinapal/jekyll-sitemap.git
+  revision: 265826de181f6711b1c37df28141d53d033915ce
+  branch: git-lastmod
+  specs:
+    jekyll-sitemap (1.4.0)
+      jekyll (>= 3.7, < 5.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -157,6 +165,7 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 2.7.2)
   jekyll (~> 4.4)
+  jekyll-sitemap!
   webrick (~> 1.9)
 
 BUNDLED WITH

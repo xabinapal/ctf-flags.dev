@@ -17,6 +17,9 @@ exclude:
   - Gemfile.lock
   - docker-compose.yml
 
+plugins:
+  - jekyll-sitemap
+
 collections:
   competitions:
     output: true
@@ -37,3 +40,6 @@ defaults:
       path: ""
     values:
       layout: writeup
+
+sitemap:
+  lastmod_source: git
