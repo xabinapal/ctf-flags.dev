@@ -3,12 +3,27 @@ layout: default
 ---
 <section class="competition-hero">
   <h1 class="competition-title">{{ page.name | default: page.title }}</h1>
+  {%- if page.ctftime_url -%}
+  <div class="competition-meta">
+    <a href="{{ page.ctftime_url }}" target="_blank" rel="noopener noreferrer">{{ page.ctftime_url }}</a>
+  </div>
+  {%- endif -%}
   <div class="competition-meta">
     <span class="competition-date">{{ page.start_date | date: "%b %d, %Y" }} &mdash; {{ page.end_date | date: "%b %d, %Y" }}</span>
   </div>
   {%- assign overview_summary = page.summary | strip_html -%}
   {%- if overview_summary -%}
   <p class="competition-summary">{{ overview_summary }}</p>
+  {%- endif -%}
+  {%- if page.ranking or page.points -%}
+  <div class="competition-results">
+    {%- if page.ranking -%}
+    <span class="result-item">🏆 Ranking: {{ page.ranking }}</span>
+    {%- endif -%}
+    {%- if page.points -%}
+    <span class="result-item">📊 Points: {{ page.points }}</span>
+    {%- endif -%}
+  </div>
   {%- endif -%}
 </section>
 

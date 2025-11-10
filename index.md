@@ -25,6 +25,16 @@ layout: default
         <p class="competition-card-summary">
           {{ competition.summary | default: competition.excerpt | strip_html | truncate: 140 }}
         </p>
+        {%- if competition.ranking or competition.points -%}
+        <div class="competition-results">
+          {%- if competition.ranking -%}
+          <span class="result-item">🏆 Ranking: {{ competition.ranking }}</span>
+          {%- endif -%}
+          {%- if competition.points -%}
+          <span class="result-item">📊 Points: {{ competition.points }}</span>
+          {%- endif -%}
+        </div>
+        {%- endif -%}
         {%- assign writeup_count = competition_writeups | size -%}
         <p class="competition-card-count">
           {%- if writeup_count == 0 -%}
