@@ -564,3 +564,111 @@ code[class*="language-"],
 pre[class*="language-"] {
   color: var(--text-primary);
 }
+
+/* Cookie Consent Banner */
+.consent-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: rgba(10, 15, 31, 0.96);
+  backdrop-filter: blur(12px);
+  border-top: 2px solid var(--border-color);
+  box-shadow: 0 -4px 40px rgba(0, 255, 159, 0.15);
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.consent-banner-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.consent-content {
+  width: min(var(--max-width), 92vw);
+  margin: 0 auto;
+  padding: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.consent-message {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.consent-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.consent-btn {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.85rem;
+  padding: 0.65rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background: rgba(0, 255, 159, 0.08);
+  color: var(--accent);
+  cursor: pointer;
+  transition: all var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+.consent-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 255, 159, 0.35);
+  box-shadow: 0 0 20px rgba(0, 255, 159, 0.2);
+}
+
+.consent-btn-accept {
+  background: rgba(0, 255, 159, 0.16);
+}
+
+.consent-btn-accept:hover {
+  background: rgba(0, 255, 159, 0.24);
+}
+
+.consent-btn-decline {
+  background: rgba(0, 255, 159, 0.04);
+  color: var(--text-secondary);
+}
+
+.consent-btn-decline:hover {
+  background: rgba(0, 255, 159, 0.08);
+  color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .consent-content {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    padding: 1.25rem 0;
+  }
+
+  .consent-message {
+    text-align: center;
+    font-size: 0.85rem;
+  }
+
+  .consent-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .consent-btn {
+    flex: 1;
+    padding: 0.75rem 1rem;
+  }
+}

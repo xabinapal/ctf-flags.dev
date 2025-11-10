@@ -1,0 +1,21 @@
+{
+    "name": "ctf-flags.dev",
+    "short_name": "ctf-flags.dev",
+    "icons": [
+        {
+            "src": "/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ],
+    "theme_color": "#112c2f",
+    "background_color": "#112c2f",
+    "display": "standalone"
+}

@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>
       {%- if page.title and page.title != '' -%}
         {{ page.title }} | {{ ' ' }}
@@ -15,13 +13,73 @@
       {%- endif -%}
       {{ site.title }}
     </title>
+
+    <meta charset="utf-8" />
+    <meta name="robots" content="index,follow" />
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1" />
+
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="ctf_flags.sh" />
+    <meta name="description" content="CTF writeups, challenge solutions, and cybersecurity insights from a solo enthusiast. Explore practical walkthroughs and tips for infosec challenges." />
+    <meta name="author" content="xabito" />
+    <meta name="keywords" content="ctf, writeups, challenges, infosec, cybersecurity" />
+    <meta name="theme-color" content="#e66f19" />
+
+    <!-- Vendor Tags -->
+    <meta name="apple-mobile-web-app-title" content="ctf_flags.sh" />
+    <meta name="msapplication-TileColor" content="#e66f19" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ctf.dvzr.io" />
+    <meta property="og:title" content="ctf_flags.sh" />
+    <meta property="og:description" content="CTF writeups, challenge solutions, and cybersecurity insights from a solo enthusiast. Explore practical walkthroughs and tips for infosec challenges." />
+    <meta property="og:image" content="https://ctf.dvzr.io//caption.png" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://ctf.dvzr.io" />
+    <meta property="twitter:title" content="ctf_flags.sh" />
+    <meta property="twitter:description" content="CTF writeups, challenge solutions, and cybersecurity insights from a solo enthusiast. Explore practical walkthroughs and tips for infosec challenges." />
+    <meta property="twitter:image" content="https://ctf.dvzr.io//caption.png" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://ctf.dvzr.io" />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="https://ctf.dvzr.io/favicon-512.png" sizes="any" />
+    <link rel="icon" type="image/png" href="https://ctf.dvzr.io/favicon-96.png" sizes="96x96" />
+    <link rel="icon" href="https://ctf.dvzr.io/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="https://ctf.dvzr.io/icon-180.png" sizes="180x180" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Space+Grotesk:wght@400;600&display=swap"
       rel="stylesheet"
     />
+
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z41SBL7P3W"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      
+      gtag('consent', 'default', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'wait_for_update': 500
+      });
+      
+      gtag('js', new Date());
+
+      gtag('config', 'G-Z41SBL7P3W');
+    </script>
   </head>
   <body class="page">
     <div class="glow"></div>
@@ -44,5 +102,62 @@
         May your exploits land and your flags submit on the first try. 
       </p>
     </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-consent-banner" class="consent-banner" style="display: none;">
+      <div class="consent-content">
+        <p class="consent-message">
+          We use cookies to analyze site traffic and improve your experience. Your data is anonymized and never shared.
+        </p>
+        <div class="consent-actions">
+          <button id="consent-decline" class="consent-btn consent-btn-decline">Decline</button>
+          <button id="consent-accept" class="consent-btn consent-btn-accept">Accept</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function updateConsent() {
+        gtag('consent', 'update', {
+          'analytics_storage': 'accepted',
+          'ad_storage': 'accepted',
+          'ad_user_data': 'accepted',
+          'ad_personalization': 'accepted',
+        });
+      }
+
+      (function() {
+        const CONSENT_KEY = 'cookieConsent';
+        const banner = document.getElementById('cookie-consent-banner');
+        const acceptBtn = document.getElementById('consent-accept');
+        const declineBtn = document.getElementById('consent-decline');
+
+        const acceptedValue = localStorage.getItem(CONSENT_KEY) || sessionStorage.getItem(CONSENT_KEY) || 'unknown';
+
+        
+        if (acceptedValue === 'unknown') {
+          banner.style.display = 'block';
+          banner.offsetHeight;
+          banner.classList.add('consent-banner-visible');
+
+          acceptBtn.addEventListener('click', function() {
+            localStorage.setItem(CONSENT_KEY, 'accepted');
+            sessionStorage.removeItem(CONSENT_KEY);
+            updateConsent();
+            banner.remove();
+
+          });
+
+          declineBtn.addEventListener('click', function() {
+            localStorage.removeItem(CONSENT_KEY);
+            sessionStorage.setItem(CONSENT_KEY, 'declined');
+            banner.remove();
+          });
+        } else if (acceptedValue === 'accepted') {
+          updateConsent();
+          banner.remove();
+        }
+      })();
+    </script>
   </body>
 </html>
