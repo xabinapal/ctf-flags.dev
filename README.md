@@ -1,4 +1,4 @@
-# ctf_flags.sh
+# ctf-flags.dev
 
 A modern, terminal-inspired GitHub Pages blog for collecting Capture The Flag writeups. The site is powered by
 [Jekyll](https://jekyllrb.com/) and renders Markdown posts with a neon console aesthetic that stays

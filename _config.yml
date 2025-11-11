@@ -1,7 +1,7 @@
-title: ctf-flags.sh
+title: ctf-flags.dev
 github_username: xabinapal
 description: A collection of CTF writeups with a modern terminal-inspired aesthetic.
-url: https://ctf-flags.sh
+url: https://ctf-flags.dev
 baseurl: ""
 
 safe: false
