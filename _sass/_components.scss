@@ -1,0 +1,301 @@
+@use "mixins" as *;
+
+.card {
+  @include card-base;
+
+  padding: var(--spacing-md);
+  background: var(--bg-secondary);
+}
+
+.card::before {
+  pointer-events: none;
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  opacity: 0;
+  background: linear-gradient(135deg, var(--accent-10), var(--cyan-06));
+
+  transition: opacity var(--transition);
+}
+
+.card::after {
+  content: "";
+
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+
+  width: 0;
+  height: 2px;
+
+  background: var(--accent);
+
+  transition: width var(--transition);
+}
+
+a > .card {
+  color: inherit;
+  text-decoration: none;
+}
+
+a > .card * {
+  text-decoration: none;
+}
+
+a:hover > .card,
+a:focus-visible > .card {
+  transform: translateY(-6px);
+  border-color: var(--accent-50);
+  text-decoration: none;
+  box-shadow: var(--shadow);
+}
+
+a:hover > .card::before,
+a:focus-visible > .card::before {
+  opacity: 1;
+}
+
+a:hover > .card::after,
+a:focus-visible > .card::after {
+  width: 100%;
+}
+
+a:hover > .card *,
+a:focus-visible > .card * {
+  text-decoration: none;
+}
+
+.card-link {
+  display: block;
+  width: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.card-link:hover,
+.card-link:focus-visible {
+  text-decoration: none;
+}
+
+.chip-rounded {
+  display: inline-flex;
+  gap: var(--spacing-xs);
+  align-items: center;
+
+  padding: var(--spacing-xs) 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-round);
+
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  background: var(--accent-10);
+
+  transition: all var(--transition);
+}
+
+a.chip-rounded,
+button.chip-rounded {
+  cursor: pointer;
+}
+
+a.chip-rounded:hover,
+a.chip-rounded:focus-visible,
+button.chip-rounded:hover,
+button.chip-rounded:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--accent-50);
+  text-decoration: none;
+  background: var(--accent-15);
+}
+
+.chip-rounded.active {
+  border-color: var(--accent-50);
+  background: var(--accent-25);
+  box-shadow: var(--shadow-md);
+}
+
+.chip-squared {
+  display: inline-flex;
+  gap: var(--spacing-xs);
+  align-items: center;
+
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+
+  font-family: var(--font-mono);
+  font-size: var(--spacing-sm);
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  background: var(--accent-10);
+
+  transition: all var(--transition);
+}
+
+a.chip-squared,
+button.chip-squared {
+  cursor: pointer;
+}
+
+a.chip-squared:hover,
+a.chip-squared:focus-visible,
+button.chip-squared:hover,
+button.chip-squared:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--accent-50);
+  background: var(--accent-15);
+  box-shadow: var(--shadow-lg);
+}
+
+.link-hover {
+  position: relative;
+  transition: color var(--transition);
+}
+
+.link-hover::after {
+  content: "";
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 0;
+  height: 2px;
+
+  background: var(--accent);
+
+  transition: width var(--transition);
+}
+
+.link-hover:hover,
+.link-hover:focus-visible {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.link-hover:hover::after,
+.link-hover:focus-visible::after {
+  width: 100%;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  align-items: center;
+
+  margin-bottom: var(--spacing-sm);
+
+  font-size: 0.8rem;
+  color: var(--accent-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.hero .meta {
+  margin-bottom: 0;
+}
+
+.card .meta {
+  margin-bottom: 0;
+}
+
+.summary {
+  margin-top: var(--spacing-xs);
+  margin-bottom: 0;
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+.hero .summary {
+  margin-top: 0;
+}
+
+.card .summary {
+  margin-top: 0;
+}
+
+.results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
+}
+
+.hero .results {
+  margin-top: var(--spacing-xs);
+  margin-bottom: 0;
+}
+
+a > .card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+}
+
+.selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  justify-content: center;
+
+  margin-bottom: 2rem;
+}
+
+.list {
+  display: grid;
+  gap: 1.5rem;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.list-item {
+  display: flex;
+  min-width: 0;
+  height: 100%;
+}
+
+.section {
+  margin-top: 2rem;
+}
+
+.category {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-top: 2rem;
+}
+
+.category-title {
+  margin: 0;
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-color);
+
+  font-size: 1.4rem;
+  color: var(--accent);
+}

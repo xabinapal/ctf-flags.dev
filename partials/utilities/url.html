@@ -2,6 +2,13 @@
 layout: null
 sitemap: false
 ---
-{% include utilities/url.html %}
-<script src="{{ '/assets/js/utilities/url.js' | relative_url }}"></script>
+<div class="input-group">
+  <label for="url-plaintext">Plaintext</label>
+  <textarea id="url-plaintext" class="textarea" placeholder="Type plaintext here..." rows="3"></textarea>
+</div>
+<div class="input-group">
+  <label for="url-encoded">URL Encoded</label>
+  <textarea id="url-encoded" class="textarea" placeholder="Type URL encoded text here..." rows="3"></textarea>
+</div>
 
+<script src="{{ '/assets/js/utilities/url.js' | relative_url }}"></script>

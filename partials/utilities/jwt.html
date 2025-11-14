@@ -2,6 +2,21 @@
 layout: null
 sitemap: false
 ---
-{% include utilities/jwt.html %}
-<script src="{{ '/assets/js/utilities/jwt.js' | relative_url }}"></script>
+<div class="input-group">
+  <label for="jwt-input">JWT Token</label>
+  <textarea id="jwt-input" class="textarea" placeholder="Paste JWT token here..." rows="3"></textarea>
+</div>
+<div class="output-group">
+  <label>Header</label>
+  <pre id="jwt-header" class="code"></pre>
+</div>
+<div class="output-group">
+  <label>Payload</label>
+  <pre id="jwt-payload" class="code"></pre>
+</div>
+<div class="output-group">
+  <label>Signature</label>
+  <pre id="jwt-signature" class="code"></pre>
+</div>
 
+<script src="{{ '/assets/js/utilities/jwt.js' | relative_url }}"></script>

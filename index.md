@@ -25,7 +25,7 @@ summary: CTF writeups, challenge solutions, and cybersecurity insights from a so
             </div>
             {%- assign competition_writeups = site.writeups | where: 'competition', competition.key -%}
             <p class="summary">
-              {{- competition.summary | strip_html | truncate_words: 160 -}}
+              {{- competition.summary | markdownify | strip_block_html | truncate_words: 160 | strip_newlines | strip -}}
             </p>
             {%- if competition.ranking or competition.points -%}
             <div class="results">

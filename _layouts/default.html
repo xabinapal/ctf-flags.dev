@@ -1,57 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>
-      {%- if page.title and page.title != '' -%}
-        {{ page.title }} | {{ ' ' }}
+    {%- if page.title and page.title != '' -%}
+      {%- assign page_title = page.title | append: ' | ' -%}
+    {%- endif -%}
+
+    {%- if page.competition -%}
+      {%- assign competition_doc = site.competitions | where: 'key', page.competition | first -%}
+      {%- if competition_doc.title -%}
+        {%- assign page_title = page_title | append: competition_doc.title | append: ' | ' -%}
       {%- endif -%}
-      {%- if page.competition -%}
-        {%- assign competition_doc = site.competitions | where: 'key', page.competition | first -%}
-        {%- if competition_doc.title -%}
-          {{ competition_doc.title }} | {{ ' ' }}
-        {%- endif -%}
-      {%- endif -%}
-      {{ site.title }}
-    </title>
+    {%- endif -%}
+
+    {%- assign page_title = page_title | default: "" | append: site.title -%}
+
+    {%- if page.competition -%}
+      {%- assign raw_description = page.content | extract_paragraphs: 1, 'h2' -%}
+      {%- assign truncate_description = true -%}
+    {%- else if page.title -%}
+      {%- assign raw_description = page.summary -%}
+      {%- assign truncate_description = true -%}
+    {%- else -%}
+      {%- assign raw_description = page.summary -%}
+      {%- assign truncate_description = false -%}
+    {%- endif -%}
+
+    {%- if truncate_description -%}
+      {%- assign page_description = raw_description | strip_html | truncate_words: 160 -%}
+    {%- else -%}
+      {%- assign page_description = raw_description | strip_html -%}
+    {%- endif -%}
+
+    {%- assign page_description = page_description | strip -%}
+    
+    <title>{{ page_title }}</title>
 
     <meta charset="utf-8" />
     <meta name="robots" content="index,follow" />
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1" />
 
     <!-- Primary Meta Tags -->
-    <meta name="title" content="ctf-flags.dev" />
-    <meta name="description" content="CTF writeups, challenge solutions, and cybersecurity insights from a solo enthusiast. Explore practical walkthroughs and tips for infosec challenges." />
+    <meta name="title" content="{{ page_title }}" />
+    <meta name="description" content="{{ page_description }}" />
     <meta name="author" content="xabito" />
     <meta name="keywords" content="ctf, writeups, challenges, infosec, cybersecurity" />
     <meta name="theme-color" content="#112c2f" />
 
     <!-- Vendor Tags -->
-    <meta name="apple-mobile-web-app-title" content="ctf-flags.dev" />
+    <meta name="apple-mobile-web-app-title" content="{{ page_title }}" />
     <meta name="msapplication-TileColor" content="#112c2f" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://ctf-flags.dev/" />
-    <meta property="og:title" content="ctf-flags.dev" />
-    <meta property="og:description" content="CTF writeups, challenge solutions, and cybersecurity insights from a solo enthusiast. Explore practical walkthroughs and tips for infosec challenges." />
+    <meta property="og:url" content="{{ 'https://ctf-flags.dev' | append: page.url | absolute_url }}" />
+    <meta property="og:title" content="{{ page_title }}" />
+    <meta property="og:description" content="{{ page_description }}" />
     <meta property="og:image" content="https://ctf-flags.dev/caption.png" />
     <meta property="og:locale" content="en_US" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://ctf-flags.dev/" />
-    <meta property="twitter:title" content="ctf-flags.dev" />
-    <meta property="twitter:description" content="CTF writeups, challenge solutions, and cybersecurity insights from a solo enthusiast. Explore practical walkthroughs and tips for infosec challenges." />
+    <meta property="twitter:url" content="{{ 'https://ctf-flags.dev' | append: page.url | absolute_url }}" />
+    <meta property="twitter:title" content="{{ page_title }}" />
+    <meta property="twitter:description" content="{{ page_description }}" />
     <meta property="twitter:image" content="https://ctf-flags.dev/caption.png" />
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://ctf-flags.dev/" />
+    <link rel="canonical" href="{{ 'https://ctf-flags.dev' | append: page.url | absolute_url }}" />
 
     <!-- Favicons -->
     <link rel="icon" type="image/png" href="https://ctf-flags.dev/favicon-512.png" sizes="512x512" />
     <link rel="icon" type="image/png" href="https://ctf-flags.dev/favicon-96.png" sizes="96x96" />
     <link rel="icon" href="https://ctf-flags.dev/favicon.ico" sizes="32x32" />
     <link rel="apple-touch-icon" href="https://ctf-flags.dev/icon-180.png" sizes="180x180" />
+
+    <!-- Manifest -->
+    <link rel="manifest" href="https://ctf-flags.dev/site.webmanifest" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -61,37 +85,20 @@
     />
 
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
-    <link rel="stylesheet" href="{{ '/assets/css/code.css' | relative_url }}" />
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z41SBL7P3W"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      
-      gtag('consent', 'default', {
-        'analytics_storage': 'denied',
-        'ad_storage': 'denied',
-        'ad_user_data': 'denied',
-        'ad_personalization': 'denied',
-        'wait_for_update': 500
-      });
-      
-      gtag('js', new Date());
-
-      gtag('config', 'G-Z41SBL7P3W');
-    </script>
+    {% include layout/analytics.html %}
   </head>
-  <body class="page">
+  <body>
     <div class="glow"></div>
     <header class="site-header">
       <div class="logo">
-        <span class="pulse"></span>
-        <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
-      </div>
-      <nav class="site-nav">
-        <a href="{{ '/resources/' | relative_url }}" class="nav-link">Resources</a>
-        <a href="{{ '/utilities/' | relative_url }}" class="nav-link">Utilities</a>
+      <span class="pulse"></span>
+      <a class="site-title" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+    </div>
+    <nav class="site-nav">
+      <a href="{{ '/' | relative_url }}" class="nav-link">Writeups</a>
+      <a href="{{ '/resources/' | relative_url }}" class="nav-link">Resources</a>
+      <a href="{{ '/utilities/' | relative_url }}" class="nav-link">Utilities</a>
       </nav>
     </header>
 
@@ -108,61 +115,6 @@
       </p>
     </footer>
 
-    <!-- Cookie Consent Banner -->
-    <div id="cookie-consent-banner" class="consent-banner" style="display: none;">
-      <div class="consent-content">
-        <p class="consent-message">
-          We use cookies to analyze site traffic and improve your experience. Your data is anonymized and never shared.
-        </p>
-        <div class="consent-actions">
-          <button id="consent-decline" class="consent-btn consent-btn-decline">Decline</button>
-          <button id="consent-accept" class="consent-btn consent-btn-accept">Accept</button>
-        </div>
-      </div>
-    </div>
-
-    <script>
-      function updateConsent() {
-        gtag('consent', 'update', {
-          'analytics_storage': 'accepted',
-          'ad_storage': 'accepted',
-          'ad_user_data': 'accepted',
-          'ad_personalization': 'accepted',
-        });
-      }
-
-      (function() {
-        const CONSENT_KEY = 'cookieConsent';
-        const banner = document.getElementById('cookie-consent-banner');
-        const acceptBtn = document.getElementById('consent-accept');
-        const declineBtn = document.getElementById('consent-decline');
-
-        const acceptedValue = localStorage.getItem(CONSENT_KEY) || sessionStorage.getItem(CONSENT_KEY) || 'unknown';
-
-        
-        if (acceptedValue === 'unknown') {
-          banner.style.display = 'block';
-          banner.offsetHeight;
-          banner.classList.add('consent-banner-visible');
-
-          acceptBtn.addEventListener('click', function() {
-            localStorage.setItem(CONSENT_KEY, 'accepted');
-            sessionStorage.removeItem(CONSENT_KEY);
-            updateConsent();
-            banner.remove();
-
-          });
-
-          declineBtn.addEventListener('click', function() {
-            localStorage.removeItem(CONSENT_KEY);
-            sessionStorage.setItem(CONSENT_KEY, 'declined');
-            banner.remove();
-          });
-        } else if (acceptedValue === 'accepted') {
-          updateConsent();
-          banner.remove();
-        }
-      })();
-    </script>
+    {% include layout/consent.html %}
   </body>
 </html>

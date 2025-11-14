@@ -1,8 +1,8 @@
 (function() {
   const searchInput = document.getElementById('resource-search');
-  const categoryFilters = document.querySelectorAll('.category-filter');
-  const resourceItems = document.querySelectorAll('.resource-item');
-  const resourceCategories = document.querySelectorAll('.resource-category');
+  const categoryFilters = document.querySelectorAll('.chip-rounded[data-category]');
+  const resourceItems = document.querySelectorAll('.list-item');
+  const resourceCategories = document.querySelectorAll('.category');
   const noResults = document.getElementById('no-results');
   const resourcesContainer = document.getElementById('resources-container');
 
@@ -36,7 +36,7 @@
     // Show/hide category sections
     resourceCategories.forEach(categoryEl => {
       const categorySlug = categoryEl.dataset.category;
-      const hasVisibleItems = Array.from(categoryEl.querySelectorAll('.resource-item')).some(
+      const hasVisibleItems = Array.from(categoryEl.querySelectorAll('.list-item')).some(
         item => item.style.display !== 'none'
       );
       

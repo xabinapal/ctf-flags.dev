@@ -2,7 +2,7 @@
   'use strict';
   
   const utilityContainer = document.getElementById('utility-container');
-  const utilityChips = document.querySelectorAll('.utility-chip');
+  const utilityChips = document.querySelectorAll('.chip-rounded[data-utility]');
   let currentUtility = null;
   
   const utilityMap = {
@@ -99,7 +99,7 @@
   
   // Initialize with first utility
   if (utilityChips.length > 0) {
-    const firstChip = document.querySelector('.utility-chip.active');
+    const firstChip = document.querySelector('.chip-rounded.active[data-utility]');
     if (firstChip) {
       loadUtility(firstChip.dataset.utility);
     } else {

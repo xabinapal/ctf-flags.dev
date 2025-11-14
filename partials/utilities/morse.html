@@ -2,6 +2,13 @@
 layout: null
 sitemap: false
 ---
-{% include utilities/morse.html %}
-<script src="{{ '/assets/js/utilities/morse.js' | relative_url }}"></script>
+<div class="input-group">
+  <label for="morse-plaintext">Plaintext</label>
+  <textarea id="morse-plaintext" class="textarea" placeholder="Type plaintext here..." rows="2"></textarea>
+</div>
+<div class="input-group">
+  <label for="morse-encoded">Morse Code</label>
+  <textarea id="morse-encoded" class="textarea" placeholder="Type Morse code here..." rows="3"></textarea>
+</div>
 
+<script src="{{ '/assets/js/utilities/morse.js' | relative_url }}"></script>

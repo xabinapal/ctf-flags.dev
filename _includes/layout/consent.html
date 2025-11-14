@@ -1,0 +1,56 @@
+
+<div id="cookie-consent-banner" class="consent-banner">
+  <div class="consent-content">
+    <p class="consent-message">
+      We use cookies and trackers. Agree if you don't mind friendly gremlins watching.
+    </p>
+    <div class="consent-actions">
+      <button id="consent-decline" class="chip-squared consent-btn consent-btn-decline">Decline</button>
+      <button id="consent-accept" class="chip-squared consent-btn consent-btn-accept">Accept</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const CONSENT_KEY = 'cookieConsent';
+
+  const banner = document.getElementById('cookie-consent-banner');
+  const status = localStorage.getItem(CONSENT_KEY) || sessionStorage.getItem(CONSENT_KEY) || '';
+
+  function grantConsent() {
+    gtag('consent', 'update', {
+      'ad_storage': 'granted',
+      'analytics_storage': 'granted',
+      'ad_user_data': 'granted',
+      'ad_personalization': 'granted',
+    });
+  }
+
+  if (status === 'granted') {
+    grantConsent();
+
+    banner.classList.remove('consent-banner-visible');
+  } else if (status === 'denied') {
+    banner.classList.remove('consent-banner-visible');
+  } else {
+    const acceptBtn = document.getElementById('consent-accept');
+    const declineBtn = document.getElementById('consent-decline');
+
+    banner.classList.add('consent-banner-visible');
+
+    acceptBtn.addEventListener('click', function() {
+      localStorage.setItem(CONSENT_KEY, 'granted');
+      sessionStorage.removeItem(CONSENT_KEY);
+      grantConsent();
+
+      banner.classList.remove('consent-banner-visible');
+    });
+
+    declineBtn.addEventListener('click', function() {
+      localStorage.removeItem(CONSENT_KEY);
+      sessionStorage.setItem(CONSENT_KEY, 'denied');
+
+      banner.classList.remove('consent-banner-visible');
+    });
+  }
+</script>

@@ -2,6 +2,25 @@
 layout: null
 sitemap: false
 ---
-{% include utilities/timestamp.html %}
-<script src="{{ '/assets/js/utilities/timestamp.js' | relative_url }}"></script>
+<div class="input-group">
+  <label for="ts-unix-seconds">Unix (seconds)</label>
+  <input type="text" id="ts-unix-seconds" class="input" placeholder="Unix timestamp in seconds...">
+</div>
+<div class="input-group">
+  <label for="ts-unix-milliseconds">Unix (milliseconds)</label>
+  <input type="text" id="ts-unix-milliseconds" class="input" placeholder="Unix timestamp in milliseconds...">
+</div>
+<div class="input-group">
+  <label for="ts-unix-nanoseconds">Unix (nanoseconds)</label>
+  <input type="text" id="ts-unix-nanoseconds" class="input" placeholder="Unix timestamp in nanoseconds...">
+</div>
+<div class="input-group">
+  <label for="ts-windows">Windows FILETIME</label>
+  <input type="text" id="ts-windows" class="input" placeholder="Windows FILETIME...">
+</div>
+<div class="input-group">
+  <label for="ts-iso8601">ISO 8601</label>
+  <input type="text" id="ts-iso8601" class="input" placeholder="ISO 8601 date...">
+</div>
 
+<script src="{{ '/assets/js/utilities/timestamp.js' | relative_url }}"></script>

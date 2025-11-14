@@ -1,27 +1,27 @@
 ---
 layout: default
 ---
-<section class="competition-hero">
-  <h1 class="competition-title">{{ page.title }}</h1>
+<section class="hero">
+  <h1>{{ page.title }}</h1>
   {%- if page.ctftime_url -%}
-  <div class="competition-meta">
+  <div class="meta">
     <a href="{{ page.ctftime_url }}" target="_blank" rel="noopener noreferrer">{{ page.ctftime_url }}</a>
   </div>
   {%- endif -%}
-  <div class="competition-meta">
-    <span class="competition-date">{{ page.start_date | date: "%b %d, %Y" }} &mdash; {{ page.end_date | date: "%b %d, %Y" }}</span>
+  <div class="meta">
+    <span>{{ page.start_date | date: "%b %d, %Y" }} &mdash; {{ page.end_date | date: "%b %d, %Y" }}</span>
   </div>
   {%- assign overview_summary = page.summary | strip_html -%}
   {%- if overview_summary -%}
-  <p class="competition-summary">{{ overview_summary }}</p>
+  <p class="summary">{{ overview_summary }}</p>
   {%- endif -%}
   {%- if page.ranking or page.points -%}
-  <div class="competition-results">
+  <div class="results">
     {%- if page.ranking -%}
-    <span class="result-item">🏆 Ranking: {{ page.ranking }}</span>
+    <span class="chip-squared">🏆 Rank: {{ page.ranking }}</span>
     {%- endif -%}
     {%- if page.points -%}
-    <span class="result-item">📊 Points: {{ page.points }}</span>
+    <span class="chip-squared">📊 Points: {{ page.points }}</span>
     {%- endif -%}
   </div>
   {%- endif -%}
@@ -29,65 +29,59 @@ layout: default
 
 {%- assign content_stripped = content | strip_newlines | strip -%}
 {%- if content_stripped != "" -%}
-  <section class="competition-body">
-    <div class="competition-content">
+  <section class="section">
+    <div class="content">
       {{ content }}
     </div>
   </section>
 {%- endif -%}
 
-{%- assign competition_key = page.key | default: page.slug -%}
-{%- assign competition_writeups = site.writeups | where: 'competition', competition_key | sort: 'name' -%}
+{%- assign competition_key = page.key -%}
+{%- assign competition_writeups = site.writeups | where: 'competition', competition_key | sort_natural: 'title' -%}
 {%- if competition_writeups and competition_writeups.size > 0 -%}
-<section class="listing">
-  <h2>Writeups from {{ page.name | default: page.title }}</h2>
-  <ul class="writeup-list">
-    {%- for writeup in competition_writeups -%}
-    <li class="writeup-card">
-      <a href="{{ writeup.url | relative_url }}">
-        <h3 class="writeup-card-title">{{ writeup.title }}</h3>
-        <div class="writeup-card-meta">
-          {%- assign meta_fields = "" -%}
-          {%- if writeup.challenge_type -%}
-            {%- assign meta_fields = meta_fields | append: '<span>' | append: writeup.challenge_type | append: '</span>' -%}
-          {%- endif -%}
-          {%- if writeup.difficulty -%}
-            {%- if meta_fields != "" -%}
-              {%- assign meta_fields = meta_fields | append: ' <span>|</span> ' -%}
+{%- assign grouped_writeups = competition_writeups | group_by_category -%}
+<section class="section">
+  <h2>Writeups from {{ page.title }}</h2>
+  {%- for category_group in grouped_writeups -%}
+  <div class="category">
+    <h3 class="category-title">{{ category_group.category | downcase }}</h3>
+    <ul class="list writeup-list">
+      {%- for writeup in category_group.writeups -%}
+      <li class="list-item">
+        <a href="{{ writeup.url | relative_url }}" class="card-link">
+          <div class="card">
+            <h4 class="card-title">{{ writeup.title }}</h4>
+            <div class="meta">
+              {%- assign meta_items = writeup.difficulty | split: "\0" -%}
+              {%- if writeup.author -%}
+                {%- assign temp = 'By ' | append: writeup.author | split: "\0" -%}
+                {%- assign meta_items = meta_items | concat: temp -%}
+              {%- endif -%}
+              {%- if writeup.writeup_author -%}
+                {%- assign temp = 'Writeup by ' | append: writeup.writeup_author | split: "\0" -%}
+                {%- assign meta_items = meta_items | concat: temp -%}
+              {%- endif -%}
+              {{ meta_items | format_list: '|', '<span>', '</span>', ' <span>', '</span> ' | raw }}
+            </div>
+            {%- assign summary_normalized = writeup.summary | markdownify | strip_block_html | truncate_words: 160 | strip_newlines | strip -%}
+            {%- if summary_normalized != "" -%}
+            <p class="summary">{{ summary_normalized }}</p>
             {%- endif -%}
-            {%- assign meta_fields = meta_fields | append: '<span>' | append: writeup.difficulty | append: '</span>' -%}
-          {%- endif -%}
-          {%- if writeup.author -%}
-            {%- if meta_fields != "" -%}
-              {%- assign meta_fields = meta_fields | append: ' <span>|</span> ' -%}
-            {%- endif -%}
-            {%- assign meta_fields = meta_fields | append: '<span>' | append: 'By ' | append: writeup.author | append: '</span>' -%}
-          {%- endif -%}
-          {%- if writeup.writeup_author -%}
-            {%- if meta_fields != "" -%}
-              {%- assign meta_fields = meta_fields | append: ' <span>|</span> ' -%}
-            {%- endif -%}
-            {%- assign meta_fields = meta_fields | append: '<span>' | append: 'Writeup by ' | append: writeup.writeup_author | append: '</span>' -%}
-          {%- endif -%}
-          {{ meta_fields | raw }}
-        </div>
-        {%- if writeup.summary -%}
-        <p class="writeup-card-summary">{{ writeup.summary | markdownify | remove: '<p>' | remove: '</p>' }}</p>
-        {%- else -%}
-        <p class="writeup-card-summary">{{ writeup.excerpt | strip_html | truncate: 140 }}</p>
-        {%- endif -%}
-      </a>
-    </li>
-    {%- endfor -%}
-  </ul>
+          </div>
+        </a>
+      </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+  {%- endfor -%}
 </section>
 {%- else -%}
-<section class="listing">
+<section >
   <h2>No writeups yet</h2>
   <p class="empty-state">We haven't published any writeups for this competition yet. Check back soon.</p>
 </section>
 {%- endif -%}
 
-<section class="back-bar">
+<div class="back-bar">
   <a class="back-link" href="{{ '/' | relative_url }}">&larr; Back to all competitions</a>
-</section>
+</div>

@@ -165,6 +165,7 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 2.7.2)
   jekyll (~> 4.4)
+  jekyll-sass-converter (~> 3.1)
   jekyll-sitemap!
   webrick (~> 1.9)
 

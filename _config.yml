@@ -18,6 +18,7 @@ exclude:
   - docker-compose.yml
 
 plugins:
+  - jekyll-sass-converter
   - jekyll-sitemap
 
 collections:
@@ -40,6 +41,11 @@ defaults:
       path: ""
     values:
       layout: writeup
+
+sass:
+  style: compressed
+  sass_dir: _sass
+  development: development
 
 sitemap:
   lastmod_source: git

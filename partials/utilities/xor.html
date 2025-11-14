@@ -2,6 +2,29 @@
 layout: null
 sitemap: false
 ---
-{% include utilities/xor.html %}
-<script src="{{ '/assets/js/utilities/xor.js' | relative_url }}"></script>
+<div class="input-group">
+  <label for="xor-input-ascii">Input (ASCII)</label>
+  <textarea id="xor-input-ascii" class="textarea" placeholder="Type input as ASCII here..." rows="3"></textarea>
+</div>
+<div class="input-group">
+  <label for="xor-input-hex">Input (HEX)</label>
+  <textarea id="xor-input-hex" class="textarea" placeholder="Type input as HEX here..." rows="3"></textarea>
+</div>
+<div class="input-group">
+  <label for="xor-key-ascii">Key (ASCII)</label>
+  <textarea id="xor-key-ascii" class="textarea" placeholder="Type key as ASCII here..." rows="2"></textarea>
+</div>
+<div class="input-group">
+  <label for="xor-key-hex">Key (HEX)</label>
+  <textarea id="xor-key-hex" class="textarea" placeholder="Type key as HEX here..." rows="2"></textarea>
+</div>
+<div class="input-group">
+  <label for="xor-output-ascii">Output (ASCII)</label>
+  <textarea id="xor-output-ascii" class="textarea" placeholder="Result will appear here..." rows="3" readonly></textarea>
+</div>
+<div class="input-group">
+  <label for="xor-output-hex">Output (HEX)</label>
+  <textarea id="xor-output-hex" class="textarea" placeholder="Result will appear here..." rows="3" readonly></textarea>
+</div>
 
+<script src="{{ '/assets/js/utilities/xor.js' | relative_url }}"></script>

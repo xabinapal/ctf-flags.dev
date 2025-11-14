@@ -4,46 +4,48 @@ layout: default
 <article class="writeup">
   <header class="hero">
     {% assign competition_doc = nil %}
-    <h1 class="writeup-title">{{ page.title }}</h1>
+    <h1>{{ page.title }}</h1>
     {%- if page.competition -%}
       {%- assign competition_doc = site.competitions | where: 'key', page.competition | first -%}
     {%- endif -%}
-    <p class="writeup-meta">
+    <p class="meta">
       {%- if competition_doc -%}
-      <a class="writeup-tag" href="{{ competition_doc.url | relative_url }}">{{ competition_doc.title }}</a>
+      <a class="chip-rounded" href="{{ competition_doc.url | relative_url }}">{{ competition_doc.title }}</a>
       {%- endif -%}
-      {%- if page.challenge_type -%}
-      <span class="writeup-tag">{{ page.challenge_type }}</span>
-      {%- endif -%}
-      {%- if page.difficulty -%}
-      <span class="writeup-tag">{{ page.difficulty }}</span>
-      {%- endif -%}
+      {%- assign meta_items = page.challenge_type | split: "\0" -%}
+      {%- assign temp = page.difficulty | split: "\0" -%}
+      {%- assign meta_items = meta_items | concat: temp -%}
       {%- if page.author -%}
-      <span class="writeup-tag">By {{ page.author }}</span>
+        {%- assign temp = 'By ' | append: page.author | split: "\0" -%}
+        {%- assign meta_items = meta_items | concat: temp -%}
       {%- endif -%}
       {%- if page.writeup_author -%}
-      <span class="writeup-tag">Writeup by {{ page.writeup_author }}</span>
+        {%- assign temp = 'Writeup by ' | append: page.writeup_author | split: "\0" -%}
+        {%- assign meta_items = meta_items | concat: temp -%}
       {%- endif -%}
+      {{ meta_items | format_list: '', '<span class="chip-rounded">', '</span>', '', '' | raw }}
     </p>
     {%- if page.summary %}
-    <div class="writeup-summary">
+    <div class="summary">
       {{ page.summary | markdownify }}
     </div>
     {%- endif %}
   </header>
 
   {%- if page.connections and page.connections.size > 0 -%}
-  <section class="writeup-section connections">
-    <h2 class="section-title">Connections</h2>
-    <ul class="attachment-list">
+  <section class="writeup-card">
+    <h2 class="writeup-card-title">Connections</h2>
+    <ul class="writeup-card-list">
       {%- for connection in page.connections -%}
-      <li class="attachment-item">
-        <span class="attachment-link" href="{{ attachment_url }}" download>
-          <span class="attachment-icon" aria-hidden="true">&#8681;</span>
-          <span class="attachment-meta">
-            <span class="attachment-title">{{ connection.url }}</span>
+      <li class="writeup-card-item">
+        <span class="writeup-card-item-link" href="{{ attachment_url }}" download>
+          <span class="writeup-card-item-icon" aria-hidden="true">&#8681;</span>
+          <span class="writeup-card-item-meta">
+            <span class="writeup-card-item-title">{{ connection.url }}</span>
             {%- if connection.description -%}
-            <span class="attachment-description">{{ connection.description | markdownif | remove: '<p>' | remove: '</p>' }}</span>
+            <span class="writeup-card-item-description">
+              {{- connection.description | markdownify | strip_block_html | strip_newlines | strip -}}
+            </span>
             {%- endif -%}
           </span>
         </span>
@@ -54,21 +56,31 @@ layout: default
   {%- endif -%}
 
   {%- if page.attachments and page.attachments.size > 0 -%}
-  <section class="writeup-section attachments">
-    <h2 class="section-title">Attachments</h2>
-    <ul class="attachment-list">
+  <section class="writeup-card">
+    <h2 class="writeup-card-title">Attachments</h2>
+    <ul class="writeup-card-list">
       {%- for attachment in page.attachments -%}
-      {%- assign attachment_url = attachment.url | relative_url -%}
-      <li class="attachment-item">
-        <a class="attachment-link" href="{{ attachment_url }}" download>
-          <span class="attachment-icon" aria-hidden="true">&#8681;</span>
-          <span class="attachment-meta">
-            <span class="attachment-title">{{ attachment.title }}</span>
+      {%- assign attachment_url = attachment.ur -%}
+      <li class="writeup-card-item">
+        {% if attachment.url != nil %}
+        <a class="writeup-card-item-link" href="{{ attachment.url }}" download>
+        {% else %}
+        <span class="writeup-card-item-link" download>
+        {% endif %}
+          <span class="writeup-card-item-icon" aria-hidden="true">&#8681;</span>
+          <span class="writeup-card-item-meta">
+            <span class="writeup-card-item-title">{{ attachment.title }}</span>
             {%- if attachment.description -%}
-            <span class="attachment-description">{{ attachment.description | markdownify | remove: '<p>' | remove: '</p>' }}</span>
+            <span class="writeup-card-item-description">
+              {{- attachment.description | markdownify | strip_block_html | strip_newlines | strip -}}
+            </span>
             {%- endif -%}
           </span>
+        {% if attachment.url != nil %}
         </a>
+        {% else %}
+        </span>
+        {% endif %}
       </li>
       {%- endfor -%}
     </ul>
@@ -85,11 +97,11 @@ layout: default
     {%- endif -%}
   </div>
 
-  <footer class="writeup-footer">
+  <div class="back-bar">
     {%- if competition_doc -%}
     <a class="back-link" href="{{ competition_doc.url | relative_url }}">&larr; Back to {{ competition_doc.title }}</a>
     {%- else -%}
     <a class="back-link" href="{{ '/' | relative_url }}">&larr; Back to all competitions</a>
     {%- endif -%}
-  </footer>
+  </div>
 </article>

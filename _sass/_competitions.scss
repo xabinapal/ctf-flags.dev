@@ -1,0 +1,65 @@
+.list.competition-grid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-lg);
+  margin-top: 2rem;
+}
+
+@media (max-width: 840px) {
+  .list.competition-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.card.no-padding {
+  gap: 0;
+  padding: 0;
+}
+
+.card-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.9rem;
+
+  height: 100%;
+  padding: var(--spacing-md);
+
+  color: inherit;
+  text-decoration: none;
+}
+
+.card-content p + p {
+  margin-top: 1rem;
+}
+
+@media (max-width: 840px) {
+  .card-content {
+    padding: var(--spacing-md);
+  }
+}
+
+.card-count {
+  margin: auto 0 0;
+
+  font-size: var(--spacing-sm);
+  color: var(--accent-75);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.content {
+  padding: var(--spacing-lg);
+  border: 1px solid var(--accent-10);
+  border-radius: var(--radius-lg);
+  background: var(--accent-05);
+}
+
+.content p + p {
+  margin-top: 1rem;
+}
+
+@media (max-width: 840px) {
+  .content {
+    padding: var(--spacing-md);
+  }
+}

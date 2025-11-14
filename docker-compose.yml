@@ -7,7 +7,7 @@ services:
       - "4000:4000"
       - "35729:35729"
     volumes:
-      - ./:/srv/jekyll:delegated
+      - ./:/srv/jekyll
     environment:
       BUNDLE_PATH: /tmp/bundle
       JEKYLL_ENV: development

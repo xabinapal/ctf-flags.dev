@@ -1,0 +1,124 @@
+@use "mixins" as *;
+
+.writeup .hero {
+  margin-bottom: 2rem;
+}
+
+.list.writeup-list {
+  grid-template-columns: 1fr;
+}
+
+.writeup-card {
+  @include card-base;
+
+  margin-top: 2rem;
+  padding: var(--spacing-lg);
+  border-color: var(--accent-25);
+
+  background: linear-gradient(135deg, var(--accent-10), var(--cyan-06));
+  box-shadow: var(--shadow-xl);
+}
+
+.writeup-card-title {
+  font-size: 1.1rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.writeup-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.writeup-card-item-link {
+  display: flex;
+  gap: 0.9rem;
+  align-items: center;
+
+  padding: 0.85rem 1.1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+
+  color: var(--text-primary);
+  text-decoration: none;
+
+  background: var(--accent-10);
+
+  transition: transform var(--transition), border var(--transition), box-shadow var(--transition);
+}
+
+.writeup-card-item-link:hover,
+.writeup-card-item-link:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--accent-50);
+  text-decoration: none;
+  box-shadow: var(--shadow-lg);
+}
+
+.writeup-card-item-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--bg-color);
+
+  background: var(--accent-25);
+  box-shadow: var(--shadow-inset);
+}
+
+.writeup-card-item-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.writeup-card-item-title {
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+  word-break: break-all;
+}
+
+.writeup-card-item-description {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.writeup-content {
+  margin-top: 2rem;
+  color: var(--text-secondary);
+}
+
+.writeup-content pre {
+  overflow-x: auto;
+
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+
+  font-family: var(--font-mono);
+
+  background: var(--code-bg);
+}
+
+.writeup-content :not(pre) > code {
+  font-family: var(--font-mono);
+}
+
+.writeup-content img {
+  max-width: 100%;
+}

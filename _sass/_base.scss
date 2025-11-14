@@ -1,0 +1,125 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  position: relative;
+
+  overflow: hidden;
+
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+
+  background: radial-gradient(circle at top 150rem left 0rem, var(--accent-05) 0rem, transparent 300rem),
+    radial-gradient(circle at top 200rem left 0rem, var(--cyan-06), transparent 400rem),
+    var(--bg-color);
+  background-attachment: fixed;
+}
+
+body::before {
+  pointer-events: none;
+  content: "";
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: linear-gradient(130deg, var(--accent-05) 0rem, var(--blue-05) 25rem);
+  background-attachment: fixed;
+  mix-blend-mode: screen;
+}
+
+.glow {
+  pointer-events: none;
+
+  position: absolute;
+
+  opacity: 0.8;
+  background: radial-gradient(circle, var(--accent-15), transparent 100%);
+  filter: blur(100px);
+
+  animation: glow 10s ease-in-out infinite alternate;
+}
+
+@media (orientation: portrait) {
+  .glow {
+    top: -25rem;
+    right: -25rem;
+    width: 50rem;
+    height: 50rem;
+  }
+}
+
+@media (orientation: landscape) {
+  .glow {
+    top: -50rem;
+    right: -50rem;
+    width: 100rem;
+    height: 100rem;
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+}
+
+h1 {
+  font-size: clamp(2.2rem, 4vw + 1rem, 3.2rem);
+}
+
+p,
+li {
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus-visible {
+  text-decoration: underline;
+}
+
+hr {
+  margin: 2.5rem 0;
+  border: none;
+  border-top: 1px dashed var(--border-color);
+}
+
+blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  border-left: 3px solid var(--accent);
+
+  color: var(--text-secondary);
+
+  background: var(--accent-05);
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+  color: var(--text-primary);
+}
