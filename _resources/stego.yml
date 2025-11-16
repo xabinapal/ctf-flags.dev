@@ -1,0 +1,63 @@
+- name: "StegOnline"
+  url: "https://georgeom.net/StegOnline"
+  description: "Web-based steganography tool for analyzing and manipulating images to hide or extract hidden data"
+
+- name: "Audacity"
+  url: "https://www.audacityteam.org/"
+  description: "Free, open source, cross-platform audio software for audio analysis, editing, and steganography detection"
+
+- name: "Steghide"
+  url: "https://steghide.sourceforge.net/"
+  description: "Steganography program that hides data in various kinds of image and audio files using encryption"
+
+- name: "Stegosaurus"
+  url: "https://github.com/AngelKitty/stegosaurus"
+  description: "Python steganography tool for hiding data in images using least significant bit (LSB) steganography"
+
+- name: "StegoVeritas"
+  url: "https://github.com/bannsec/stegoVeritas"
+  description: "Python tool for steganography analysis that extracts metadata and hidden data from image files"
+
+- name: "Stegseek"
+  url: "https://github.com/RickdeJager/stegseek"
+  description: "Fast steghide cracker that can be used to extract hidden data from steghide images using wordlists"
+
+- name: "Snow"
+  url: "https://darkside.com.au/snow/"
+  description: "Steganography program for concealing messages in ASCII text by appending whitespace to the end of lines"
+
+- name: "zsteg"
+  url: "https://github.com/zed-0xff/zsteg/"
+  description: "Detect stegano-hidden data in PNG and BMP files using various steganography detection techniques"
+
+- name: "DeepSound"
+  url: "https://github.com/Jpinsoft/DeepSound"
+  description: "Audio steganography tool for hiding secret data in audio files using advanced hiding techniques"
+
+- name: "ImageMagick"
+  url: "https://imagemagick.org/script/index.php"
+  description: "Software suite to create, edit, compose, or convert bitmap images with command-line and API support"
+
+- name: "StegSolve"
+  url: "https://github.com/Giotino/stegsolve"
+  description: "Advanced steganography tool for analyzing image files with various color filters and transformations"
+
+- name: "Sonic Visualiser"
+  url: "https://sonicvisualiser.org/"
+  description: "Application for viewing and analysing the contents of music audio files with spectral analysis features"
+
+- name: "Friture"
+  url: "https://friture.org/"
+  description: "Real-time audio analyzer for visualizing audio signals and detecting hidden data in audio files"
+
+- name: "FotoForensics"
+  url: "https://fotoforensics.com/"
+  description: "Image forensics tool for analyzing digital images to detect tampering and hidden information"
+
+- name: "Aperi'Solve"
+  url: "https://www.aperisolve.com/"
+  description: "Online steganography analysis platform for analyzing images and extracting hidden data from various file formats"
+
+- name: "ExifTool"
+  url: "https://exiftool.org/"
+  description: "Platform-independent Perl library and command-line application for reading and editing image metadata"

@@ -1,0 +1,35 @@
+- name: "nmap"
+  url: "https://nmap.org/"
+  description: "Network exploration tool and security scanner for discovering hosts and services on computer networks"
+
+- name: "SecLists"
+  url: "https://github.com/danielmiessler/SecLists"
+  description: "Collection of multiple types of lists used during security assessments including wordlists and payloads"
+
+- name: "proxychains"
+  url: "https://github.com/haad/proxychains"
+  description: "Tool for forcing any TCP connection made by any application to go through proxy chains for network proxying"
+
+- name: "ngrok"
+  url: "https://ngrok.com/"
+  description: "Secure tunneling service for exposing local servers to the internet for testing and development"
+
+- name: "Tunnelmole"
+  url: "https://tunnelmole.com/"
+  description: "Expose local servers to the internet with a simple command-line tool for testing and development"
+
+- name: "0x0.st"
+  url: "https://0x0.st/"
+  description: "File hosting and URL shortening service for sharing files and links during CTF competitions"
+
+- name: "envs.sh"
+  url: "https://envs.sh/"
+  description: "File hosting and URL shortening service for sharing files and links during CTF competitions"
+
+- name: "changeme"
+  url: "https://github.com/ztgrace/changeme"
+  description: "Tool to find default credentials on network devices by testing common default username and password combinations"
+
+- name: "CyberChef"
+  url: "https://gchq.github.io/CyberChef/"
+  description: "The Cyber Swiss Army Knife: a web app for encryption, encoding, compression and data analysis operations"

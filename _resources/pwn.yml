@@ -1,0 +1,12 @@
+- name: "pwntools"
+  url: "https://github.com/Gallopsled/pwntools"
+  description: "CTF framework and exploit development library for Python that simplifies binary exploitation and exploit writing"
+
+- name: "ROPgadget"
+  url: "https://github.com/JonathanSalwan/ROPgadget"
+  description: "Tool to search for ROP gadgets in binaries to facilitate ROP exploitation and build ROP chains"
+
+- name: "Metasploit"
+  url: "https://www.metasploit.com/"
+  description: "Penetration testing framework for finding, exploiting, and validating vulnerabilities with exploit modules and payloads"
+

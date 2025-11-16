@@ -1,0 +1,28 @@
+- name: "Ghidra"
+  url: "https://ghidra-sre.org/"
+  description: "Software reverse engineering framework developed by NSA for analyzing binary executables and libraries"
+
+- name: "radare2"
+  url: "https://github.com/radareorg/radare2"
+  description: "Free and open source reverse engineering framework with disassembler, debugger, and analysis tools"
+
+- name: "Apktool"
+  url: "https://apktool.org/"
+  description: "Tool for reverse engineering Android APK files to extract resources, decode sources, and rebuild APKs"
+
+- name: "DogBolt"
+  url: "https://dogbolt.org/"
+  description: "Online decompiler - upload a binary and get decompiled code from multiple decompilers for comparison"
+
+- name: "GDB"
+  url: "https://www.sourceware.org/gdb/"
+  description: "GNU Debugger for debugging programs written in various languages with powerful debugging features"
+
+- name: "Binary Ninja"
+  url: "https://binary.ninja/"
+  description: "Binary analysis platform for reverse engineering with interactive disassembler and decompiler"
+
+- name: "angr"
+  url: "https://angr.io/"
+  description: "Platform-agnostic binary analysis framework for performing symbolic execution and binary analysis"
+

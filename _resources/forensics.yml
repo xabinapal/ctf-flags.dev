@@ -1,0 +1,40 @@
+- name: "Binwalk"
+  url: "https://github.com/ReFirmLabs/binwalk"
+  description: "Firmware analysis tool designed to assist in the analysis, extraction, and reverse engineering of firmware images"
+
+- name: "unblob"
+  url: "https://github.com/onekey-sec/unblob"
+  description: "Tool for extracting and analyzing data from compressed files and disk images using a variety of compression algorithms"
+
+- name: "ofrak"
+  url: "https://github.com/redballoonsecurity/ofrak"
+  description: "Binary analysis and modification platform that allow to analyze, unpack, modify and repack binary files"
+
+- name: "Autopsy"
+  url: "https://www.autopsy.com/"
+  description: "Digital forensics platform and graphical interface to The Sleuth Kit for analyzing disk images and file systems"
+
+- name: "Volatility"
+  url: "https://github.com/volatilityfoundation/volatility3"
+  description: "Open-source memory forensics framework for incident response and malware analysis of RAM dumps"
+
+- name: "Wireshark"
+  url: "https://www.wireshark.org/"
+  description: "Network protocol analyzer for capturing and examining network traffic with deep inspection of protocols"
+
+- name: "tcpdump"
+  url: "https://www.tcpdump.org/"
+  description: "Command-line packet analyzer for network traffic capture and analysis with powerful filtering capabilities"
+
+- name: "tshark"
+  url: "https://tshark.dev/"
+  description: "Terminal-based version of Wireshark for packet analysis from the command line with scripting support"
+
+- name: "Foremost"
+  url: "https://foremost.sourceforge.net/"
+  description: "Forensic program to recover lost files based on their headers, footers, and internal data structures"
+
+- name: "enum4linux"
+  url: "https://labs.portcullis.co.uk/tools/enum4linux/"
+  description: "Tool for enumerating information from Windows and Samba systems using SMB protocol enumeration"
+

@@ -1,0 +1,83 @@
+- name: "Ciphey"
+  url: "https://github.com/bee-san/Ciphey"
+  description: "Automatically decrypt encryptions without knowing the key or cipher, decode encodings, and crack hashes using AI"
+
+- name: "RSACtfTool"
+  url: "https://github.com/RsaCtfTool/RsaCtfTool"
+  description: "Tool to attack RSA and other public key cryptosystems with various attack methods and techniques"
+
+- name: "RSATool"
+  url: "https://github.com/ius/rsatool"
+  description: "Tool to generate RSA private keys with given values including modulus, public exponent, and private exponent"
+
+- name: "dCode"
+  url: "https://dcode.fr"
+  description: "Online decoder and cipher identifier supporting various encoding schemes, ciphers, and cryptographic algorithms"
+
+- name: "Cryptii"
+  url: "https://cryptii.com/"
+  description: "Web-based application for encoding, decoding, and converting data between different formats and encodings"
+
+- name: "PkCrack"
+  url: "https://www.unix-ag.uni-kl.de/~conrad/krypto/pkcrack.html"
+  description: "Tool for breaking PkZip-encryption using known plaintext attacks and brute force techniques"
+
+- name: "bkcrack"
+  url: "https://github.com/kimci86/bkcrack"
+  description: "Open source tool to crack legacy zip encryption using known plaintext attacks on PKZIP stream ciphers"
+
+- name: "Vigenère Solver"
+  url: "https://www.guballa.de/vigenere-solver"
+  description: "Online tool to solve Vigenère cipher automatically by analyzing letter frequency and key length patterns"
+
+- name: "Crackstation"
+  url: "https://crackstation.net/"
+  description: "Massive pre-computed lookup tables to crack password hashes using rainbow tables and hash databases"
+
+- name: "yafu"
+  url: "https://sourceforge.net/projects/yafu/"
+  description: "Automated integer factorization tool for factoring large integers using various factorization algorithms"
+
+- name: "hashcat"
+  url: "https://hashcat.net/hashcat/"
+  description: "World's fastest and most advanced password recovery utility supporting multiple hash types and attack modes"
+
+- name: "Hob0Rules"
+  url: "https://github.com/praetorian-inc/Hob0Rules"
+  description: "Password cracking rules for Hashcat based on statistics and industry patterns"
+
+- name: "Pantagrule"
+  url: "https://github.com/rarecoil/pantagrule"
+  description: "Large hashcat rulesets generated from real-world compromised passwords"
+
+- name: "KoreLogic"
+  url: "https://github.com/SpiderLabs/KoreLogic-Rules"
+  description: "Updated version of the 2010 KoreLogic password cracking rules for John the Ripper"
+
+- name: "Kaonashi"
+  url: "https://github.com/kaonashi-passwords/Kaonashi"
+  description: "Wordlist, rules and masks from Kaonashi project for password cracking with hashcat"
+
+- name: "SageMath"
+  url: "https://www.sagemath.org/"
+  description: "Open-source mathematics software system for advanced mathematics, cryptography, and number theory computations"
+
+- name: "XORTool"
+  url: "https://github.com/hellman/xortool"
+  description: "Tool to analyze multi-byte XOR cipher by finding key length and decrypting XOR-encrypted data"
+
+- name: "pdfcrack"
+  url: "https://pdfcrack.sourceforge.net/"
+  description: "PDF password recovery tool that can crack PDF file passwords using dictionary and brute force attacks"
+
+- name: "Hex Packet Decoder"
+  url: "https://hpd.gasmi.net/"
+  description: "Online hex packet decoder and analyzer for decoding network packets and binary data in various formats"
+
+- name: "CacheSleuth"
+  url: "https://www.cachesleuth.com/multidecoder/"
+  description: "Multi-decoder tool for various encoding schemes including base64, hex, URL encoding, and many others"
+
+- name: "FactorDB"
+  url: "https://factordb.com/"
+  description: "Database of integer factorizations for looking up factors of large numbers, useful for RSA and crypto challenges"

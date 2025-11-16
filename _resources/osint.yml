@@ -1,0 +1,20 @@
+- name: "Shodan"
+  url: "https://www.shodan.io/"
+  description: "Search engine for Internet-connected devices and services to discover and analyze network infrastructure"
+
+- name: "theHarvester"
+  url: "https://github.com/laramies/theHarvester"
+  description: "OSINT tool for gathering emails, subdomains, hosts, employee names, open ports and banners"
+
+- name: "Sherlock"
+  url: "https://sherlockproject.xyz/"
+  description: "Hunt down social media accounts by username across social networks to find user profiles and information"
+
+- name: "amass"
+  url: "https://github.com/owasp-amass/amass"
+  description: "In-depth Attack Surface Mapping and Asset Discovery tool for comprehensive network reconnaissance"
+
+- name: "SubFinder"
+  url: "https://github.com/projectdiscovery/subfinder"
+  description: "Subdomain discovery tool that discovers valid subdomains for websites using passive sources"
+

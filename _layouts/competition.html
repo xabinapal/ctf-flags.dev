@@ -2,7 +2,7 @@
 layout: default
 ---
 <section class="competition-hero">
-  <h1 class="competition-title">{{ page.name | default: page.title }}</h1>
+  <h1 class="competition-title">{{ page.title }}</h1>
   {%- if page.ctftime_url -%}
   <div class="competition-meta">
     <a href="{{ page.ctftime_url }}" target="_blank" rel="noopener noreferrer">{{ page.ctftime_url }}</a>

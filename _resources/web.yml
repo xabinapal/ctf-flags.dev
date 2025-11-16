@@ -1,0 +1,79 @@
+- name: "Burp Suite"
+  url: "https://portswigger.net/burp"
+  description: "Web vulnerability scanner and security testing tool for finding and exploiting web application vulnerabilities"
+
+- name: "Turbo Intruder"
+  url: "https://portswigger.net/bappstore/9abaa233088242e8be252cd4ff534988"
+  description: "Burp Suite extension for sending large numbers of HTTP requests quickly for fuzzing and brute forcing"
+
+- name: "sqlmap"
+  url: "https://sqlmap.org/"
+  description: "Automatic SQL injection and database takeover tool that detects and exploits SQL injection vulnerabilities"
+
+- name: "Arachni"
+  url: "https://github.com/Arachni/arachni"
+  description: "Web Application Security Scanner Framework for identifying vulnerabilities in web applications"
+
+- name: "Dirhunt"
+  url: "https://github.com/Nekmo/dirhunt"
+  description: "Web crawler optimized for searching and analyzing web directories to find hidden files and directories"
+
+- name: "DirBuster"
+  url: "https://dirbuster.com/"
+  description: "Multi threaded java application designed to brute force directories and files names on web servers"
+
+- name: "ffuf"
+  url: "https://github.com/ffuf/ffuf"
+  description: "Fast web fuzzer written in Go for directory and file discovery with high performance and flexibility"
+
+- name: "ZAP"
+  url: "https://www.zaproxy.org/"
+  description: "Free and open source web application security scanner for finding vulnerabilities in web applications"
+
+- name: "JWT Debugger"
+  url: "https://www.jwt.io/"
+  description: "Online tool to decode, verify and generate JWT tokens for testing and debugging JWT implementations"
+
+- name: "SAML Decoder & Parser"
+  url: "https://www.scottbrady.io/tools/saml-parser"
+  description: "Online tool to decode and parse SAML messages for analyzing SAML authentication and authorization"
+
+- name: "Gobuster"
+  url: "https://github.com/OJ/gobuster"
+  description: "Directory/file brute forcer and DNS subdomain brute-forcer written in Go for web enumeration"
+
+- name: "Nikto"
+  url: "https://cirt.net/nikto/"
+  description: "Web server scanner which performs comprehensive tests against web servers to find vulnerabilities"
+
+- name: "WPScan"
+  url: "https://wpscan.com/"
+  description: "Black box WordPress vulnerability scanner for finding security issues in WordPress installations"
+
+- name: "XSSer"
+  url: "https://github.com/epsylon/xsser"
+  description: "Cross Site Scripter - automated XSS testing tool for detecting and exploiting XSS vulnerabilities"
+
+- name: "Hydra"
+  url: "https://github.com/vanhauser-thc/thc-hydra"
+  description: "Network logon cracker which supports many different protocols for brute force attacks"
+
+- name: "John the Ripper"
+  url: "https://www.openwall.com/john/"
+  description: "Fast password cracker available for many flavors of Unix, Windows, DOS, BeOS, and OpenVMS"
+
+- name: "Patator"
+  url: "https://github.com/lanjelot/patator"
+  description: "Multi-purpose brute-forcer with modular design supporting various protocols and attack methods"
+
+- name: "Brutelist"
+  url: "https://github.com/calebgcc/brutelist"
+  description: "Tool for generating wordlists for brute force attacks with customizable patterns and rules"
+
+- name: "CUPP"
+  url: "https://github.com/Mebus/cupp"
+  description: "Common User Passwords Profiler - generates custom wordlists based on user information and patterns"
+
+- name: "BeEF"
+  url: "https://beefproject.com/"
+  description: "Browser Exploitation Framework for launching client-side attacks against web browsers and hooking browsers"
