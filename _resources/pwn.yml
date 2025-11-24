@@ -10,3 +10,23 @@
   url: "https://www.metasploit.com/"
   description: "Penetration testing framework for finding, exploiting, and validating vulnerabilities with exploit modules and payloads"
 
+- name: "GEF"
+  url: "https://github.com/hugsy/gef"
+  description: "Advanced GDB extension with enhanced debugging features for binary exploitation and exploit development"
+
+- name: "one_gadget"
+  url: "https://github.com/david942j/one_gadget"
+  description: "Tool to find one-gadget RCE gadgets in glibc for simplified exploitation and remote code execution"
+
+- name: "LibcSearcher"
+  url: "https://github.com/lieanu/LibcSearcher"
+  description: "Python tool to identify libc versions from leaked function addresses for exploit development"
+
+- name: "checksec"
+  url: "https://github.com/slimm609/checksec.sh"
+  description: "Script to check security features of binaries including ASLR, NX, PIE, and canaries"
+
+- name: "AFL++"
+  url: "https://github.com/AFLplusplus/AFLplusplus"
+  description: "Advanced fuzzing framework for finding vulnerabilities through automated testing and coverage-guided fuzzing"
+

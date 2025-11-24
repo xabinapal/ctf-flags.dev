@@ -18,3 +18,11 @@
   url: "https://github.com/projectdiscovery/subfinder"
   description: "Subdomain discovery tool that discovers valid subdomains for websites using passive sources"
 
+- name: "Censys"
+  url: "https://search.censys.io/"
+  description: "Search engine for discovering hosts, websites, and certificates on the internet with network intelligence"
+
+- name: "VirusTotal"
+  url: "https://www.virustotal.com/"
+  description: "Online service for analyzing suspicious files and URLs using multiple antivirus and threat intelligence"
+

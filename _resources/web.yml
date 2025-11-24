@@ -77,3 +77,11 @@
 - name: "BeEF"
   url: "https://beefproject.com/"
   description: "Browser Exploitation Framework for launching client-side attacks against web browsers and hooking browsers"
+
+- name: "Postman"
+  url: "https://www.postman.com/"
+  description: "API platform for building and testing APIs with comprehensive request and response handling"
+
+- name: "commix"
+  url: "https://github.com/commixproject/commix"
+  description: "Automated command injection exploitation tool for web applications with various injection techniques"

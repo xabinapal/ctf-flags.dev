@@ -12,7 +12,7 @@
 
 - name: "DogBolt"
   url: "https://dogbolt.org/"
-  description: "Online decompiler - upload a binary and get decompiled code from multiple decompilers for comparison"
+  description: "Online decompiler: upload a binary and get decompiled code from multiple decompilers for comparison"
 
 - name: "GDB"
   url: "https://www.sourceware.org/gdb/"

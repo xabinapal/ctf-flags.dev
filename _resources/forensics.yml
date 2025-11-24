@@ -38,3 +38,15 @@
   url: "https://labs.portcullis.co.uk/tools/enum4linux/"
   description: "Tool for enumerating information from Windows and Samba systems using SMB protocol enumeration"
 
+- name: "Impacket"
+  url: "https://github.com/fortra/impacket"
+  description: "Collection of classes for working with protocols including SMB, MSRPC, and Kerberos for analysis and exploitation"
+
+- name: "Scalpel"
+  url: "https://github.com/sleuthkit/scalpel"
+  description: "Fast file carving tool for recovering deleted files from disk images using header and footer signatures"
+
+- name: "Sleuth Kit"
+  url: "https://www.sleuthkit.org/"
+  description: "Library and collection of command-line tools for digital forensics and file system analysis"
+
