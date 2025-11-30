@@ -11,7 +11,7 @@ summary: CTF writeups, challenge solutions, and cybersecurity insights from a so
 
 <section >
   <h2>CTF Competitions</h2>
-  {%- assign competitions = site.competitions | sort: 'start_date' | reverse -%}
+  {%- assign competitions = site.competitions | sort_competitions -%}
   {%- if competitions and competitions.size > 0 -%}
   <ul class="list competition-grid">
     {%- for competition in competitions -%}
