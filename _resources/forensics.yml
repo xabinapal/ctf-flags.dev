@@ -50,3 +50,15 @@
   url: "https://www.sleuthkit.org/"
   description: "Library and collection of command-line tools for digital forensics and file system analysis"
 
+- name: "yara"
+  url: "https://github.com/VirusTotal/yara/"
+  description: "Pattern matching tool for malware researchers to identify and classify malware samples by writing descriptive rules"
+
+- name: "yara-x"
+  url: "https://virustotal.github.io/yara-x/"
+  description: "Enhanced YARA implementation focusing on user-friendliness, performance, and safety while maintaining rule compatibility"
+
+- name: "scapy"
+  url: "https://github.com/secdev/scapy"
+  description: "Python-based interactive packet manipulation program and library for forging, dissecting, and transmitting network packets"
+

@@ -5,7 +5,7 @@ summary: A curated collection of essential resources for CTF competitions, cover
 permalink: /resources/
 ---
 
-{%- assign categories = 'crypto,pwn,forensics,stego,web,rev,misc,osint' | split: ',' | sort_natural -%}
+{%- assign categories = 'crypto,forensics,misc,mobile,osint,pwn,rev,stego,web' | split: ',' | sort_natural -%}
 
 <section class="hero">
   <h1>flag{r3s0urc3s}</h1>

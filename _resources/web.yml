@@ -78,9 +78,9 @@
   url: "https://beefproject.com/"
   description: "Browser Exploitation Framework for launching client-side attacks against web browsers and hooking browsers"
 
-- name: "Postman"
-  url: "https://www.postman.com/"
-  description: "API platform for building and testing APIs with comprehensive request and response handling"
+- name: "Hoppscotch"
+  url: "https://www.hoppscotch.com/"
+  description: "Open source API platform for building and testing APIs with comprehensive request and response handling"
 
 - name: "commix"
   url: "https://github.com/commixproject/commix"

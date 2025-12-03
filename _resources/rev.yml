@@ -6,10 +6,6 @@
   url: "https://github.com/radareorg/radare2"
   description: "Free and open source reverse engineering framework with disassembler, debugger, and analysis tools"
 
-- name: "Apktool"
-  url: "https://apktool.org/"
-  description: "Tool for reverse engineering Android APK files to extract resources, decode sources, and rebuild APKs"
-
 - name: "DogBolt"
   url: "https://dogbolt.org/"
   description: "Online decompiler: upload a binary and get decompiled code from multiple decompilers for comparison"

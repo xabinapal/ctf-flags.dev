@@ -34,6 +34,22 @@
   url: "https://crackstation.net/"
   description: "Massive pre-computed lookup tables to crack password hashes using rainbow tables and hash databases"
 
+- name: "HashMob"
+  url: "https://hashmob.net/"
+  description: "Online platform for hash identification and lookup to determine hash types and assist with password recovery"
+
+- name: "gohashmob"
+  url: "https://github.com/n0kovo/gohashmob"
+  description: "Command-line tool written in Go for hash identification and analysis using the HashMob API"
+
+- name: "Name-That-Hash"
+  url: "https://nth.skerritt.blog/"
+  description: "Online tool that identifies hash types based on their characteristics to assist in selecting appropriate cracking methods"
+
+- name: "HAT"
+  url: "https://github.com/sp00ks-git/hat"
+  description: "Hash analysis tool for identifying and analyzing various hash types to aid in password recovery and security assessments"
+
 - name: "yafu"
   url: "https://sourceforge.net/projects/yafu/"
   description: "Automated integer factorization tool for factoring large integers using various factorization algorithms"
@@ -45,6 +61,14 @@
 - name: "Hob0Rules"
   url: "https://github.com/praetorian-inc/Hob0Rules"
   description: "Password cracking rules for Hashcat based on statistics and industry patterns"
+
+- name: "OneRuleToRuleThemStill"
+  url: "https://github.com/stealthsploit/OneRuleToRuleThemStill"
+  description: "Comprehensive collection of hashcat rules designed to optimize password cracking efficiency with common patterns"
+
+- name: "hashcat-rules-collection"
+  url: "https://github.com/n0kovo/hashcat-rules-collection"
+  description: "Curated repository of hashcat rule files providing diverse rulesets to enhance password recovery efforts"
 
 - name: "Pantagrule"
   url: "https://github.com/rarecoil/pantagrule"

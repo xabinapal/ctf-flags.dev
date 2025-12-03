@@ -1,0 +1,15 @@
+- name: "Apktool"
+  url: "https://apktool.org/"
+  description: "Tool for reverse engineering Android APK files to extract resources, decode sources, and rebuild APKs"
+
+- name: "jadx"
+  url: "https://github.com/skylot/jadx"
+  description: "Dex to Java decompiler that converts Android application bytecode into readable Java source code for analysis"
+
+- name: "frida"
+  url: "https://github.com/frida/frida"
+  description: "Dynamic instrumentation toolkit for injecting scripts into running processes to inspect and modify application behavior"
+
+- name: "Genymotion"
+  url: "https://www.genymotion.com/"
+  description: "Android emulator offering virtual environments for testing and development with cloud and desktop solutions"
