@@ -1,0 +1,27 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.6.8/schema.json",
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!!**/node_modules",
+      "!!**/_site",
+      "!!**/.jekyll-cache",
+      "!!**/.sass-cache",
+      "!!**/vendor",
+      "!**/*.html",
+      "!assets/css/style.scss"
+    ]
+  },
+  "formatter": {
+    "indentStyle": "space",
+    "indentWidth": 2
+  },
+  "linter": {
+    "rules": {
+      "suspicious": {
+        "noRedundantUseStrict": "off"
+      }
+    }
+  }
+}

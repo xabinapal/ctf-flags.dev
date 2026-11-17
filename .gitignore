@@ -4,6 +4,10 @@ _site/
 .jekyll-cache/
 .bundle/
 vendor/bundle/
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
 
 # Operating system cruft
 .DS_Store

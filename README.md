@@ -98,6 +98,14 @@ bundle exec jekyll serve
 
 Then open <http://localhost:4000> in your browser to preview the site.
 
+### Linting
+
+Install the development dependency with `bun install`, then run `bun run lint`.
+Biome checks JavaScript, SCSS, Markdown, YAML, and JSON. Jekyll's Liquid HTML
+templates and its front-matter-bearing SCSS entry point are processed by the
+Jekyll build instead. `bun run format` formats the JavaScript and SCSS sources;
+writeups are excluded so their challenge snippets stay as written.
+
 ## Screenshot
 
 To capture the screenshot reference, build the site locally and use your preferred tool or take it directly

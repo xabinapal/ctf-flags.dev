@@ -66,7 +66,9 @@
   // Category filter handlers
   categoryFilters.forEach(filter => {
     filter.addEventListener('click', function() {
-      categoryFilters.forEach(f => f.classList.remove('active'));
+      categoryFilters.forEach(f => {
+        f.classList.remove('active');
+      });
       this.classList.add('active');
       currentCategory = this.dataset.category;
       filterResources();

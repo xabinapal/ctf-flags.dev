@@ -12,6 +12,10 @@ theme: null
 exclude:
   - README.md
   - node_modules
+  - package.json
+  - package-lock.json
+  - bun.lock
+  - biome.json
   - vendor
   - Gemfile
   - Gemfile.lock

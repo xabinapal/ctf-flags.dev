@@ -1,0 +1,11 @@
+{
+  "name": "ctf-flags-dev",
+  "private": true,
+  "scripts": {
+    "lint": "biome lint .",
+    "format": "biome format --write assets/js _sass"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.6.8"
+  }
+}
