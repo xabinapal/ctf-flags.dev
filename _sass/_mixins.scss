@@ -9,5 +9,8 @@
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
 
-  transition: transform var(--transition), border var(--transition), box-shadow var(--transition);
+  transition:
+    transform var(--transition),
+    border var(--transition),
+    box-shadow var(--transition);
 }

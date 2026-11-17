@@ -23,7 +23,9 @@
 
   background: var(--bg-secondary);
 
-  transition: border var(--transition), box-shadow var(--transition);
+  transition:
+    border var(--transition),
+    box-shadow var(--transition);
 }
 
 .search-input::placeholder {

@@ -51,7 +51,10 @@
 
   background: var(--accent-10);
 
-  transition: transform var(--transition), border var(--transition), box-shadow var(--transition);
+  transition:
+    transform var(--transition),
+    border var(--transition),
+    box-shadow var(--transition);
 }
 
 .writeup-card-item-link:hover,

@@ -138,6 +138,17 @@
   border-bottom: none;
 }
 
+.converted-format strong {
+  display: block;
+
+  margin-bottom: var(--spacing-xs);
+
+  font-size: 0.85rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 .info .info-item strong {
   margin-right: var(--spacing-xs);
   color: var(--accent);
@@ -186,17 +197,6 @@
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   background: var(--bg-color);
-}
-
-.converted-format strong {
-  display: block;
-
-  margin-bottom: var(--spacing-xs);
-
-  font-size: 0.85rem;
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
 .converted-format pre {

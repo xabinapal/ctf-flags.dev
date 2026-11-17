@@ -1,40 +1,39 @@
-(function() {
-  'use strict';
-  
-  const urlPlaintext = document.getElementById('url-plaintext');
-  const urlEncoded = document.getElementById('url-encoded');
-  
+(() => {
+  "use strict";
+
+  const urlPlaintext = document.getElementById("url-plaintext");
+  const urlEncoded = document.getElementById("url-encoded");
+
   if (!urlPlaintext || !urlEncoded) return;
-  
+
   let updating = false;
-  
+
   function updateURL(editedField) {
     if (updating) return;
     updating = true;
-    
+
     try {
-      if (editedField === 'plaintext') {
+      if (editedField === "plaintext") {
         urlEncoded.value = encodeURIComponent(urlPlaintext.value);
       } else {
         try {
           urlPlaintext.value = decodeURIComponent(urlEncoded.value);
         } catch (e) {
-          urlPlaintext.value = 'Error: ' + e.message;
+          urlPlaintext.value = `Error: ${e.message}`;
         }
       }
-    } catch (e) {
+    } catch {
       // Error handling
     }
-    
+
     updating = false;
   }
-  
-  urlPlaintext.addEventListener('input', function() {
-    if (!updating) updateURL('plaintext');
+
+  urlPlaintext.addEventListener("input", () => {
+    if (!updating) updateURL("plaintext");
   });
-  
-  urlEncoded.addEventListener('input', function() {
-    if (!updating) updateURL('encoded');
+
+  urlEncoded.addEventListener("input", () => {
+    if (!updating) updateURL("encoded");
   });
 })();
-
