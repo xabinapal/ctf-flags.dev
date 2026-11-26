@@ -177,7 +177,7 @@ a.external-url {
 
 .results {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.25fr);
   grid-template-areas: "writeups rank points";
   column-gap: 0.75rem;
   inline-size: min(var(--results-width), 100%);

@@ -440,6 +440,10 @@ test("competition results match the archive and detail views", async ({
     .evaluate((value) => {
       value.textContent = "10,000";
     });
+  // Exercise wider glyph metrics than the local system font may use.
+  const wideDigits = await page.addStyleTag({
+    content: ".results dd { font-family: monospace; letter-spacing: 1.3px; }",
+  });
   const wrappedValues = await results(page)
     .locator("dd")
     .evaluateAll((values) =>
@@ -450,6 +454,7 @@ test("competition results match the archive and detail views", async ({
       }),
     );
   expect(wrappedValues).toEqual([]);
+  await wideDigits.evaluate((style) => style.remove());
   for (const metric of ["writeups", "rank", "points"]) {
     const leftEdges = await results(page)
       .locator(`[data-metric="${metric}"] dd`)
