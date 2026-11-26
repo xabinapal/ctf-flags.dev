@@ -2,38 +2,42 @@ export const utilityDetails = {
   number: {
     label: "Number",
     description:
-      "Convert between binary, octal, decimal, hexadecimal, and ASCII.",
+      "A browser-based number converter for CTF challenges. Edit binary, octal, decimal, hexadecimal, or ASCII text to see the corresponding values.",
   },
   base: {
     label: "Base",
     description:
-      "Encode and decode text in Base32, Base45, Base58, Base62, Base64, Base85, and Base92.",
+      "A browser-based toolkit for common CTF encodings. Convert text and bytes between Base32, Base45, Base58, Base62, Base64, ASCII85, and Base92.",
   },
   url: {
     label: "URL",
     description:
-      "Percent-encode text for URLs and decode percent-encoded strings.",
+      "A browser-based URL encoding tool for CTF challenges. Turn text into percent-encoded characters or decode URL escapes back into readable text.",
   },
   rot: {
     label: "ROT",
-    description: "Rotate text with a custom shift, ROT47, or ROT8000.",
+    description:
+      "A browser-based rotation cipher tool for CTF challenges. Try a custom alphabet shift, ROT47 for printable ASCII, or ROT8000 for Unicode text.",
   },
   xor: {
     label: "XOR",
-    description: "XOR UTF-8 text or hexadecimal bytes with a repeating key.",
+    description:
+      "A browser-based XOR calculator for CTF challenges. Apply a repeating key to UTF-8 text or hexadecimal bytes, then read the result as text or hex.",
   },
   morse: {
     label: "Morse",
-    description: "Translate between plaintext and Morse code.",
+    description:
+      "A browser-based Morse code translator for CTF challenges. Convert text to dots and dashes, or decode a string of Morse signals back into letters.",
   },
   timestamp: {
     label: "Timestamp",
     description:
-      "Convert between Unix timestamps, Windows FILETIME, and ISO 8601 dates.",
+      "A browser-based timestamp converter for CTF challenges. Switch between Unix seconds, milliseconds, nanoseconds, Windows FILETIME, and ISO 8601.",
   },
   jwt: {
     label: "JWT",
-    description: "Decode and edit JWT fields.",
+    description:
+      "A browser-based JWT editor for CTF challenges. Read the header and payload as JSON, then edit either field or the signature to rebuild the token.",
   },
 };
 
@@ -48,6 +52,6 @@ export function utilityMetadata(utility?: keyof typeof utilityDetails) {
     : {
         title: "Utilities",
         description:
-          "Work with encodings, numbers, timestamps, and tokens in your browser.",
+          "A browser-based workbench for solving CTF challenges. Make quick conversions and inspect unfamiliar data, with all inputs processed locally.",
       };
 }

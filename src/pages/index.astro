@@ -7,7 +7,7 @@ import Site from "../layouts/Site.astro";
 import { archivePath, loadArchive } from "../lib/archives";
 import { htmlExcerpt } from "../lib/markdown";
 
-const description = "Capture-the-flag competition writeups, results, and references by xabito.";
+const description = "CTF writeups and challenge solutions from a solo enthusiast. Explore practical walkthroughs and tips for tackling cybersecurity challenges.";
 const { competitions, writeupsByCompetition } = await loadArchive();
 const events = competitions.map((entry) => ({
   entry,
