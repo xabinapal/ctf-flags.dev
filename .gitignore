@@ -1,14 +1,5 @@
-# Jekyll build artifacts
-_site/
-.sass-cache/
-.jekyll-cache/
-.bundle/
-vendor/bundle/
+# Generated site and dependencies
+.astro/
+dist/
 node_modules/
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
-
-# Operating system cruft
-.DS_Store
-Thumbs.db
+test-results/

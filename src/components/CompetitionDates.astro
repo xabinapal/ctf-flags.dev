@@ -1,0 +1,11 @@
+---
+import { formatDate } from "../lib/archives";
+
+interface Props {
+  start: string;
+  end: string;
+}
+
+const { start, end } = Astro.props;
+---
+<span>{formatDate(start)} &mdash; {formatDate(end)}</span>

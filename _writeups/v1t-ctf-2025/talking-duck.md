@@ -8,7 +8,7 @@ summary: |-
   Bro this duck is talking to me or something? I'm high or what??
 attachments:
   - title: duck_sound.wav
-    url: /assets/files/v1t_ctf_2025/talking_duck/duck_sound.wav
+    url: /assets/files/v1t-ctf-2025/talking-duck/duck_sound.wav
 ---
 
 ## Recon

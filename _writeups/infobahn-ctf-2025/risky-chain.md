@@ -11,6 +11,7 @@ connections:
 attachments:
   - title: risc-v
     url: /assets/files/infobahn-ctf-2025/risky-chain/risc-v
+image_width: narrow
 ---
 
 ## Recon
@@ -103,5 +104,3 @@ ECALL 1337: Nice! Here's your flag!
 infobahn{Th3_futur3_15_m3t4l1c_4nd_RISC-V}
 [*] Execution finished.
 ```
-
-{% include writeups/img-50.html %}

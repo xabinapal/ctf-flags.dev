@@ -1,112 +1,59 @@
 # ctf-flags.dev
 
-A modern, terminal-inspired GitHub Pages blog for collecting Capture The Flag writeups. The site is powered by
-[Jekyll](https://jekyllrb.com/) and renders Markdown posts with a neon console aesthetic that stays
-readable on large and small screens.
+A static Astro site for browsing Capture The Flag writeups, finding resources, and using browser-based utilities. The site is published at [ctf-flags.dev](https://ctf-flags.dev/).
 
-![Screenshot of the homepage](docs/screenshot-home.png)
+## Develop locally
 
-## Structure
+Install the Node.js and npm versions pinned in `mise.toml`. GitHub Pages uses the same pins.
 
-- `index.md` &mdash; homepage that lists competitions with available writeups.
-- `_competitions/` &mdash; one Markdown file per competition with metadata, schedule, and overview.
-- `_writeups/` &mdash; Markdown writeups following the `YYYY-MM-DD-title.md` naming convention.
-- `_layouts/` &mdash; HTML templates for pages and writeups.
-- `assets/css/style.css` &mdash; custom styling for the modern terminal look.
-- `_config.yml` &mdash; Jekyll configuration and metadata.
-- `.github/workflows/pages.yml` &mdash; GitHub Actions workflow that builds and deploys the site to Pages.
+```sh
+mise install
+mise exec -- npm ci
+mise exec -- npm run dev
+```
 
-## Creating a new writeup
+Open <http://localhost:4321>. To check a production build locally, run the same checks as the Pages workflow and start Astro preview.
 
-1. Add or update the competition entry in `_competitions/`:
+```sh
+mise exec -- npm run lint
+mise exec -- npm run check
+mise exec -- npm run build
+mise exec -- npm test
+mise exec -- npm exec -- playwright install --only-shell chromium
+mise exec -- npm run test:browser
+mise exec -- npm run preview
+```
 
-   ```markdown
-   ---
-   key: signalfest-2024          # short identifier used by writeups
-   name: SignalFest 2024         # human friendly name
-   start_date: 2024-04-26        # ISO date so ordering works
-   end_date: 2024-04-28
-   summary: Optional short blurb that appears on the homepage.
-   ---
+`npm test` validates the existing build in `dist/`. `npm run test:browser` starts Astro preview and checks the built site in Chromium using Playwright Test. Run `npm run format` to format supported application files. Markdown articles and their downloads are excluded from the formatter.
 
-   Longer Markdown description, highlights, or preparation notes.
-   ```
+Astro bundles the CSS from `src/styles/site.css` and serves IBM Plex Mono and Space Grotesk from the site itself. The original stylesheet URL, `/assets/css/style.css`, is also available.
 
-2. Create a Markdown file in `_writeups/` with front matter linking it to the competition via the `competition`
-   key. Add the competition slug to `categories` so the permalink nests under the event URL and set
-   `challenge_type` (or your preferred label) for the discipline badge:
+## Publish a competition or writeup
+
+1. Create `_competitions/<key>.md` with `key`, `title`, `start_date`, and `end_date`. Use ISO calendar dates such as `2026-11-21`. The optional fields are `summary`, `ranking`, `points`, and `ctftime_url`. The Markdown body is optional. The filename determines the competition URL.
+2. Create `_writeups/<key>/<slug>.md`. Keep existing filenames stable because paths below `_writeups/` determine public permalinks. Use the competition's `key` as the `competition` value.
 
    ```markdown
    ---
-   layout: writeup
    title: "Challenge name"
-   summary: Quick one-liner description.
-   competition: signalfest-2024
-   categories:
-     - signalfest-2024
-   challenge_type: Reverse Engineering
+   competition: sample-2026
+   challenge_type: Misc
+   summary: "Short challenge description."
+   writeup_author: "@handle"
    ---
 
-   ## Heading
-   Your writeup here in Markdown.
+   ## Notes
+
+   Write the article in Markdown.
    ```
 
-3. (Optional) Attach challenge files by placing them under `assets/files/<competition>/<slug>/` and listing
-   them in the writeup front matter:
+3. Put attachments and media in `public/assets/files/<key>/<slug>/`. Refer to downloads in the writeup's `attachments` list using fields `title`, `url`, and optionally `description`. Use the root-relative URL `/assets/files/<key>/<slug>/<filename>`.
+4. Preview the page, inspect its attachments, and run the checks above before opening a pull request.
 
-   ```yaml
-   attachments:
-     - title: Challenge artifacts
-       url: /assets/files/signalfest-2024/echo-capture/echo-capture-artifacts.txt
-       description: Packet capture and helper scripts.
-   ```
+The build generates `/competitions/<key>/` and `/competitions/<key>/<slug>/` from the Markdown filenames. Archive cards use `competition` to associate a writeup with its competition. Resource categories are Astro content entries under `src/content/resources/`. Each YAML filename supplies the category key, and its `resources` list contains the entries.
 
-   Each attachment renders as a download card near the end of the writeup. The `url` can point to any static file
-   tracked in the repository or uploaded alongside the writeup.
+## Deployment
 
-4. Commit and push to `main`. GitHub Pages will build the site automatically. The rendered writeup will appear at
-   `https://your-github-username.github.io/ctf-writeups/`.
+Pull requests and manual runs on other refs run the build and checks in their own concurrency groups. A push to `main` or a manual run targeting `main` builds and deploys `dist/` through the GitHub Pages environment. Keep the Pages source set to GitHub Actions and the custom domain set to `ctf-flags.dev`. URLs and assets assume deployment at the domain root. The workflow checks out full Git history for sitemap modification dates. The dates use the last recorded changes to each page’s content sources.
 
-## Local preview
-
-### Using Docker (recommended)
-
-Run the site inside a pre-built Jekyll container that installs the GitHub Pages gem bundle on startup:
-
-```bash
-docker compose up
-```
-
-The first run installs the bundle before launching the server. Once the build is ready, visit
-<http://localhost:4000> for the rendered site and <http://localhost:35729> for live-reload events. Changes to
-Markdown, layouts, or styles automatically trigger a rebuild.
-
-Bundler caches the gems inside the container. It may still create or update a `Gemfile.lock` file in the
-repository; commit it to pin versions or discard it after you finish previewing.
-
-Stop the server with <kbd>Ctrl+C</kbd> and remove the container with `docker compose down` if needed.
-
-### Using a local Ruby toolchain
-
-If you prefer running Jekyll directly on your machine, install Ruby (>= 3.0), Bundler, and the dependencies in
-the `Gemfile`:
-
-```bash
-bundle install
-bundle exec jekyll serve
-```
-
-Then open <http://localhost:4000> in your browser to preview the site.
-
-### Linting
-
-Install the development dependency with `bun install`, then run `bun run lint`.
-Biome checks JavaScript, SCSS, Markdown, YAML, and JSON. Jekyll's Liquid HTML
-templates and its front-matter-bearing SCSS entry point are processed by the
-Jekyll build instead. `bun run format` formats the JavaScript and SCSS sources;
-writeups are excluded so their challenge snippets stay as written.
-
-## Screenshot
-
-To capture the screenshot reference, build the site locally and use your preferred tool or take it directly
-from the GitHub Pages deployment.
+After deployment, check the homepage, a known competition and writeup permalink, an attachment, the resources and utilities, `/sitemap.xml`, and a missing URL. If the cutover needs to be reversed, revert the migration on `main` to trigger the previous build and deploy workflow.

@@ -1,0 +1,54 @@
+---
+import CompetitionDates from "../components/CompetitionDates.astro";
+import CompetitionResults from "../components/CompetitionResults.astro";
+import Site from "../layouts/Site.astro";
+import { archivePath, loadArchive } from "../lib/archives";
+import { plainText, renderSummary, truncateWords } from "../lib/markdown";
+
+const description = "CTF writeups, challenge solutions, and cybersecurity insights from a solo enthusiast. Explore practical walkthroughs and tips for infosec challenges.";
+const { competitions, writeupsByCompetition } = await loadArchive();
+const cards = await Promise.all(competitions.map(async (entry) => ({
+  entry,
+  summary: truncateWords(plainText(await renderSummary(entry.data.summary))),
+  count: writeupsByCompetition.get(entry.data.key)?.length ?? 0,
+})));
+---
+<Site path="/" description={description}>
+  <section class="hero">
+    <h1>flag&#123;w3lc0m3&#125;</h1>
+    <p class="summary">
+      This is one of those strange corners of the Internet where people break things to have fun. A
+      playground full of cursed binaries, glitchy websites, and riddles that make you question your
+      sanity. Here you will find writeups of all this chaos.
+    </p>
+  </section>
+
+  <section>
+    <h2>CTF Competitions</h2>
+    {cards.length > 0 ? (
+      <ul class="list competition-grid">
+        {cards.map(({ entry, summary, count }) => (
+          <li class="list-item">
+            <a href={archivePath(entry)} class="card-link">
+              <div class="card no-padding">
+                <div class="card-content">
+                  <h3 class="card-title">{entry.data.title}</h3>
+                  <div class="meta">
+                    <CompetitionDates start={entry.data.start_date} end={entry.data.end_date} />
+                  </div>
+                  <p class="summary">{summary}</p>
+                  <CompetitionResults ranking={entry.data.ranking} points={entry.data.points} />
+                  <p class="card-count">
+                    {count === 0 ? "No writeups yet" : count === 1 ? "1 writeup" : `${count} writeups`}
+                  </p>
+                </div>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="empty-state">No competitions logged yet. Publish a writeup to get started.</p>
+    )}
+  </section>
+</Site>

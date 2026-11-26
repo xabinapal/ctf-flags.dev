@@ -7,9 +7,10 @@ summary: |-
   Look, read, and most importantly, **WATCH** the duck!
 attachments:
   - title: polyglot.png
-    url: /assets/files/v1t-ctf-2025/modulo-mystery/polyglot.png
+    url: /assets/files/v1t-ctf-2025/polyglot/polyglot.png
     description: |-
       File can only open in Windows
+image_width: narrow
 ---
 
 ## Recon
@@ -154,5 +155,3 @@ wrote extracted data to "flag.txt".
 $ cat flag.txt
 v1t{duck_l0v3_w4tch1ng_p2r3}
 ```
-
-{% include writeups/img-50.html %}

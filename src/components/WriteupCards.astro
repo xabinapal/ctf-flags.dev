@@ -1,0 +1,41 @@
+---
+import { plainText, renderSummary } from "../lib/markdown";
+
+interface Card {
+  title: string;
+  href?: string | null;
+  description?: string;
+}
+
+interface Props {
+  title: string;
+  cards: Card[];
+}
+
+const { title, cards } = Astro.props;
+const entries = await Promise.all(cards.map(async (card) => ({
+  ...card,
+  description: plainText(await renderSummary(card.description)),
+})));
+---
+{entries.length > 0 && (
+  <section class="writeup-card">
+    <h2 class="writeup-card-title">{title}</h2>
+    <ul class="writeup-card-list">
+      {entries.map((entry) => {
+        const Tag = entry.href ? "a" : "span";
+        return (
+          <li class="writeup-card-item">
+            <Tag class="writeup-card-item-link" href={entry.href ?? undefined} download={entry.href ? true : undefined}>
+              <span class="writeup-card-item-icon" aria-hidden="true">&#8681;</span>
+              <span class="writeup-card-item-meta">
+                <span class="writeup-card-item-title">{entry.title}</span>
+                {entry.description && <span class="writeup-card-item-description">{entry.description}</span>}
+              </span>
+            </Tag>
+          </li>
+        );
+      })}
+    </ul>
+  </section>
+)}

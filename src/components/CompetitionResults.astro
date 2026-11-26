@@ -1,0 +1,14 @@
+---
+interface Props {
+  ranking?: string | number;
+  points?: string | number;
+}
+
+const { ranking, points } = Astro.props;
+---
+{(ranking != null || points != null) && (
+  <div class="results">
+    {ranking != null && <span class="chip-squared">🏆 Rank: {ranking}</span>}
+    {points != null && <span class="chip-squared">📊 Points: {points}</span>}
+  </div>
+)}

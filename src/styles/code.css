@@ -1,0 +1,28 @@
+.astro-code {
+  --astro-code-foreground: var(--text-primary);
+  --astro-code-background: var(--code-bg);
+  --astro-code-token-comment: var(--accent-muted);
+  --astro-code-token-constant: #7fffaa;
+  --astro-code-token-function: var(--text-primary);
+  --astro-code-token-keyword: var(--accent);
+  --astro-code-token-link: #56ecff;
+  --astro-code-token-parameter: var(--text-primary);
+  --astro-code-token-punctuation: var(--text-70);
+  --astro-code-token-string: #56d8ff;
+  --astro-code-token-string-expression: #56d8ff;
+  --astro-code-token-inserted: var(--accent);
+  --astro-code-token-deleted: #ff6b9d;
+  --astro-code-token-changed: #56ecff;
+}
+
+:not(pre) > code {
+  padding: 0.1em 0.4em;
+  border: 1px solid rgba(0, 255, 159, 0.18);
+  border-radius: 6px;
+
+  font-size: 0.9em;
+  font-weight: 500;
+  color: var(--accent, #00ff9f);
+
+  background: rgba(0, 255, 159, 0.12);
+}

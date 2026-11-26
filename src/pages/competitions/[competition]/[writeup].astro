@@ -1,0 +1,64 @@
+---
+import { render } from "astro:content";
+import WriteupCards from "../../../components/WriteupCards.astro";
+import Site from "../../../layouts/Site.astro";
+import { type Competition, type Writeup, archivePath, attribution, loadArchive } from "../../../lib/archives";
+import { renderSummary, writeupDescription } from "../../../lib/markdown";
+
+export async function getStaticPaths() {
+  const { competitionsByKey, writeups } = await loadArchive();
+  return writeups.map((entry) => {
+    const [competition, writeup] = entry.id.split("/");
+    return {
+      params: { competition, writeup },
+      props: { entry, parent: competitionsByKey.get(entry.data.competition) },
+    };
+  });
+}
+
+interface Props {
+  entry: Writeup;
+  parent?: Competition;
+}
+
+const { entry, parent } = Astro.props;
+const { data } = entry;
+const { Content } = await render(entry);
+const title = parent ? `${data.title} | ${parent.data.title}` : data.title;
+const summary = await renderSummary(data.summary);
+const description = writeupDescription(entry.rendered?.html ?? "");
+const connections = (data.connections ?? []).map(({ url, description }) => ({ title: url, description }));
+const attachments = (data.attachments ?? []).map(({ url, title, description }) => ({ href: url, title, description }));
+---
+<Site path={archivePath(entry)} title={title} description={description}>
+  <article class:list={["writeup", { "writeup-narrow-images": data.image_width === "narrow" }]}>
+    <header class="hero">
+      <h1>{data.title}</h1>
+      <p class="meta">
+        {parent && <a class="chip-rounded" href={archivePath(parent)}>{parent.data.title}</a>}
+        {[data.challenge_type, ...attribution(data)].map((item) => item?.trim() && <span class="chip-rounded">{item}</span>)}
+      </p>
+      {summary && <div class="summary" set:html={summary} />}
+    </header>
+
+    <WriteupCards title="Connections" cards={connections} />
+    <WriteupCards title="Attachments" cards={attachments} />
+
+    <div class="writeup-content">
+      {entry.body?.trim() ? (
+        <Content />
+      ) : (
+        <>
+          <h2>No writeup yet</h2>
+          <p class="empty-state">We haven't published the writeup for this challenge yet. Check back soon.</p>
+        </>
+      )}
+    </div>
+
+    <div class="back-bar">
+      <a class="back-link" href={parent ? archivePath(parent) : "/"}>
+        &larr; Back to {parent?.data.title ?? "all competitions"}
+      </a>
+    </div>
+  </article>
+</Site>

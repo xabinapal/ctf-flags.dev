@@ -4,13 +4,14 @@
     "ignoreUnknown": true,
     "includes": [
       "**",
-      "!!**/node_modules",
-      "!!**/_site",
-      "!!**/.jekyll-cache",
-      "!!**/.sass-cache",
-      "!!**/vendor",
+      "!!.astro",
+      "!!dist",
+      "!!node_modules",
+      "!!test-results",
+      "!!public/assets",
       "!**/*.html",
-      "!assets/css/style.scss"
+      "!**/*.md",
+      "!**/*.astro"
     ]
   },
   "formatter": {

@@ -7,7 +7,7 @@ summary: |-
   Ts fr lwk pmo gng
 attachments:
   - title: gnp.egami
-    url: /assets/files/v1t_ctf_2025/rotbrain/gnp.egami
+    url: /assets/files/v1t-ctf-2025/rotbrain/gnp.egami
 ---
 
 ## Recon
