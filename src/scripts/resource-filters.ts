@@ -1,3 +1,5 @@
+import { resourcePath } from "../lib/resources";
+
 const controls = document.querySelector<HTMLElement>(
   "[data-resource-controls]",
 );
@@ -16,20 +18,16 @@ const categories = [
 }));
 
 if (controls && search && noResults) {
-  let category = "all";
+  let category = "";
   let editingSearch = false;
 
-  function render(
-    query: string,
-    activeCategory: string,
-    emptyMessage: HTMLElement,
-  ) {
+  function render(query: string, emptyMessage: HTMLElement) {
     const normalizedQuery = query.trim().toLowerCase();
     let hasResults = false;
 
     for (const { element, items } of categories) {
       const matchesCategory =
-        activeCategory === "all" || element.dataset.category === activeCategory;
+        !category || element.dataset.category === category;
       for (const item of items) {
         const matchesQuery =
           (item.dataset.name ?? "").includes(normalizedQuery) ||
@@ -42,63 +40,49 @@ if (controls && search && noResults) {
     emptyMessage.hidden = hasResults;
 
     for (const button of buttons) {
-      const active = button.dataset.category === activeCategory;
+      const active = button.dataset.category === category;
       button.classList.toggle("active", active);
       button.setAttribute("aria-pressed", String(active));
     }
   }
 
-  function updateUrl(
-    query: string,
-    activeCategory: string,
-    action: "pushState" | "replaceState",
-  ) {
-    const url = new URL(location.href);
-    const value = query.trim();
-    if (value) url.searchParams.set("q", value);
-    else url.searchParams.delete("q");
-
-    if (activeCategory !== "all")
-      url.searchParams.set("category", activeCategory);
-    else url.searchParams.delete("category");
-
-    if (url.href === location.href) return false;
-    history[action](history.state, "", url);
-    return true;
-  }
-
   const restore = () => {
-    const { searchParams } = new URL(location.href);
-    const requestedCategory = searchParams.get("category");
-    category = buttons.some(
-      (button) => button.dataset.category === requestedCategory,
-    )
-      ? (requestedCategory ?? "all")
-      : "all";
-    search.value = searchParams.get("q") ?? "";
+    const url = new URL(location.href);
+    const path = url.pathname.endsWith("/") ? url.pathname : `${url.pathname}/`;
+    category =
+      buttons.find((button) => resourcePath(button.dataset.category) === path)
+        ?.dataset.category ?? "";
+    search.value = url.searchParams.get("q") ?? "";
     editingSearch = false;
-    render(search.value, category, noResults);
+    render(search.value, noResults);
   };
 
   search.addEventListener("input", () => {
+    const url = new URL(location.href);
+    const query = search.value.trim();
+    if (query) url.searchParams.set("q", query);
+    else url.searchParams.delete("q");
+
     // Keep one Back step per search edit rather than one per keystroke.
-    const changed = updateUrl(
-      search.value,
-      category,
-      editingSearch ? "replaceState" : "pushState",
-    );
-    editingSearch ||= changed;
-    render(search.value, category, noResults);
+    if (url.href !== location.href) {
+      if (editingSearch) history.replaceState(history.state, "", url);
+      else history.pushState(history.state, "", url);
+      editingSearch = true;
+    }
+    render(search.value, noResults);
   });
   search.addEventListener("blur", () => {
     editingSearch = false;
   });
   for (const button of buttons) {
     button.addEventListener("click", () => {
-      category = button.dataset.category ?? "all";
+      category = button.dataset.category ?? "";
       editingSearch = false;
-      updateUrl(search.value, category, "pushState");
-      render(search.value, category, noResults);
+
+      const url = new URL(location.href);
+      url.pathname = resourcePath(category);
+      if (url.href !== location.href) history.pushState(history.state, "", url);
+      render(search.value, noResults);
     });
   }
   window.addEventListener("popstate", restore);

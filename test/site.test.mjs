@@ -8,6 +8,16 @@ import { parse } from "parse5";
 
 const origin = "https://ctf-flags.dev";
 const dist = resolve("dist");
+const utilities = [
+  "number",
+  "base",
+  "url",
+  "rot",
+  "xor",
+  "morse",
+  "timestamp",
+  "jwt",
+];
 
 async function filesUnder(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -30,6 +40,10 @@ function attr(node, name) {
 
 function relativePath(base, path) {
   return relative(base, path).split(sep).join("/");
+}
+
+function canonicalPath(path) {
+  return path.match(/^\/(resources|utilities)\//)?.[0] ?? path;
 }
 
 const distFiles = filesUnder(dist);
@@ -65,6 +79,13 @@ const publicPages = (async () => {
 
 test("static pages match the archive source paths and use their production canonical URLs", async () => {
   const routes = ["/", "/404.html", "/resources/", "/utilities/"];
+  for (const file of await filesUnder("src/content/resources")) {
+    if (file.endsWith(".yaml"))
+      routes.push(
+        `/resources/${relativePath("src/content/resources", file).slice(0, -5)}/`,
+      );
+  }
+  routes.push(...utilities.map((id) => `/utilities/${id}/`));
   for (const folder of ["_competitions", "_writeups"]) {
     for (const file of await filesUnder(folder)) {
       if (file.endsWith(".md"))
@@ -79,7 +100,11 @@ test("static pages match the archive source paths and use their production canon
     const canonical = nodes.find(
       (node) => node.tagName === "link" && attr(node, "rel") === "canonical",
     );
-    assert.equal(attr(canonical, "href"), new URL(path, origin).href, path);
+    assert.equal(
+      attr(canonical, "href"),
+      new URL(canonicalPath(path), origin).href,
+      path,
+    );
   }
 });
 
@@ -119,8 +144,9 @@ test("sitemap contains every public canonical page except the 404", async () => 
   );
   const canonical = [...(await publicPages).keys()]
     .filter((path) => path !== "/404.html")
-    .map((path) => new URL(path, origin).href);
-  assert.deepEqual(entries.sort(), canonical.sort());
+    .map((path) => new URL(canonicalPath(path), origin).href);
+  const uniqueCanonical = [...new Set(canonical)];
+  assert.deepEqual(entries.sort(), uniqueCanonical.sort());
   const dates = [...xml.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)];
   for (const [, date] of dates) {
     assert.ok(Number.isFinite(Date.parse(date)), date);
@@ -128,31 +154,40 @@ test("sitemap contains every public canonical page except the 404", async () => 
   if (process.env.GITHUB_ACTIONS === "true") {
     assert.equal(
       dates.length,
-      canonical.length,
+      uniqueCanonical.length,
       "The Pages build has full Git history",
     );
   }
 });
 
-test("each utility selector controls a server-rendered panel", async () => {
-  const { nodes } = (await publicPages).get("/utilities/");
-  const buttons = nodes.filter((node) => attr(node, "data-utility"));
-  assert.equal(buttons.length, 8);
-  assert.equal(
-    buttons.filter((button) => attr(button, "aria-pressed") === "true").length,
-    1,
-  );
+test("utility paths render all tabs with the requested tab selected", async () => {
+  const pages = await publicPages;
+  for (const path of [
+    "/utilities/",
+    ...utilities.map((id) => `/utilities/${id}/`),
+  ]) {
+    const { nodes } = pages.get(path);
+    const buttons = nodes.filter((node) => attr(node, "data-utility"));
+    assert.deepEqual(
+      buttons.map((button) => attr(button, "data-utility")),
+      utilities,
+    );
+    const selected = buttons.filter(
+      (button) => attr(button, "aria-pressed") === "true",
+    );
+    assert.deepEqual(
+      selected.map((button) => attr(button, "data-path")),
+      [path === "/utilities/" ? "/utilities/number/" : path],
+    );
 
-  for (const button of buttons) {
-    const panel = nodes.find(
-      (node) => attr(node, "id") === attr(button, "aria-controls"),
-    );
-    assert.ok(panel, attr(button, "data-utility"));
-    assert.equal(attr(panel, "aria-labelledby"), attr(button, "id"));
-    assert.equal(
-      attr(panel, "hidden") === undefined,
-      attr(button, "aria-pressed") === "true",
-    );
+    for (const button of buttons) {
+      const panel = nodes.find(
+        (node) => attr(node, "id") === attr(button, "aria-controls"),
+      );
+      assert.ok(panel, attr(button, "data-utility"));
+      assert.equal(attr(panel, "aria-labelledby"), attr(button, "id"));
+      assert.equal(attr(panel, "hidden") === undefined, button === selected[0]);
+    }
   }
 });
 

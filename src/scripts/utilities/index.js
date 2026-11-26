@@ -18,22 +18,38 @@ const mount = {
   xor: mountXor,
 };
 const utilities = document.querySelector("[data-utilities]");
-const buttons = utilities.querySelectorAll("button[data-utility]");
-const panels = utilities.querySelectorAll("[data-utility-panel]");
+if (utilities) {
+  const buttons = [...utilities.querySelectorAll("button[data-utility]")];
+  const panels = utilities.querySelectorAll("[data-utility-panel]");
 
-for (const panel of panels) mount[panel.dataset.utilityPanel](panel);
+  for (const panel of panels) mount[panel.dataset.utilityPanel](panel);
 
-for (const button of buttons) {
-  button.addEventListener("click", () => {
-    for (const option of buttons) {
-      const selected = option === button;
-      option.classList.toggle("active", selected);
-      option.setAttribute("aria-pressed", String(selected));
+  function restore() {
+    const path = location.pathname.endsWith("/")
+      ? location.pathname
+      : `${location.pathname}/`;
+    const selected =
+      buttons.find((button) => button.dataset.path === path) ?? buttons[0];
+
+    for (const button of buttons) {
+      const active = button === selected;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-pressed", String(active));
     }
     for (const panel of panels) {
-      panel.hidden = panel.id !== button.getAttribute("aria-controls");
+      panel.hidden = panel.id !== selected.getAttribute("aria-controls");
     }
-  });
-}
+  }
 
-utilities.inert = false;
+  for (const button of buttons) {
+    button.addEventListener("click", () => {
+      const url = new URL(location.href);
+      url.pathname = button.dataset.path;
+      if (url.href !== location.href) history.pushState(history.state, "", url);
+      restore();
+    });
+  }
+  window.addEventListener("popstate", restore);
+  restore();
+  utilities.inert = false;
+}

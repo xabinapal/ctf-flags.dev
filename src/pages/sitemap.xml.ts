@@ -26,7 +26,9 @@ export const GET: APIRoute = async ({ site }) => {
     {
       path: "/resources/",
       sources: [
+        "src/pages/resources/[...category].astro",
         "src/pages/resources.astro",
+        "src/lib/resources.ts",
         "src/scripts/resource-filters.ts",
         "resources.md",
         "_resources/",
@@ -37,6 +39,7 @@ export const GET: APIRoute = async ({ site }) => {
     {
       path: "/utilities/",
       sources: [
+        "src/pages/utilities/[...utility].astro",
         "src/pages/utilities.astro",
         "src/components/utilities/",
         "src/scripts/utilities/",

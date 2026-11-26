@@ -27,6 +27,7 @@ test("utilities are usable even when legacy fragment requests are unavailable", 
 
   async function select(name) {
     await page.getByRole("button", { name, exact: true }).click();
+    await expect(page).toHaveURL(`/utilities/${name.toLowerCase()}/`);
     return page.getByRole("region", { name, exact: true });
   }
 
@@ -71,6 +72,17 @@ test("utilities are usable even when legacy fragment requests are unavailable", 
 
   const number = await select("Number");
   await expect(number.getByLabel("Base 10 (Decimal)")).toHaveValue("65");
+  await page.goBack();
+  await expect(page).toHaveURL("/utilities/jwt/");
+  await expect(jwt.locator("#jwt-payload")).toContainText("fixture");
+  await page.goForward();
+  await expect(page).toHaveURL("/utilities/number/");
+  await expect(number.getByLabel("Base 10 (Decimal)")).toHaveValue("65");
+
+  await page.getByRole("button", { name: "JWT", exact: true }).click();
+  await page.reload();
+  await expect(jwt).toBeVisible();
+  await expect(page).toHaveTitle("Utilities | ctf-flags.dev");
 });
 
 test("resource search and category are restored from links and browser history", async ({
@@ -78,7 +90,7 @@ test("resource search and category are restored from links and browser history",
 }) => {
   const resource = page.getByRole("heading", { name: "Audacity", exact: true });
   const search = page.getByRole("textbox", { name: "Search resources" });
-  const shared = "/resources/?q=audacity&category=stego&source=share";
+  const shared = "/resources/stego/?q=audacity";
   await page.goto(shared);
   await expect(search).toHaveValue("audacity");
   await expect(resource).toBeVisible();
@@ -86,8 +98,13 @@ test("resource search and category are restored from links and browser history",
     page.getByRole("button", { name: "stego", exact: true }),
   ).toHaveAttribute("aria-pressed", "true");
 
+  await search.evaluate((element) => {
+    element.dataset.beforeTabSwitch = "true";
+  });
   await page.getByRole("button", { name: "crypto", exact: true }).click();
-  await expect(page).toHaveURL(/category=crypto/);
+  await expect(page).toHaveURL("/resources/crypto/?q=audacity");
+  await expect(search).toHaveAttribute("data-before-tab-switch", "true");
+  await expect(page).toHaveTitle("Resources | ctf-flags.dev");
   await expect(page.getByText("No resources found")).toBeVisible();
 
   await page.goBack();
@@ -95,20 +112,30 @@ test("resource search and category are restored from links and browser history",
   await expect(resource).toBeVisible();
 
   await search.fill("unmatched term");
-  await expect(page).toHaveURL(
-    "/resources/?q=unmatched+term&category=stego&source=share",
-  );
+  await expect(page).toHaveURL("/resources/stego/?q=unmatched+term");
   await page.goBack();
   await expect(search).toHaveValue("audacity");
   await expect(resource).toBeVisible();
   await page.goForward();
   await expect(search).toHaveValue("unmatched term");
 
-  await page.goto("/resources/?q=%20AUDACITY%20&category=unknown");
+  await page.goto("/resources/?q=%20AUDACITY%20");
   await expect(
     page.getByRole("button", { name: "All", exact: true }),
   ).toHaveAttribute("aria-pressed", "true");
   await expect(resource).toBeVisible();
+});
+
+test.describe("resource deep links without JavaScript", () => {
+  test.use({ javaScriptEnabled: false });
+
+  test("a direct category path shows the selected tab", async ({ page }) => {
+    await page.goto("/resources/osint");
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+      "flag{r3s0urc3s}",
+    );
+    await expect(page.getByRole("heading", { level: 2 })).toHaveText(["osint"]);
+  });
 });
 
 test.describe("mobile writeups", () => {

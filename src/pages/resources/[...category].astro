@@ -1,18 +1,30 @@
 ---
-import { getCollection } from "astro:content";
-import Site from "../layouts/Site.astro";
+import { type CollectionEntry, getCollection } from "astro:content";
+import Site from "../../layouts/Site.astro";
+import { resourcePath } from "../../lib/resources";
 
+export async function getStaticPaths() {
+  const groups = (await getCollection("resources"))
+    .sort((left, right) => left.id.localeCompare(right.id));
+  return [
+    { params: { category: undefined }, props: { groups } },
+    ...groups.map(({ id }) => ({ params: { category: id }, props: { groups } })),
+  ];
+}
+
+interface Props {
+  groups: CollectionEntry<"resources">[];
+}
+
+const { groups } = Astro.props;
+const { category } = Astro.params;
 const description = "A curated collection of essential resources for CTF competitions, covering a range of categories such as cryptography, forensics, exploitation, and more.";
-const groups = (await getCollection("resources"))
-  .sort((left, right) => left.id.localeCompare(right.id))
-  .map(({ id, data }) => ({
-    category: id,
-    resources: data.resources.sort((left, right) =>
-      left.name.localeCompare(right.name, "en", { sensitivity: "base" }),
-    ),
-  }));
+const options = [
+  { id: "", label: "All" },
+  ...groups.map(({ id }) => ({ id, label: id })),
+];
 ---
-<Site path="/resources/" title="Resources" description={description}>
+<Site path={resourcePath()} title="Resources" description={description}>
   <section class="hero">
     <h1>flag&#123;r3s0urc3s&#125;</h1>
     <p class="summary">{description}</p>
@@ -30,18 +42,26 @@ const groups = (await getCollection("resources"))
           autocomplete="off"
         />
       </div>
-      <div class="filters">
-        <button type="button" class="chip-rounded active" data-category="all" aria-pressed="true">All</button>
-        {groups.map(({ category }) => <button type="button" class="chip-rounded" data-category={category} aria-pressed="false">{category}</button>)}
+      <div class="filters" role="group" aria-label="Resource categories">
+        {options.map((option) => (
+          <button
+            type="button"
+            class:list={["chip-rounded", { active: option.id === (category ?? "") }]}
+            data-category={option.id}
+            aria-pressed={option.id === (category ?? "") ? "true" : "false"}
+          >{option.label}</button>
+        ))}
       </div>
     </div>
 
     <div id="resources-container">
-      {groups.map(({ category, resources }) => resources.length > 0 && (
-        <div class="category" data-category={category}>
-          <h2 class="category-title">{category}</h2>
+      {groups.map(({ id, data: { resources } }) => (
+        <div class="category" data-category={id} hidden={Boolean(category && id !== category)}>
+          <h2 class="category-title">{id}</h2>
           <ul class="list resource-list">
-            {resources.map((resource) => (
+            {resources.toSorted((left, right) =>
+              left.name.localeCompare(right.name, "en", { sensitivity: "base" }),
+            ).map((resource) => (
               <li class="list-item" data-name={resource.name.toLowerCase()} data-description={resource.description.toLowerCase()}>
                 <a href={resource.url} target="_blank" rel="noopener noreferrer" class="card-link">
                   <div class="card">
@@ -74,5 +94,5 @@ const groups = (await getCollection("resources"))
 </Site>
 
 <script>
-  import "../scripts/resource-filters";
+  import "../../scripts/resource-filters";
 </script>

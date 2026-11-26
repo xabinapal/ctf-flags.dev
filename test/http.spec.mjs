@@ -4,13 +4,22 @@ test("Astro preview serves both permalink forms and the custom 404", async ({
   request,
   page,
 }) => {
-  const permalink = "/competitions/wolvctf-2026/this-is-wolv-01";
-  for (const path of [permalink, `${permalink}/`]) {
-    const response = await request.get(path);
-    expect(response.status()).toBe(200);
-    expect(await response.text()).toContain(
-      `<link rel="canonical" href="https://ctf-flags.dev${permalink}/"`,
-    );
+  const permalinks = [
+    [
+      "/competitions/wolvctf-2026/this-is-wolv-01",
+      "/competitions/wolvctf-2026/this-is-wolv-01/",
+    ],
+    ["/resources/osint", "/resources/"],
+    ["/utilities/jwt", "/utilities/"],
+  ];
+  for (const [permalink, canonical] of permalinks) {
+    for (const path of [permalink, `${permalink}/`]) {
+      const response = await request.get(path);
+      expect(response.status()).toBe(200);
+      expect(await response.text()).toContain(
+        `<link rel="canonical" href="https://ctf-flags.dev${canonical}"`,
+      );
+    }
   }
 
   await page.route(/^https:\/\//, (route) => route.abort());

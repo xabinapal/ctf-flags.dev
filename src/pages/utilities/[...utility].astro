@@ -1,0 +1,77 @@
+---
+import type { InferGetStaticPropsType } from "astro";
+import Base from "../../components/utilities/Base.astro";
+import Jwt from "../../components/utilities/Jwt.astro";
+import Morse from "../../components/utilities/Morse.astro";
+import NumberUtility from "../../components/utilities/Number.astro";
+import Rot from "../../components/utilities/Rot.astro";
+import Timestamp from "../../components/utilities/Timestamp.astro";
+import Url from "../../components/utilities/Url.astro";
+import Xor from "../../components/utilities/Xor.astro";
+import Site from "../../layouts/Site.astro";
+
+export function getStaticPaths() {
+  const utilities = [
+    { id: "number", label: "Number", component: NumberUtility },
+    { id: "base", label: "Base", component: Base },
+    { id: "url", label: "URL", component: Url },
+    { id: "rot", label: "ROT", component: Rot },
+    { id: "xor", label: "XOR", component: Xor },
+    { id: "morse", label: "Morse", component: Morse },
+    { id: "timestamp", label: "Timestamp", component: Timestamp },
+    { id: "jwt", label: "JWT", component: Jwt },
+  ];
+  return [
+    { params: { utility: undefined }, props: { utilities } },
+    ...utilities.map(({ id }) => ({
+      params: { utility: id },
+      props: { utilities },
+    })),
+  ];
+}
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { utilities } = Astro.props;
+const { utility } = Astro.params;
+const selected = utility ?? utilities[0].id;
+const description = "Interactive utilities and helpers for CTF players. Access quick tools and essential helpers for puzzles and challenges, cybersecurity competitions, and infosec problem-solving.";
+---
+<Site path="/utilities/" title="Utilities" description={description}>
+  <section class="hero">
+    <h1>flag&#123;ut1l1t13s&#125;</h1>
+    <p class="summary">{description}</p>
+  </section>
+
+  <noscript><p>Enable JavaScript to use the utilities.</p></noscript>
+  <section class="section" data-utilities inert>
+    <div class="selector" role="group" aria-label="Utility">
+      {utilities.map(({ id, label }) => (
+        <button
+          type="button"
+          id={`utility-button-${id}`}
+          class:list={["chip-rounded", { active: id === selected }]}
+          data-utility={id}
+          data-path={`/utilities/${id}/`}
+          aria-controls={`utility-${id}`}
+          aria-pressed={id === selected ? "true" : "false"}
+        >{label}</button>
+      ))}
+    </div>
+    <div id="utility-container">
+      {utilities.map(({ id, component: Panel }) => (
+        <div
+          id={`utility-${id}`}
+          role="region"
+          data-utility-panel={id}
+          aria-labelledby={`utility-button-${id}`}
+          hidden={id !== selected}
+        ><Panel /></div>
+      ))}
+    </div>
+  </section>
+</Site>
+
+<script>
+  import "../../scripts/utilities/index.js";
+</script>
