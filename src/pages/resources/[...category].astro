@@ -36,9 +36,10 @@ const options = [
       <SectionTabs label="Resource categories">
         {options.map((option) => (
           <SectionTab
+            label={option.label}
             data-category={option.id}
             selected={option.id === (category ?? "")}
-          >{option.label}</SectionTab>
+          />
         ))}
       </SectionTabs>
       <div class="resource-search">

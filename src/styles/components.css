@@ -142,15 +142,31 @@ a.external-url {
 
 .section-tab {
   --tab-indicator: transparent;
+  --tab-selected-weight: 600;
+  display: inline-grid;
+  align-items: center;
   min-block-size: 2.75rem;
   margin-block-end: 0.55rem;
   padding: 0.35rem 0.55rem;
   border: 0;
   border-block-end: 2px solid var(--tab-indicator);
   background: transparent;
+  font-weight: var(--tab-selected-weight);
   text-align: start;
   text-transform: lowercase;
   cursor: pointer;
+}
+
+.section-tab > span,
+.section-tab::after {
+  grid-area: 1 / 1;
+}
+
+/* Let the bold label size the tab in either selection state. */
+.section-tab::after {
+  content: attr(data-label);
+  visibility: hidden;
+  font-weight: var(--tab-selected-weight);
 }
 
 .section-tab[aria-pressed="true"] {

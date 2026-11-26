@@ -46,12 +46,13 @@ const { title, description } = utilityMetadata(activeUtility?.id);
     <SectionTabs label="Utility">
       {utilities.map(({ id, label }) => (
         <SectionTab
+          label={label}
           id={`utility-button-${id}`}
           data-utility={id}
           data-path={utilityPath(id)}
           aria-controls={`utility-${id}`}
           selected={id === selected}
-        >{label}</SectionTab>
+        />
       ))}
     </SectionTabs>
     {utilities.map(({ id, label, component: Panel }) => (

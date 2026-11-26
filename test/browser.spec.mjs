@@ -336,6 +336,33 @@ test("resources and utilities share horizontal tab styles", async ({
   expect(await tabGap(resourceTabs, resourceSearch)).toBeCloseTo(mobileGap);
 });
 
+test("changing the active tab keeps tab positions stable", async ({ page }) => {
+  for (const width of [390, 1440]) {
+    await page.setViewportSize({ width, height: 844 });
+    for (const [path, group, name] of [
+      ["/resources/", "Resource categories", "forensics"],
+      ["/utilities/", "Utility", "Timestamp"],
+    ]) {
+      await page.goto(path);
+      const tabs = page.getByRole("group", { name: group, exact: true });
+      const button = tabs.getByRole("button", { name, exact: true });
+      await expect(button).toHaveAttribute("aria-pressed", "false");
+      await page.evaluate(() => document.fonts.ready);
+      const geometry = () =>
+        tabs.getByRole("button").evaluateAll((buttons) =>
+          buttons.map((item) => {
+            const { x, y, width, height } = item.getBoundingClientRect();
+            return [x, y + window.scrollY, width, height];
+          }),
+        );
+      const before = await geometry();
+      await button.click();
+      await expect(button).toHaveAttribute("aria-pressed", "true");
+      expect(await geometry()).toEqual(before);
+    }
+  }
+});
+
 test("archive, writeup, and resource metadata use consistent styles", async ({
   page,
 }) => {
