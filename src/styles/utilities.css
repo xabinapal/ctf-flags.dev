@@ -1,104 +1,143 @@
-.utility-workbench {
-  display: grid;
-  grid-template-columns: clamp(8rem, 16vw, 12rem) minmax(0, 1fr);
-  gap: clamp(1.25rem, 3.5vw, 3rem);
+.utility-panel {
+  padding: clamp(1rem, 3vw, 2rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--code-bg);
 }
 
-.utility-rail {
-  display: grid;
-  align-content: start;
-  gap: 0.15rem;
-  min-inline-size: 0;
-}
-
-.utility-tab {
-  min-inline-size: 0;
-  padding-inline: 0.65rem;
-}
-
-@media (width > 41rem) {
-  .utility-tab {
-    border-block-end: 0;
-    border-inline-start: 2px solid var(--tab-indicator);
-  }
-}
-
-.utility-canvas {
-  min-inline-size: 0;
-  padding-inline-start: clamp(1.25rem, 3vw, 2.25rem);
-  border-inline-start: 1px solid var(--line);
-}
-
-.utility-workbench .utility-panel:not([hidden]) {
-  display: grid;
-  gap: clamp(1rem, 2vw, 1.5rem);
-}
-
-.utility-workbench :is(.input-group, .output-group) {
+.utility-tool-heading {
   display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block-end: 1.15rem;
+  border-block-end: 1px solid var(--line);
+}
+
+.utility-tool-heading h2 {
+  font-size: clamp(1.65rem, 3vw, 2.4rem);
+}
+
+.utility-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.utility-action {
+  min-block-size: 2.375rem;
+  padding-inline: 0.65rem;
+  border: 1px solid var(--control-border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-secondary);
+  font: 600 0.82rem / 1.2 var(--font-body);
+  cursor: pointer;
+}
+
+.utility-action:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.utility-action:not(:disabled):is(:hover, :focus-visible),
+.utility-example {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.utility-fields {
+  display: grid;
+  gap: 0.3rem clamp(0.9rem, 2vw, 1.3rem);
+  margin-block-start: 1rem;
+}
+
+.utility-fields > * {
   min-inline-size: 0;
 }
 
-.utility-workbench :is(.input, .textarea, .code) {
+.utility-field-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-block-end: 0.35rem;
+}
+
+.utility-copy {
+  min-block-size: 1.65rem;
+  padding-inline: 0.37rem;
+  border-color: transparent;
+  font-size: 0.75rem;
+}
+
+.utility-fields .form-control {
+  display: block;
   min-inline-size: 0;
   margin: 0;
   padding: 0.65rem 0.8rem;
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  line-height: 1.5;
+  font: 1rem / 1.5 var(--font-mono);
 }
 
-.utility-workbench .textarea {
+.utility-fields textarea {
   resize: vertical;
 }
 
-.utility-workbench :is(.textarea[readonly], .code) {
+.utility-fields [readonly] {
   border-color: var(--line);
   background: var(--bg-color);
 }
 
-.utility-workbench .code {
+.utility-fields [aria-invalid="true"] {
+  border-color: var(--error);
+}
+
+.utility-field-message {
+  block-size: 2lh;
+  margin: 0.2rem 0 0;
   overflow: auto;
-  font-size: 0.9rem;
   overflow-wrap: anywhere;
-  white-space: pre-wrap;
+  font-size: 0.85rem;
+  line-height: 1.25;
 }
 
-.utility-workbench #rot-n {
-  min-block-size: 2rem;
-  padding-block: 0.2rem;
-}
-
-.utility-workbench .error {
+[aria-invalid="true"] + .utility-field-message {
   color: var(--error);
 }
 
+.utility-copy-status {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.utility-setting {
+  display: grid;
+  grid-template-columns: auto 5rem;
+  justify-content: start;
+  align-items: center;
+  gap: 0 0.75rem;
+}
+
+.utility-setting .utility-field-message {
+  grid-column: 1 / -1;
+}
+
 @media (min-width: 56rem) {
-  .utility-workbench .utility-panel:not([hidden], #utility-jwt, #utility-rot) {
+  .utility-fields {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  #utility-base > :first-child,
-  #utility-number > :last-child,
-  #utility-timestamp > :last-child {
+  :is(#utility-base, #utility-jwt) .utility-fields > :first-child,
+  :is(#utility-number, #utility-timestamp, #utility-jwt)
+    .utility-fields
+    > :last-child,
+  .utility-setting {
     grid-column: 1 / -1;
-  }
-}
-
-@media (max-width: 41rem) {
-  .utility-workbench {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .utility-rail {
-    grid-template-columns: repeat(auto-fit, minmax(min(6.25rem, 100%), 1fr));
-    gap: 0.2rem;
-  }
-
-  .utility-canvas {
-    padding-inline-start: 0;
-    border-inline-start: 0;
   }
 }

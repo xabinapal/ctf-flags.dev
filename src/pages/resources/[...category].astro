@@ -3,6 +3,7 @@ import ExternalUrl from "../../components/ExternalUrl.astro";
 import { type CollectionEntry, getCollection } from "astro:content";
 import SectionMasthead from "../../components/SectionMasthead.astro";
 import SectionTab from "../../components/SectionTab.astro";
+import SectionTabs from "../../components/SectionTabs.astro";
 import Site from "../../layouts/Site.astro";
 import { resourceMetadata, resourcePath } from "../../lib/resources";
 
@@ -31,7 +32,15 @@ const options = [
   <SectionMasthead flag="r3s0urc3s" subject="toolkit" />
 
   <section class="feature-section resource-catalog" aria-label="Resource directory">
-    <div class="resource-controls" data-resource-controls inert>
+    <div class="section-controls" data-resource-controls inert>
+      <SectionTabs label="Resource categories">
+        {options.map((option) => (
+          <SectionTab
+            data-category={option.id}
+            selected={option.id === (category ?? "")}
+          >{option.label}</SectionTab>
+        ))}
+      </SectionTabs>
       <div class="resource-search">
         <label for="resource-search" class="field-label">Search resources</label>
         <input
@@ -41,15 +50,6 @@ const options = [
           placeholder="By name or description"
           autocomplete="off"
         />
-      </div>
-      <div class="resource-tabs" role="group" aria-label="Resource categories">
-        {options.map((option) => (
-          <SectionTab
-            class="resource-tab"
-            data-category={option.id}
-            selected={option.id === (category ?? "")}
-          >{option.label}</SectionTab>
-        ))}
       </div>
     </div>
 

@@ -1,9 +1,12 @@
 ---
 import UtilityField from "./UtilityField.astro";
 ---
+<div class="utility-setting">
+  <label for="rot-n" class="field-label">Rotation shift</label>
+  <input type="number" id="rot-n" class="input form-control" value="13" min="0" max="26" step="1" aria-describedby="rot-n-message">
+  <p id="rot-n-message" class="utility-field-message" aria-live="polite"></p>
+</div>
 <UtilityField id="rot-plaintext" label="Plaintext" placeholder="Type plaintext here..." rows={3} />
-<UtilityField id="rot-rotn" label="ROTN " placeholder="Type ROTN here..." rows={3}>
-  <input slot="label-end" type="number" id="rot-n" class="input form-control" value="13" min="0" max="26" style="width: 5rem; margin-left: 0.5rem;">
-</UtilityField>
+<UtilityField id="rot-rotn" label="ROTN" placeholder="Type ROTN here..." rows={3} />
 <UtilityField id="rot-rot47" label="ROT47" placeholder="Type ROT47 here..." rows={3} />
 <UtilityField id="rot-rot8000" label="ROT8000" placeholder="Type ROT8000 here..." rows={3} />

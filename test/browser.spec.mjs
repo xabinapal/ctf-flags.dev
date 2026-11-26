@@ -18,7 +18,7 @@ test("utilities are usable even when legacy fragment requests are unavailable", 
   });
   try {
     await page.goto("/utilities/", { waitUntil: "commit" });
-    const initialField = page.getByLabel("Base 10 (Decimal)");
+    const initialField = page.getByLabel("Base 10 (Decimal)", { exact: true });
     await initialField.waitFor();
     await expect(page.locator("[data-utilities]")).toHaveAttribute("inert", "");
   } finally {
@@ -47,15 +47,15 @@ test("utilities are usable even when legacy fragment requests are unavailable", 
   ];
   for (const [name, inputLabel, input, outputLabel, output] of samples) {
     const panel = await select(name);
-    await panel.getByLabel(inputLabel, { exact: name !== "ROT" }).fill(input);
-    await expect(
-      panel.getByLabel(outputLabel, { exact: name !== "ROT" }),
-    ).toHaveValue(output);
+    await panel.getByLabel(inputLabel, { exact: true }).fill(input);
+    await expect(panel.getByLabel(outputLabel, { exact: true })).toHaveValue(
+      output,
+    );
   }
 
   const xor = await select("XOR");
-  await xor.getByLabel("Key (ASCII)", { exact: true }).fill("B");
-  await xor.getByLabel("Input (ASCII)", { exact: true }).fill("A");
+  await xor.getByLabel("Key (UTF-8 text)", { exact: true }).fill("B");
+  await xor.getByLabel("Input (UTF-8 text)", { exact: true }).fill("A");
   await expect(xor.getByLabel("Output (HEX)", { exact: true })).toHaveValue(
     "03",
   );
@@ -67,17 +67,23 @@ test("utilities are usable even when legacy fragment requests are unavailable", 
   const payload = Buffer.from(JSON.stringify({ message: "fixture" })).toString(
     "base64url",
   );
-  await jwt.getByLabel("JWT Token").fill(`${header}.${payload}.fixture`);
-  await expect(jwt.locator("#jwt-payload")).toContainText("fixture");
+  await jwt
+    .getByLabel("JWT Token", { exact: true })
+    .fill(`${header}.${payload}.fixture`);
+  await expect(jwt.locator("#jwt-payload")).toHaveValue(/fixture/);
 
   const number = await select("Number");
-  await expect(number.getByLabel("Base 10 (Decimal)")).toHaveValue("65");
+  await expect(
+    number.getByLabel("Base 10 (Decimal)", { exact: true }),
+  ).toHaveValue("65");
   await page.goBack();
   await expect(page).toHaveURL("/utilities/jwt/");
-  await expect(jwt.locator("#jwt-payload")).toContainText("fixture");
+  await expect(jwt.locator("#jwt-payload")).toHaveValue(/fixture/);
   await page.goForward();
   await expect(page).toHaveURL("/utilities/number/");
-  await expect(number.getByLabel("Base 10 (Decimal)")).toHaveValue("65");
+  await expect(
+    number.getByLabel("Base 10 (Decimal)", { exact: true }),
+  ).toHaveValue("65");
 
   await page.getByRole("button", { name: "JWT", exact: true }).click();
   await page.reload();
@@ -94,6 +100,11 @@ test("resource search and category are restored from links and browser history",
   const search = page.getByRole("textbox", { name: "Search resources" });
   const shared = "/resources/stego/?q=audacity";
   await page.goto(shared);
+  const tabs = page.getByRole("group", { name: "Resource categories" });
+  const tabBounds = await tabs.boundingBox();
+  expect((await search.boundingBox()).y).toBeGreaterThan(
+    tabBounds.y + tabBounds.height,
+  );
   await expect(search).toHaveValue("audacity");
   await expect(resource).toBeVisible();
   const audacity = page.getByRole("link", { name: "Audacity", exact: true });
@@ -250,19 +261,46 @@ test("404 and archive back links have the same spacing", async ({ page }) => {
   expect(spacing[2]).toBeCloseTo(spacing[0], 0);
 });
 
-test("resources and utilities use the same tab styles", async ({ page }) => {
+test("resources and utilities share horizontal tab styles", async ({
+  page,
+}) => {
   const tabStyles = async (selector) =>
     page
       .locator(selector)
       .first()
       .evaluate((tab) => {
-        const { backgroundColor, color, fontFamily, fontSize, fontWeight } =
-          getComputedStyle(tab);
-        return { backgroundColor, color, fontFamily, fontSize, fontWeight };
+        const {
+          backgroundColor,
+          borderBlockEndColor,
+          borderBlockEndWidth,
+          color,
+          fontFamily,
+          fontSize,
+          fontWeight,
+        } = getComputedStyle(tab);
+        return {
+          backgroundColor,
+          borderBlockEndColor,
+          borderBlockEndWidth,
+          color,
+          fontFamily,
+          fontSize,
+          fontWeight,
+        };
       });
+  const tabGap = async (tabs, content) => {
+    const [tabsBounds, contentBounds] = await Promise.all([
+      tabs.boundingBox(),
+      content.boundingBox(),
+    ]);
+    return contentBounds.y - tabsBounds.y - tabsBounds.height;
+  };
+  const resourceTabs = page.getByRole("group", { name: "Resource categories" });
+  const resourceSearch = page.locator(".resource-search");
+
   await page.goto("/resources/");
-  const selected = await tabStyles('.resource-tab[aria-pressed="true"]');
-  const idle = await tabStyles('.resource-tab[aria-pressed="false"]');
+  const selected = await tabStyles('.section-tab[aria-pressed="true"]');
+  const idle = await tabStyles('.section-tab[aria-pressed="false"]');
   expect(selected).toMatchObject({
     fontWeight: "600",
     backgroundColor: "rgba(0, 0, 0, 0)",
@@ -271,11 +309,31 @@ test("resources and utilities use the same tab styles", async ({ page }) => {
     fontWeight: "400",
     backgroundColor: "rgba(0, 0, 0, 0)",
   });
+  const desktopGap = await tabGap(resourceTabs, resourceSearch);
   await page.goto("/utilities/");
-  expect(await tabStyles('.utility-tab[aria-pressed="true"]')).toEqual(
+  expect(await tabStyles('.section-tab[aria-pressed="true"]')).toEqual(
     selected,
   );
-  expect(await tabStyles('.utility-tab[aria-pressed="false"]')).toEqual(idle);
+  expect(await tabStyles('.section-tab[aria-pressed="false"]')).toEqual(idle);
+
+  const tabs = page.getByRole("group", { name: "Utility", exact: true });
+  const panel = page.getByRole("region", { name: "Number", exact: true });
+  await expect(tabs).toHaveCSS("flex-wrap", "wrap");
+  await expect(tabs.getByRole("button").first()).toHaveCSS(
+    "text-transform",
+    "lowercase",
+  );
+  const desktopTabs = await tabs.boundingBox();
+  const desktopPanel = await panel.boundingBox();
+  expect(desktopTabs.x).toBe(desktopPanel.x);
+  expect(await tabGap(tabs, panel)).toBeCloseTo(desktopGap);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  const mobileTabs = await tabs.boundingBox();
+  expect(mobileTabs.height).toBeGreaterThan(desktopTabs.height);
+  const mobileGap = await tabGap(tabs, panel);
+  await page.goto("/resources/");
+  expect(await tabGap(resourceTabs, resourceSearch)).toBeCloseTo(mobileGap);
 });
 
 test("archive, writeup, and resource metadata use consistent styles", async ({

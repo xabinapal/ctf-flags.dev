@@ -20,7 +20,7 @@ export const utilityDetails = {
   },
   xor: {
     label: "XOR",
-    description: "XOR text or hexadecimal bytes with a repeating key.",
+    description: "XOR UTF-8 text or hexadecimal bytes with a repeating key.",
   },
   morse: {
     label: "Morse",
@@ -33,8 +33,7 @@ export const utilityDetails = {
   },
   jwt: {
     label: "JWT",
-    description:
-      "Read the header, payload, and signature of a JSON Web Token in your browser.",
+    description: "Decode and edit JWT fields.",
   },
 };
 

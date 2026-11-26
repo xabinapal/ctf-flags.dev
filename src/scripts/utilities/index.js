@@ -4,6 +4,7 @@ import {
   sectionPathname,
   updateSectionMetadata,
 } from "../section-navigation.js";
+import { mountActions } from "./actions.js";
 import { mountBase } from "./base.js";
 import { mountJwt } from "./jwt.js";
 import { mountMorse } from "./morse.js";
@@ -28,7 +29,10 @@ if (utilities) {
   const buttons = [...utilities.querySelectorAll("button[data-utility]")];
   const panels = utilities.querySelectorAll("[data-utility-panel]");
 
-  for (const panel of panels) mount[panel.dataset.utilityPanel](panel);
+  for (const panel of panels) {
+    mount[panel.dataset.utilityPanel](panel);
+    mountActions(panel);
+  }
 
   function restore() {
     const path = sectionPathname();

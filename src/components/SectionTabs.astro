@@ -1,0 +1,8 @@
+---
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+<div class="section-tabs" role="group" aria-label={label}><slot /></div>

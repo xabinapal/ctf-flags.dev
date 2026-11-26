@@ -1,117 +1,98 @@
+import { mountConversions } from "./fields.js";
+
+const morseCode = {
+  A: ".-",
+  B: "-...",
+  C: "-.-.",
+  D: "-..",
+  E: ".",
+  F: "..-.",
+  G: "--.",
+  H: "....",
+  I: "..",
+  J: ".---",
+  K: "-.-",
+  L: ".-..",
+  M: "--",
+  N: "-.",
+  O: "---",
+  P: ".--.",
+  Q: "--.-",
+  R: ".-.",
+  S: "...",
+  T: "-",
+  U: "..-",
+  V: "...-",
+  W: ".--",
+  X: "-..-",
+  Y: "-.--",
+  Z: "--..",
+  0: "-----",
+  1: ".----",
+  2: "..---",
+  3: "...--",
+  4: "....-",
+  5: ".....",
+  6: "-....",
+  7: "--...",
+  8: "---..",
+  9: "----.",
+  ".": ".-.-.-",
+  ",": "--..--",
+  "?": "..--..",
+  "'": ".----.",
+  "!": "-.-.--",
+  "/": "-..-.",
+  "(": "-.--.",
+  ")": "-.--.-",
+  "&": ".-...",
+  ":": "---...",
+  ";": "-.-.-.",
+  "=": "-...-",
+  "+": ".-.-.",
+  "-": "-....-",
+  _: "..--.-",
+  '"': ".-..-.",
+  $: "...-..-",
+  "@": ".--.-.",
+};
+
+const reverse = new Map(
+  Object.entries(morseCode).map(([letter, signal]) => [signal, letter]),
+);
+
+function encode(value) {
+  return [...value.toUpperCase()]
+    .map((char) => {
+      if (/\s/u.test(char)) return "/";
+      const signal = morseCode[char];
+      if (!signal) throw new Error(`No Morse code for “${char}”.`);
+      return signal;
+    })
+    .join(" ");
+}
+
+function decode(value) {
+  return value
+    .split(/\s+/u)
+    .map((signal) => {
+      if (signal === "/") return " ";
+      const char = reverse.get(signal);
+      if (!char) throw new Error("Unknown Morse sequence.");
+      return char;
+    })
+    .join("");
+}
+
 export function mountMorse(panel) {
-  const morsePlaintext = panel.querySelector("#morse-plaintext");
-  const morseEncoded = panel.querySelector("#morse-encoded");
-
-  if (!morsePlaintext) return;
-
-  let updating = false;
-
-  const morseCode = {
-    A: ".-",
-    B: "-...",
-    C: "-.-.",
-    D: "-..",
-    E: ".",
-    F: "..-.",
-    G: "--.",
-    H: "....",
-    I: "..",
-    J: ".---",
-    K: "-.-",
-    L: ".-..",
-    M: "--",
-    N: "-.",
-    O: "---",
-    P: ".--.",
-    Q: "--.-",
-    R: ".-.",
-    S: "...",
-    T: "-",
-    U: "..-",
-    V: "...-",
-    W: ".--",
-    X: "-..-",
-    Y: "-.--",
-    Z: "--..",
-    0: "-----",
-    1: ".----",
-    2: "..---",
-    3: "...--",
-    4: "....-",
-    5: ".....",
-    6: "-....",
-    7: "--...",
-    8: "---..",
-    9: "----.",
-    ".": ".-.-.-",
-    ",": "--..--",
-    "?": "..--..",
-    "'": ".----.",
-    "!": "-.-.--",
-    "/": "-..-.",
-    "(": "-.--.",
-    ")": "-.--.-",
-    "&": ".-...",
-    ":": "---...",
-    ";": "-.-.-.",
-    "=": "-...-",
-    "+": ".-.-.",
-    "-": "-....-",
-    _: "..--.-",
-    '"': ".-..-.",
-    $: "...-..-",
-    "@": ".--.-.",
-  };
-
-  const morseReverse = {};
-  for (const [char, code] of Object.entries(morseCode)) {
-    morseReverse[code] = char;
-  }
-
-  function updateMorse(editedField) {
-    if (updating) return;
-    updating = true;
-
-    try {
-      if (editedField === "plaintext") {
-        const text = morsePlaintext.value.toUpperCase();
-        let result = "";
-        for (const char of text) {
-          if (char === " ") {
-            result += "/ ";
-          } else if (morseCode[char]) {
-            result += `${morseCode[char]} `;
-          } else {
-            result += `${char} `;
-          }
-        }
-        if (morseEncoded) morseEncoded.value = result.trim();
-      } else {
-        const codes = morseEncoded.value.trim().split(/\s+/);
-        let result = "";
-        for (const code of codes) {
-          if (code === "/") {
-            result += " ";
-          } else if (morseReverse[code]) {
-            result += morseReverse[code];
-          } else {
-            result += code;
-          }
-        }
-        morsePlaintext.value = result;
-      }
-    } catch (e) {
-      if (editedField === "plaintext") {
-        if (morseEncoded) morseEncoded.value = `Error: ${e.message}`;
-      } else {
-        morsePlaintext.value = `Error: ${e.message}`;
-      }
-    }
-
-    updating = false;
-  }
-
-  morsePlaintext.addEventListener("input", () => updateMorse("plaintext"));
-  if (morseEncoded)
-    morseEncoded.addEventListener("input", () => updateMorse("encoded"));
+  mountConversions(panel, {
+    "morse-plaintext": {
+      encode: (value) => value,
+      decode: (value) => {
+        encode(value);
+        return value;
+      },
+    },
+    "morse-encoded": { normalize: (value) => value.trim(), encode, decode },
+  });
 }

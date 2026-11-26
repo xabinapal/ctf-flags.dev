@@ -2,9 +2,6 @@
 import UtilityField from "./UtilityField.astro";
 ---
 <UtilityField id="jwt-input" label="JWT Token" placeholder="Paste JWT token here..." rows={3} />
-{["Header", "Payload", "Signature"].map((label) => (
-  <div class="output-group">
-    <span class="field-label">{label}</span>
-    <pre id={`jwt-${label.toLowerCase()}`} class="code form-control"></pre>
-  </div>
-))}
+<UtilityField id="jwt-header" label="Header" placeholder="JSON object" rows={4} />
+<UtilityField id="jwt-payload" label="Payload" placeholder="JSON object" rows={4} />
+<UtilityField id="jwt-signature" label="Signature" placeholder="Base64URL signature (optional)" rows={2} />

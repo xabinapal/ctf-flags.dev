@@ -1,19 +1,26 @@
 ---
+import UtilityCopy from "./UtilityCopy.astro";
+
 interface Props {
   id: string;
   label: string;
-  placeholder: string;
+  placeholder?: string;
   rows?: number;
   readonly?: boolean;
 }
 
 const { id, label, placeholder, rows, readonly } = Astro.props;
+const messageId = `${id}-message`;
 ---
 <div class="input-group">
-  <label for={id} class="field-label">{label}<slot name="label-end" /></label>
+  <div class="utility-field-heading">
+    <label for={id} class="field-label">{label}</label>
+    <UtilityCopy id={id} label={label} />
+  </div>
   {rows === undefined ? (
-    <input type="text" id={id} class="input form-control" placeholder={placeholder} readonly={readonly} />
+    <input type="text" id={id} class="input form-control" placeholder={placeholder} readonly={readonly} aria-describedby={messageId} spellcheck="false" autocomplete="off" />
   ) : (
-    <textarea id={id} class="textarea form-control" placeholder={placeholder} rows={rows} readonly={readonly}></textarea>
+    <textarea id={id} class="textarea form-control" placeholder={placeholder} rows={rows} readonly={readonly} aria-describedby={messageId} spellcheck="false" autocomplete="off"></textarea>
   )}
+  <p id={messageId} class="utility-field-message" aria-live="polite"></p>
 </div>

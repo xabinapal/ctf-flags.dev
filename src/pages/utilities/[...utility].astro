@@ -2,6 +2,7 @@
 import type { InferGetStaticPropsType } from "astro";
 import SectionMasthead from "../../components/SectionMasthead.astro";
 import SectionTab from "../../components/SectionTab.astro";
+import SectionTabs from "../../components/SectionTabs.astro";
 import Base from "../../components/utilities/Base.astro";
 import Jwt from "../../components/utilities/Jwt.astro";
 import Morse from "../../components/utilities/Morse.astro";
@@ -41,31 +42,38 @@ const { title, description } = utilityMetadata(activeUtility?.id);
   <SectionMasthead flag="ut1l1t13s" subject="workbench" />
 
   <noscript><p>Enable JavaScript to use the utilities.</p></noscript>
-  <section class="feature-section utility-workbench" data-utilities inert>
-    <div class="utility-rail" role="group" aria-label="Utility">
+  <section class="feature-section section-controls" data-utilities inert>
+    <SectionTabs label="Utility">
       {utilities.map(({ id, label }) => (
         <SectionTab
           id={`utility-button-${id}`}
-          class="utility-tab"
           data-utility={id}
           data-path={utilityPath(id)}
           aria-controls={`utility-${id}`}
           selected={id === selected}
         >{label}</SectionTab>
       ))}
-    </div>
-    <div id="utility-container" class="utility-canvas">
-      {utilities.map(({ id, component: Panel }) => (
-        <div
-          id={`utility-${id}`}
-          class="utility-panel"
-          role="region"
-          data-utility-panel={id}
-          aria-labelledby={`utility-button-${id}`}
-          hidden={id !== selected}
-        ><Panel /></div>
-      ))}
-    </div>
+    </SectionTabs>
+    {utilities.map(({ id, label, component: Panel }) => (
+      <div
+        id={`utility-${id}`}
+        class="utility-panel"
+        role="region"
+        data-utility-panel={id}
+        aria-labelledby={`utility-button-${id}`}
+        hidden={id !== selected}
+      >
+        <header class="utility-tool-heading">
+          <h2>{label}</h2>
+          <div class="utility-actions">
+            <button type="button" class="utility-action utility-example" data-example>Try example</button>
+            <button type="button" class="utility-action" data-clear disabled>Clear</button>
+          </div>
+        </header>
+        <div class="utility-fields"><Panel /></div>
+        <p class="utility-copy-status" role="status" data-copy-status></p>
+      </div>
+    ))}
   </section>
 </Site>
 

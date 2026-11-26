@@ -1,97 +1,88 @@
-export function mountTimestamp(panel) {
-  const tsUnixSeconds = panel.querySelector("#ts-unix-seconds");
-  const tsUnixMilliseconds = panel.querySelector("#ts-unix-milliseconds");
-  const tsUnixNanoseconds = panel.querySelector("#ts-unix-nanoseconds");
-  const tsWindows = panel.querySelector("#ts-windows");
-  const tsIso8601 = panel.querySelector("#ts-iso8601");
+import { mountConversions } from "./fields.js";
 
-  if (!tsUnixSeconds) return;
+const nanosecondsPerMillisecond = 1_000_000n;
+const nanosecondsPerSecond = 1_000_000_000n;
+const filetimeOffset = 11_644_473_600n * nanosecondsPerSecond;
+const limit = 8_640_000_000_000_000n * nanosecondsPerMillisecond;
 
-  let updating = false;
-
-  function parseTimestamp(value) {
-    const radix = /^[+-]?0x/i.test(value.trimStart()) ? 16 : 10;
-    return parseInt(value, radix);
+function integer(value) {
+  if (!/^[+-]?(?:\d+|0x[\da-f]+)$/iu.test(value)) {
+    throw new Error("Enter a whole number in decimal or with a 0x prefix.");
   }
+  const magnitude = BigInt(value.replace(/^[+-]/u, ""));
+  return value.startsWith("-") ? -magnitude : magnitude;
+}
 
-  function updateTimestamp(editedField) {
-    if (updating) return;
-    updating = true;
+function checked(value) {
+  if (value < -limit || value > limit)
+    throw new Error("Timestamp is outside the supported date range.");
+  return value;
+}
 
-    try {
-      let date = null;
+function numericFormat(unit, offset = 0n) {
+  return {
+    normalize: (value) => value.trim(),
+    decode: (value) => checked(integer(value) * unit - offset),
+    encode(value) {
+      const adjusted = value + offset;
+      const quotient = adjusted / unit;
+      return (adjusted % unit < 0n ? quotient - 1n : quotient).toString();
+    },
+  };
+}
 
-      if (editedField === "unix-seconds") {
-        const val = tsUnixSeconds.value.trim();
-        if (val) date = new Date(parseTimestamp(val) * 1000);
-      } else if (editedField === "unix-milliseconds") {
-        const val = tsUnixMilliseconds.value.trim();
-        if (val) date = new Date(parseTimestamp(val));
-      } else if (editedField === "unix-nanoseconds") {
-        const val = tsUnixNanoseconds.value.trim();
-        if (val) date = new Date(parseTimestamp(val) / 1000000);
-      } else if (editedField === "windows") {
-        const val = tsWindows.value.trim();
-        if (val) {
-          const fileTime = BigInt(val);
-          const unixTime = Number(fileTime / 10000000n) - 11644473600;
-          date = new Date(unixTime * 1000);
-        }
-      } else if (editedField === "iso8601") {
-        const val = tsIso8601.value.trim();
-        if (val) date = new Date(val);
-      }
-
-      if (!date || Number.isNaN(date.getTime())) {
-        if (editedField !== "unix-seconds" && tsUnixSeconds)
-          tsUnixSeconds.value = "";
-        if (editedField !== "unix-milliseconds" && tsUnixMilliseconds)
-          tsUnixMilliseconds.value = "";
-        if (editedField !== "unix-nanoseconds" && tsUnixNanoseconds)
-          tsUnixNanoseconds.value = "";
-        if (editedField !== "windows" && tsWindows) tsWindows.value = "";
-        if (editedField !== "iso8601" && tsIso8601) tsIso8601.value = "";
-        updating = false;
-        return;
-      }
-
-      if (editedField !== "unix-seconds" && tsUnixSeconds) {
-        tsUnixSeconds.value = Math.floor(date.getTime() / 1000).toString();
-      }
-      if (editedField !== "unix-milliseconds" && tsUnixMilliseconds) {
-        tsUnixMilliseconds.value = date.getTime().toString();
-      }
-      if (editedField !== "unix-nanoseconds" && tsUnixNanoseconds) {
-        tsUnixNanoseconds.value = (date.getTime() * 1000000).toString();
-      }
-      if (editedField !== "windows" && tsWindows) {
-        const unixTime = Math.floor(date.getTime() / 1000);
-        const fileTime = BigInt(unixTime + 11644473600) * 10000000n;
-        tsWindows.value = fileTime.toString();
-      }
-      if (editedField !== "iso8601" && tsIso8601) {
-        tsIso8601.value = date.toISOString();
-      }
-    } catch {
-      // Error
-    }
-
-    updating = false;
+function fromIso(value) {
+  const match =
+    /^([+-]\d{6}|\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2})(?::(\d{2})(?:\.(\d{1,9}))?)?(Z|[+-]\d{2}:\d{2})?)?$/iu.exec(
+      value,
+    );
+  if (!match)
+    throw new Error("Enter an ISO 8601 date, such as 2026-01-01T00:00:00Z.");
+  const [
+    ,
+    year,
+    month,
+    day,
+    hour = "00",
+    minute = "00",
+    second = "00",
+    fraction = "",
+    zone = "Z",
+  ] = match;
+  const local = `${year}-${month}-${day}T${hour}:${minute}:${second}`;
+  const utc = new Date(`${local}Z`);
+  const ms = Date.parse(local + zone.toUpperCase());
+  if (
+    !Number.isFinite(ms) ||
+    !Number.isFinite(utc.getTime()) ||
+    utc.toISOString().slice(0, -5) !== local
+  ) {
+    throw new Error("Enter a valid calendar date and time.");
   }
-
-  tsUnixSeconds.addEventListener("input", () =>
-    updateTimestamp("unix-seconds"),
+  return checked(
+    BigInt(ms) * nanosecondsPerMillisecond + BigInt(fraction.padEnd(9, "0")),
   );
-  if (tsUnixMilliseconds)
-    tsUnixMilliseconds.addEventListener("input", () =>
-      updateTimestamp("unix-milliseconds"),
-    );
-  if (tsUnixNanoseconds)
-    tsUnixNanoseconds.addEventListener("input", () =>
-      updateTimestamp("unix-nanoseconds"),
-    );
-  if (tsWindows)
-    tsWindows.addEventListener("input", () => updateTimestamp("windows"));
-  if (tsIso8601)
-    tsIso8601.addEventListener("input", () => updateTimestamp("iso8601"));
+}
+
+function toIso(value) {
+  const fraction =
+    ((value % nanosecondsPerSecond) + nanosecondsPerSecond) %
+    nanosecondsPerSecond;
+  const seconds = (value - fraction) / nanosecondsPerMillisecond;
+  const date = new Date(Number(seconds)).toISOString();
+  return `${date.slice(0, -5)}.${fraction.toString().padStart(9, "0").replace(/0+$/u, "").padEnd(3, "0")}Z`;
+}
+
+export function mountTimestamp(panel) {
+  mountConversions(panel, {
+    "ts-unix-seconds": numericFormat(nanosecondsPerSecond),
+    "ts-unix-milliseconds": numericFormat(nanosecondsPerMillisecond),
+    "ts-unix-nanoseconds": numericFormat(1n),
+    "ts-windows": numericFormat(100n, filetimeOffset),
+    "ts-iso8601": {
+      normalize: (value) => value.trim(),
+      decode: fromIso,
+      encode: toIso,
+    },
+  });
 }
