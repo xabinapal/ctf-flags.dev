@@ -1,9 +1,9 @@
 ---
 title: You Shall Pass
 challenge_type: Web
-difficulty: Easy
+difficulty: easy
 author: ulisesalan
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   An authentication service asks you to log in with a user and token. It checks every submitted token against a signature on file. Admin access is ordinarily off limits, but does the verifier really check every token before admitting a login?

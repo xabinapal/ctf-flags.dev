@@ -1,3 +1,9 @@
+import { utilityMetadata, utilityPath } from "../../lib/utilities";
+import {
+  navigateSection,
+  sectionPathname,
+  updateSectionMetadata,
+} from "../section-navigation.js";
 import { mountBase } from "./base.js";
 import { mountJwt } from "./jwt.js";
 import { mountMorse } from "./morse.js";
@@ -25,15 +31,16 @@ if (utilities) {
   for (const panel of panels) mount[panel.dataset.utilityPanel](panel);
 
   function restore() {
-    const path = location.pathname.endsWith("/")
-      ? location.pathname
-      : `${location.pathname}/`;
-    const selected =
-      buttons.find((button) => button.dataset.path === path) ?? buttons[0];
+    const path = sectionPathname();
+    const matched = buttons.find((button) => button.dataset.path === path);
+    const selected = matched ?? buttons[0];
+    updateSectionMetadata(
+      matched?.dataset.path ?? utilityPath(),
+      utilityMetadata(matched?.dataset.utility),
+    );
 
     for (const button of buttons) {
       const active = button === selected;
-      button.classList.toggle("active", active);
       button.setAttribute("aria-pressed", String(active));
     }
     for (const panel of panels) {
@@ -43,9 +50,7 @@ if (utilities) {
 
   for (const button of buttons) {
     button.addEventListener("click", () => {
-      const url = new URL(location.href);
-      url.pathname = button.dataset.path;
-      if (url.href !== location.href) history.pushState(history.state, "", url);
+      navigateSection(button.dataset.path);
       restore();
     });
   }

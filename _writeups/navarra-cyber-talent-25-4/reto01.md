@@ -1,9 +1,9 @@
 ---
 title: reto01
 challenge_type: Web
-difficulty: Easy
-author: "@4nimanegra"
-writeup_author: "@xabito"
+difficulty: easy
+author: "4nimanegra"
+writeup_author: "xabito"
 competition: navarra-cyber-talent-25-4
 summary: The flag is saved on this page.
 connections:

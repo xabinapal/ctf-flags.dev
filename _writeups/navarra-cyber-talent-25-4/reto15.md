@@ -1,9 +1,9 @@
 ---
 title: reto15
 challenge_type: Crypto
-difficulty: Hard
-author: "@4nimanegra"
-writeup_author: "@xabito"
+difficulty: hard
+author: "4nimanegra"
+writeup_author: "xabito"
 competition: navarra-cyber-talent-25-4
 summary: |-
   The flag is stored in a shared SMB directory. We also know that the hash information will probably not have the entire blob and that the last bytes will be missing.

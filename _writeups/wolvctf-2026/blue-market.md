@@ -1,9 +1,9 @@
 ---
 title: Blue Market
 challenge_type: Pwn
-difficulty: Easy
+difficulty: easy
 author: 0xir0nroot
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   The Blue Market self-checkout has a manager override for voiding transactions. Shame the code's hardcoded.

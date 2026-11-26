@@ -1,0 +1,13 @@
+---
+interface Props {
+  href: string;
+  label: string;
+  class: string;
+}
+
+const { href, label, class: className } = Astro.props;
+---
+<a href={href} class:list={["archive-row", className]} aria-label={label}>
+  <slot />
+  <span class="archive-arrow" aria-hidden="true">&rarr;</span>
+</a>

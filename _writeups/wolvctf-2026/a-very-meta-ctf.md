@@ -1,9 +1,9 @@
 ---
 title: A Very Meta CTF
 challenge_type: Forensics
-difficulty: Easy
+difficulty: easy
 author: camelot007
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   Ten pictures were found on a pirate's computer. Can you recover the message hidden in them?
@@ -12,11 +12,11 @@ attachments:
     url: /assets/files/wolvctf-2026/a-very-meta-ctf/dist.tar.gz
 ---
 
+## Recon
+
 The challenge hands us ten 400×400 PNGs, named `one.png` through `ten.png`,
 each depicting a large number from 1 through 10 (`four.png` shows the two-digit
 number 10).
-
-## Recon
 
 The title's emphasis on "**Meta**" directed us to each file's
 *metadata* rather than its pixels. A sweep with `exiftool` confirmed that every

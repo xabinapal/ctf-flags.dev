@@ -1,7 +1,7 @@
 ---
 title: Lost Some Binary
 challenge_type: Stego
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: v1t-ctf-2025
 summary: |-
   SOS we lost some binary sir!

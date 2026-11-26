@@ -1,7 +1,7 @@
 ---
 title: zipbomb
 challenge_type: Misc
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: lakectf-25-26-quals
 summary: |-
   Have you thought about maybe downloading more RAM? I've heard it helps you get to the bottom of things.

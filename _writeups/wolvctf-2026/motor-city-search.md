@@ -1,9 +1,9 @@
 ---
 title: Motor City Search
 challenge_type: Forensics
-difficulty: Medium
+difficulty: medium
 author: ufosaysoof
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   A seized logging rig captured a controller programming session. Its recovered log fragments were concatenated out of order. Reconstruct what was flashed to the controller and find the access token inside it.

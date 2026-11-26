@@ -1,7 +1,7 @@
 ---
 title: Shamir's Duck
 challenge_type: Crypto
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: v1t-ctf-2025
 summary: |-
   Each duck carries a small piece of a hidden message — alone it’s useless, but together the pieces form the whole. The secret was split into 6 shares and distributed: every participant holds one little piece. No single person can reconstruct the secret, but if at least three people combine their pieces, the original message appears.

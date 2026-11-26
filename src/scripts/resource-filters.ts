@@ -1,4 +1,9 @@
-import { resourcePath } from "../lib/resources";
+import {
+  navigateSection,
+  sectionPathname,
+  updateSectionMetadata,
+} from "./section-navigation.js";
+import { resourceMetadata, resourcePath } from "../lib/resources";
 
 const controls = document.querySelector<HTMLElement>(
   "[data-resource-controls]",
@@ -41,17 +46,17 @@ if (controls && search && noResults) {
 
     for (const button of buttons) {
       const active = button.dataset.category === category;
-      button.classList.toggle("active", active);
       button.setAttribute("aria-pressed", String(active));
     }
   }
 
   const restore = () => {
     const url = new URL(location.href);
-    const path = url.pathname.endsWith("/") ? url.pathname : `${url.pathname}/`;
+    const path = sectionPathname();
     category =
       buttons.find((button) => resourcePath(button.dataset.category) === path)
         ?.dataset.category ?? "";
+    updateSectionMetadata(resourcePath(category), resourceMetadata(category));
     search.value = url.searchParams.get("q") ?? "";
     editingSearch = false;
     render(search.value, noResults);
@@ -79,9 +84,9 @@ if (controls && search && noResults) {
       category = button.dataset.category ?? "";
       editingSearch = false;
 
-      const url = new URL(location.href);
-      url.pathname = resourcePath(category);
-      if (url.href !== location.href) history.pushState(history.state, "", url);
+      const path = resourcePath(category);
+      navigateSection(path);
+      updateSectionMetadata(path, resourceMetadata(category));
       render(search.value, noResults);
     });
   }

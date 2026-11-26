@@ -1,9 +1,9 @@
 ---
 title: Split Directory
 challenge_type: Web
-difficulty: Medium
+difficulty: medium
 author: .ayushmk
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   The document exporter approves an archive and records a quick receipt before it streams a report. Make the approved export return the sealed report.

@@ -1,9 +1,9 @@
 ---
 title: reto18
 challenge_type: Pwn
-difficulty: Insane
-author: "@4nimanegra"
-writeup_author: "@xabito"
+difficulty: insane
+author: "4nimanegra"
+writeup_author: "xabito"
 competition: navarra-cyber-talent-25-4
 summary: We have a program running through a socket. Its input and output have been redirected through the socket so that you can use it as if you were running it on your own machine.
 connections:

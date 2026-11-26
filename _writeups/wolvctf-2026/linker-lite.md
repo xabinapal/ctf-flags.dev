@@ -1,9 +1,9 @@
 ---
 title: Linker Lite
 challenge_type: Pwn
-difficulty: Medium
+difficulty: medium
 author: .ayushmk
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   Our new plugin loader accepts a plugin blob, but its normal response prints no addresses. Can you still load a plugin that pops a shell?

@@ -1,65 +1,106 @@
-.list.competition-grid {
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--spacing-lg);
-  margin-top: 2rem;
+.home-masthead {
+  margin-block-end: clamp(2.75rem, 6vw, 5rem);
 }
 
-@media (max-width: 840px) {
-  .list.competition-grid {
-    grid-template-columns: repeat(1, 1fr);
-  }
+.home-masthead h1 {
+  margin-block-start: var(--eyebrow-gap);
+  font-size: clamp(3.75rem, 9vw, 8.6rem);
+  line-height: 0.9;
 }
 
-.card.no-padding {
-  gap: 0;
-  padding: 0;
+.home-masthead p {
+  max-inline-size: 57ch;
+  margin: clamp(1rem, 2.8vw, 1.8rem) 0 0;
+  font-size: clamp(1rem, 1.7vw, 1.19rem);
+  text-wrap: pretty;
 }
 
-.card-content {
+.archive-index-heading {
   display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 0.9rem;
-
-  height: 100%;
-  padding: var(--spacing-md);
-
-  color: inherit;
-  text-decoration: none;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem 1rem;
+  padding-block-end: 0.85rem;
+  border-block-end: 2px solid var(--accent);
 }
 
-.card-content p + p {
-  margin-top: 1rem;
+.archive-index-heading p {
+  margin: 0;
+  font-size: 0.92rem;
 }
 
-@media (max-width: 840px) {
-  .card-content {
-    padding: var(--spacing-md);
+.archive-index-heading strong {
+  color: var(--accent);
+}
+
+.competition-row {
+  display: grid;
+  grid-template-columns:
+    clamp(8.5rem, 17vw, 14rem) minmax(0, 1fr)
+    var(--results-width) auto;
+  gap: 1rem clamp(0.9rem, 2.4vw, 2.5rem);
+  align-items: start;
+  padding-block: clamp(1.2rem, 3vw, 2rem);
+  padding-inline: 0.65rem;
+}
+
+.competition-date {
+  padding-block-start: 0.2rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.competition-date time {
+  white-space: nowrap;
+}
+
+.competition-title {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+
+.competition-title p {
+  max-inline-size: 58ch;
+  margin: 0.4rem 0 0;
+  font-size: 0.94rem;
+}
+
+.competition-row .archive-arrow {
+  font-size: 1.3rem;
+  line-height: 1.25;
+}
+
+@media (max-width: 52rem) {
+  .home-masthead h1 {
+    font-size: clamp(3.75rem, 11vw, 6.75rem);
   }
-}
 
-.card-count {
-  margin: auto 0 0;
+  .competition-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "date arrow"
+      "title arrow"
+      "results arrow";
+    gap: 0.65rem 1rem;
+  }
 
-  font-size: var(--spacing-sm);
-  color: var(--accent-75);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
+  .competition-date {
+    grid-area: date;
+  }
 
-.content {
-  padding: var(--spacing-lg);
-  border: 1px solid var(--accent-10);
-  border-radius: var(--radius-lg);
-  background: var(--accent-05);
-}
+  .competition-title {
+    grid-area: title;
+  }
 
-.content p + p {
-  margin-top: 1rem;
-}
+  .competition-row .results {
+    grid-area: results;
+    margin-block-start: 0.35rem;
+  }
 
-@media (max-width: 840px) {
-  .content {
-    padding: var(--spacing-md);
+  .competition-row .archive-arrow {
+    grid-area: arrow;
+    margin-block-start: 0.2rem;
   }
 }

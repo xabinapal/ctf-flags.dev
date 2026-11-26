@@ -1,7 +1,7 @@
 ---
 title: dilemma
 challenge_type: Rev
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: lakectf-25-26-quals
 summary: |-
   A classic dilemma. Hint: there are no hidden tricks. You're sandboxed, don't waste time poking the filesystem or the network. You just need to solve it the standard way.

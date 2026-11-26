@@ -1,9 +1,9 @@
 ---
 title: Desync Delivery
 challenge_type: Web
-difficulty: Hard
+difficulty: hard
 author: ethandhomnic
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   The parcel intake desk can look up ordinary tracking numbers, but records held for review are supposed to stay inside the operations room.

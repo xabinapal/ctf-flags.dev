@@ -65,6 +65,7 @@ if (banner) {
 
     const choose = (choice: Consent) => {
       if (banner.hidden) return;
+      banner.inert = true;
       banner.hidden = true;
       if (choice === "granted") {
         if (!saveConsent("localStorage", choice))

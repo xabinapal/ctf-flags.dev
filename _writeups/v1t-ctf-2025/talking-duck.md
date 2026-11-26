@@ -1,8 +1,8 @@
 ---
 title: Talking Duck
 challenge_type: Stego
-author: "@Rawr"
-writeup_author: "@xabito"
+author: "Rawr"
+writeup_author: "xabito"
 competition: v1t-ctf-2025
 summary: |-
   Bro this duck is talking to me or something? I'm high or what??

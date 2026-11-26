@@ -1,7 +1,7 @@
 ---
 title: Python 0bf
 challenge_type: Rev
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: v1t-ctf-2025
 summary: |-
   You don't need to deobfuscate the Python, but that's up to you. ;-;

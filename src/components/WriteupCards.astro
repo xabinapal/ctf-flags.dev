@@ -19,18 +19,18 @@ const entries = await Promise.all(cards.map(async (card) => ({
 })));
 ---
 {entries.length > 0 && (
-  <section class="writeup-card">
-    <h2 class="writeup-card-title">{title}</h2>
-    <ul class="writeup-card-list">
+  <section class="writeup-asset-group">
+    <h2>{title}</h2>
+    <ul class="list writeup-asset-list">
       {entries.map((entry) => {
         const Tag = entry.href ? "a" : "span";
         return (
-          <li class="writeup-card-item">
-            <Tag class="writeup-card-item-link" href={entry.href ?? undefined} download={entry.href ? true : undefined}>
-              <span class="writeup-card-item-icon" aria-hidden="true">&#8681;</span>
-              <span class="writeup-card-item-meta">
-                <span class="writeup-card-item-title">{entry.title}</span>
-                {entry.description && <span class="writeup-card-item-description">{entry.description}</span>}
+          <li>
+            <Tag class="writeup-asset-entry" href={entry.href ?? undefined} download={entry.href ? true : undefined}>
+              {entry.href && <span class="writeup-asset-action" aria-hidden="true">&darr;</span>}
+              <span class="writeup-asset-copy">
+                <span class="writeup-asset-name">{entry.title}</span>
+                {entry.description && <span>{entry.description}</span>}
               </span>
             </Tag>
           </li>

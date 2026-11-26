@@ -1,0 +1,8 @@
+---
+interface Props {
+  url: string;
+}
+
+const { url } = Astro.props;
+---
+<span class="external-url-text">{url.slice(0, -1)}<span class="external-url-end">{url.slice(-1)}<span class="external-arrow" aria-hidden="true">↗</span></span></span>

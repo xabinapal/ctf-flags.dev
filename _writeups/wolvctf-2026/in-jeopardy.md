@@ -1,9 +1,9 @@
 ---
 title: In Jeopardy!
 challenge_type: Rev
-difficulty: Easy
+difficulty: easy
 author: hazealous
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   Welcome to Jeopardy! Run the executable to see what your first question is. Don't know the answer? Then you might have some digging to do...

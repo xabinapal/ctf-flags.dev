@@ -1,7 +1,7 @@
 ---
 title: Snail Delivery
 challenge_type: Rev
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: v1t-ctf-2025
 summary: |-
   Enter your flag and the snail will deliver it to headquarters for verification. But be careful - it moves slowly!

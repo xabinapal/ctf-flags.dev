@@ -1,9 +1,9 @@
 ---
 title: reto20
 challenge_type: Pwn
-difficulty: Insane
-author: "@4nimanegra"
-writeup_author: "@xabito"
+difficulty: insane
+author: "4nimanegra"
+writeup_author: "xabito"
 competition: navarra-cyber-talent-25-4
 summary: |-
   We have an industrial control board for a gas station managed by an Arduino Mega. The serial port is connected to a socket that we can connect to in order to communicate with it.

@@ -1,8 +1,8 @@
 ---
 title: Linearity
 challenge_type: Crypto
-author: "@BIGMONKE"
-writeup_author: "@xabito"
+author: "BIGMONKE"
+writeup_author: "xabito"
 competition: infobahn-ctf-2025
 summary: |-
   A gentle introduction to linear cryptanalysis 🙂

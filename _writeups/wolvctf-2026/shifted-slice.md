@@ -1,9 +1,9 @@
 ---
 title: Shifted Slice
 challenge_type: Web
-difficulty: Hard
+difficulty: hard
 author: .ayushmk
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   The archive grants signed byte slices for records you own. A sealed record lives in the same bundle, but the clerk will never issue a slice for it.

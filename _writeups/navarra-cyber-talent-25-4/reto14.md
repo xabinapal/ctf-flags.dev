@@ -1,9 +1,9 @@
 ---
 title: reto14
 challenge_type: Crypto
-difficulty: Medium
-author: "@4nimanegra"
-writeup_author: "@xabito"
+difficulty: medium
+author: "4nimanegra"
+writeup_author: "xabito"
 competition: navarra-cyber-talent-25-4
 summary: |-
   The flag is stored in a shared SMB directory.

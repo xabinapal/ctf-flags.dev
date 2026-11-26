@@ -8,4 +8,4 @@ interface Props {
 
 const { start, end } = Astro.props;
 ---
-<span>{formatDate(start)} &mdash; {formatDate(end)}</span>
+<span><time datetime={start}>{formatDate(start)}</time>{start !== end && <> &ndash; <time datetime={end}>{formatDate(end)}</time></>}</span>

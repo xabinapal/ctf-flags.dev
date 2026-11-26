@@ -49,10 +49,14 @@ export async function loadArchive() {
   return { competitions, competitionsByKey, writeups, writeupsByCompetition };
 }
 
+export function writeupCategory(data: Writeup["data"]) {
+  return data.challenge_type?.trim().toLowerCase();
+}
+
 export function groupWriteups(writeups: Writeup[]) {
   const groups = new Map<string, Writeup[]>();
   for (const entry of writeups) {
-    const category = entry.data.challenge_type?.trim() || "uncategorized";
+    const category = writeupCategory(entry.data) || "uncategorized";
     const group = groups.get(category) ?? [];
     group.push(entry);
     groups.set(category, group);
@@ -60,7 +64,7 @@ export function groupWriteups(writeups: Writeup[]) {
   return [...groups]
     .sort(([left], [right]) => compareText(left, right))
     .map(([category, entries]) => ({
-      category: category.toLowerCase(),
+      category,
       entries: entries.sort(
         (left, right) =>
           compareText(left.data.title, right.data.title) ||
@@ -80,10 +84,26 @@ export function formatDate(date: string) {
   return dateFormat.format(new Date(date));
 }
 
-export function attribution(data: Writeup["data"]) {
-  return [
-    data.difficulty,
-    data.author && `By ${data.author}`,
-    data.writeup_author && `Writeup by ${data.writeup_author}`,
-  ].filter((item): item is string => Boolean(item?.trim()));
+export interface Attribution {
+  label: string;
+  names?: string[];
+}
+
+function namesWithoutPrefix(value: string | string[] | undefined) {
+  const names =
+    typeof value === "string" ? value.split(/\s+(?=@)/u) : (value ?? []);
+  return names
+    .map((name) => name.trim().replace(/^@+\s*/u, ""))
+    .filter(Boolean);
+}
+
+export function attribution(data: Writeup["data"]): Attribution[] {
+  const parts: Attribution[] = [];
+  const difficulty = data.difficulty;
+  const authors = namesWithoutPrefix(data.author);
+  const writers = namesWithoutPrefix(data.writeup_author);
+  if (difficulty) parts.push({ label: difficulty });
+  if (authors.length) parts.push({ label: "by", names: authors });
+  if (writers.length) parts.push({ label: "writeup by", names: writers });
+  return parts;
 }

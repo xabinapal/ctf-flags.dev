@@ -1,9 +1,9 @@
 ---
 title: Motor City Hotwire
 challenge_type: Rev
-difficulty: Medium
+difficulty: medium
 author: ufosaysoof
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   We pulled this firmware off a control module during a teardown in the Motor City. Help us find its secret.

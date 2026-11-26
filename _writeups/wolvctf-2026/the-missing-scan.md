@@ -1,9 +1,9 @@
 ---
 title: The Missing Scan
 challenge_type: Forensics
-difficulty: Easy
+difficulty: easy
 author: .ayushmk
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   The camera card was cleared after its last scan, but the card itself survived. What did the missing scan show?
@@ -12,11 +12,11 @@ attachments:
     url: /assets/files/wolvctf-2026/the-missing-scan/dis.tar.gz
 ---
 
+## Recon
+
 The handout extracts to `card.img`, and `file` identifies it immediately as a
 classic 1.44 MB floppy geometry image formatted as FAT12, the 12-bit File
 Allocation Table filesystem used by floppies.
-
-## Recon
 
 ```bash
 $ tar -xzf dis.tar.gz

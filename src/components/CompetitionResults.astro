@@ -1,14 +1,27 @@
 ---
 interface Props {
+  writeupCount: number;
   ranking?: string | number;
   points?: string | number;
 }
 
-const { ranking, points } = Astro.props;
+const { writeupCount, ranking, points } = Astro.props;
+const format = new Intl.NumberFormat("en-US");
+const rank = typeof ranking === "string"
+  ? ranking.trim().replace(/^(\d+)(?:st|nd|rd|th)$/i, "$1")
+  : ranking;
+const podium = [1, 2, 3].includes(Number(rank));
+const metrics = [
+  { key: "writeups", label: "Writeups", value: writeupCount },
+  { key: "rank", label: "Ranking", value: rank },
+  { key: "points", label: "Points", value: points },
+];
 ---
-{(ranking != null || points != null) && (
-  <div class="results">
-    {ranking != null && <span class="chip-squared">🏆 Rank: {ranking}</span>}
-    {points != null && <span class="chip-squared">📊 Points: {points}</span>}
-  </div>
-)}
+<dl class="results">
+  {metrics.map(({ key, label, value }) => value != null && (
+    <div data-metric={key} data-podium={key === "rank" && podium ? "" : undefined}>
+      <dt>{label}</dt>
+      <dd>{typeof value === "number" ? format.format(value) : value}</dd>
+    </div>
+  ))}
+</dl>

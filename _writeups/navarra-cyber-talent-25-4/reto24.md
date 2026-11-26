@@ -1,9 +1,9 @@
 ---
 title: reto24
 challenge_type: Misc
-difficulty: Beginner
-author: "@4nimanegra"
-writeup_author: "@xabito"
+difficulty: beginner
+author: "4nimanegra"
+writeup_author: "xabito"
 competition: navarra-cyber-talent-25-4
 summary: |-
   The flag is in a file called `/flag/flag.txt`, which is located on a server that you can access.

@@ -1,9 +1,9 @@
 ---
 title: "On the Rail Fence"
 challenge_type: Crypto
-difficulty: Beginner
+difficulty: beginner
 author: ".nerdsmith"
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   What's the name of my favorite song?
@@ -15,11 +15,9 @@ summary: |-
   P.S. Use all lowercase for the flag, and replace spaces with dashes. Submit wctf{song}.
 ---
 
-## Recon
+## Flag capture
 
 The title points to a rail fence transposition, leaving the rail count as the only unknown.
-
-## Flag capture
 
 Encryption writes plaintext diagonally across a fixed number of rails, then reads each rail from left to right. Only the order changes, so the ciphertext retains every plaintext character. The repeated `Hi!` fragments look like pieces of a repeated lyric.
 

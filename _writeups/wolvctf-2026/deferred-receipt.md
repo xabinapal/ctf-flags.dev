@@ -1,8 +1,8 @@
 ---
 title: Deferred Receipt
 challenge_type: Pwn
-difficulty: Medium
-writeup_author: "@xabito"
+difficulty: medium
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   The dispatch desk accepts amendments to public receipts and exports approved sealed receipts. Work is processed in batches, even when the counter gets busy. Can you get a sealed receipt approved?

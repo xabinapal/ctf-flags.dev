@@ -1,9 +1,9 @@
 ---
 title: Cancelled
 challenge_type: Crypto
-difficulty: Medium
+difficulty: medium
 author: "camelot007"
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   band kid intensifies
@@ -15,8 +15,6 @@ attachments:
   - title: wav2.wav
     url: /assets/files/wolvctf-2026/cancelled/wav2.wav
 ---
-
-The solution combines audio cancellation with a low-frequency spectrogram view. A spectrogram plots energy against frequency over time.
 
 ## Recon
 

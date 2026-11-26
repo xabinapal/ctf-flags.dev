@@ -1,9 +1,9 @@
 ---
 title: StickyNotes
 challenge_type: Web
-difficulty: Easy
+difficulty: easy
 author: ethandhomnic
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   I keep all my notes in StickyNotes. Surely nobody else can read them.

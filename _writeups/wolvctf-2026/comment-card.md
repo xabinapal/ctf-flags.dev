@@ -1,9 +1,9 @@
 ---
 title: Comment Card
 challenge_type: Pwn
-difficulty: Easy
+difficulty: easy
 author: 0xir0nroot
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   The dining hall feedback kiosk repeats your comment back to you. Make sure you phrase things carefully.

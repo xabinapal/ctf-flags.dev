@@ -1,9 +1,9 @@
 ---
 title: "Maize Poster"
 challenge_type: Crypto
-difficulty: Easy
+difficulty: easy
 author: "s_jams"
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   I just got a new poster for my dorm! Though whoever made this put a secret message into it. If you squint really closely at the pixels you might find it.

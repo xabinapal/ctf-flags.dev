@@ -1,9 +1,9 @@
 ---
 title: Jurassic PCAP
 challenge_type: Forensics
-difficulty: Medium
+difficulty: medium
 author: TheRealKwick
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   I (Codex) made a new site about dinosaurs. It's fossil-tastic! Let me send it on over.
@@ -12,13 +12,13 @@ attachments:
     url: /assets/files/wolvctf-2026/jurassic-pcap/dist.tar.gz
 ---
 
+## Recon
+
 The handout unpacks to a 1.2 MB packet capture, `jurassic.pcap`, recording an
 HTTP session in which a browser downloads a small museum-style dinosaur site:
 `index.html`, `style.css`, and seven JPEGs (`hero-dinosaur.jpg`, `allosaurus.jpg`,
 `stegosaurus.jpg`, `brachiosaurus.jpg`, `diplodocus.jpg`, `archaeopteryx.jpg`,
 `compsognathus.jpg`).
-
-## Recon
 
 The traffic itself is clean. We rebuilt every TCP stream and confirmed each
 HTTP body matched its `Content-Length` byte-for-byte, then grepped the raw bytes

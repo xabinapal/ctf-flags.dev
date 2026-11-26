@@ -1,20 +1,8 @@
-<div class="input-group">
-  <label for="num-base2">Base 2 (Binary)</label>
-  <textarea id="num-base2" class="textarea" placeholder="Type binary here..." rows="2"></textarea>
-</div>
-<div class="input-group">
-  <label for="num-base8">Base 8 (Octal)</label>
-  <textarea id="num-base8" class="textarea" placeholder="Type octal here..." rows="2"></textarea>
-</div>
-<div class="input-group">
-  <label for="num-base10">Base 10 (Decimal)</label>
-  <textarea id="num-base10" class="textarea" placeholder="Type decimal here..." rows="2"></textarea>
-</div>
-<div class="input-group">
-  <label for="num-base16">Base 16 (Hexadecimal)</label>
-  <textarea id="num-base16" class="textarea" placeholder="Type hex here..." rows="2"></textarea>
-</div>
-<div class="input-group">
-  <label for="num-ascii">ASCII Text</label>
-  <textarea id="num-ascii" class="textarea" placeholder="Type ASCII text here..." rows="2"></textarea>
-</div>
+---
+import UtilityField from "./UtilityField.astro";
+---
+<UtilityField id="num-base2" label="Base 2 (Binary)" placeholder="Type binary here..." rows={2} />
+<UtilityField id="num-base8" label="Base 8 (Octal)" placeholder="Type octal here..." rows={2} />
+<UtilityField id="num-base10" label="Base 10 (Decimal)" placeholder="Type decimal here..." rows={2} />
+<UtilityField id="num-base16" label="Base 16 (Hexadecimal)" placeholder="Type hex here..." rows={2} />
+<UtilityField id="num-ascii" label="ASCII Text" placeholder="Type ASCII text here..." rows={2} />

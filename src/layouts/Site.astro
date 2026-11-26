@@ -1,80 +1,91 @@
 ---
-import "@fontsource/ibm-plex-mono/300.css";
-import "@fontsource/ibm-plex-mono/400.css";
-import "@fontsource/ibm-plex-mono/500.css";
-import "@fontsource/ibm-plex-mono/600.css";
-import "@fontsource/space-grotesk/400.css";
-import "@fontsource/space-grotesk/600.css";
-import "../styles/site.css";
+import { createHash } from "node:crypto";
+import headingFont from "@fontsource/asul/files/asul-latin-700-normal.woff2?url";
+import technicalFont from "@fontsource/inconsolata/files/inconsolata-latin-400-normal.woff2?url";
 import Consent from "../components/Consent.astro";
+import { fullPageTitle, siteTitle } from "../lib/site";
+import stylesheet from "../styles/site.css?inline";
 
 interface Props {
   path: string;
   title?: string;
-  description?: string;
+  description: string;
+  socialType?: "website" | "article";
+  noindex?: boolean;
 }
 
-const { path, title, description = "" } = Astro.props;
-const siteTitle = "ctf-flags.dev";
-const pageTitle = title ? `${title} | ${siteTitle}` : siteTitle;
+const { path, title, description, socialType = "website", noindex = false } = Astro.props;
+const pageTitle = fullPageTitle(title);
 const canonical = new URL(path, Astro.site);
 const socialImage = new URL("/caption.png", Astro.site);
+const socialImageAlt = "ctf-flags.dev brace logo above the heading “CTF writeups” and a short introduction to the archive.";
+const stylesheetVersion = createHash("sha256").update(stylesheet).digest("hex").slice(0, 12);
+const navigation = [
+  { href: "/", label: "Writeups", active: path === "/" || path.startsWith("/competitions/") },
+  { href: "/resources/", label: "Resources", active: path.startsWith("/resources/") },
+  { href: "/utilities/", label: "Utilities", active: path.startsWith("/utilities/") },
+];
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" prefix="og: https://ogp.me/ns#">
   <head>
     <meta charset="utf-8" />
+    <link rel="preload" as="font" type="font/woff2" href={headingFont} crossorigin="anonymous" />
+    <link rel="preload" as="font" type="font/woff2" href={technicalFont} crossorigin="anonymous" />
+    <link rel="stylesheet" href={`/assets/css/style.css?v=${stylesheetVersion}`} />
     <title>{pageTitle}</title>
-    <meta name="robots" content="index,follow" />
+    <meta name="robots" content={noindex ? "noindex,follow" : "index,follow"} />
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1" />
-    <meta name="title" content={pageTitle} />
     <meta name="description" content={description} />
     <meta name="author" content="xabito" />
     <meta name="keywords" content="ctf, writeups, challenges, infosec, cybersecurity" />
-    <meta name="theme-color" content="#112c2f" />
-    <meta name="apple-mobile-web-app-title" content={pageTitle} />
-    <meta name="msapplication-TileColor" content="#112c2f" />
+    <meta name="theme-color" content="#10201a" />
+    <meta name="apple-mobile-web-app-title" content={siteTitle} />
+    <meta name="msapplication-TileColor" content="#10201a" />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={socialType} />
     <meta property="og:url" content={canonical.href} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={socialImage.href} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={socialImageAlt} />
+    <meta property="og:site_name" content={siteTitle} />
     <meta property="og:locale" content="en_US" />
 
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonical.href} />
-    <meta property="twitter:title" content={pageTitle} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={socialImage.href} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonical.href} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage.href} />
+    <meta name="twitter:image:alt" content={socialImageAlt} />
     <link rel="canonical" href={canonical.href} />
 
     <link rel="icon" type="image/png" href="/favicon-512.png" sizes="512x512" />
     <link rel="icon" type="image/png" href="/favicon-96.png" sizes="96x96" />
-    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" sizes="any" />
     <link rel="apple-touch-icon" href="/icon-180.png" sizes="180x180" />
     <link rel="manifest" href="/site.webmanifest" />
 
   </head>
   <body>
-    <div class="glow-frame" aria-hidden="true"><div class="glow"></div></div>
     <header class="site-header">
-      <div class="logo">
-        <span class="pulse"></span>
-        <a class="site-title" href="/">{siteTitle}</a>
-      </div>
-      <nav class="site-nav">
-        <a href="/" class="nav-link">Writeups</a>
-        <a href="/resources/" class="nav-link">Resources</a>
-        <a href="/utilities/" class="nav-link">Utilities</a>
+      <a class="site-title" href="/"><span class="site-mark" aria-hidden="true">&#123;&#125;</span>{siteTitle}</a>
+      <nav class="site-nav" aria-label="Main">
+        {navigation.map(({ href, label, active }) => (
+          <a href={href} class="nav-link" aria-current={active ? (path === href ? "page" : "location") : undefined}>{label}</a>
+        ))}
       </nav>
     </header>
 
     <main class="site-content"><slot /></main>
 
     <footer class="site-footer">
-      <p>Built with love by @xabito.</p>
-      <p>May your exploits land and your flags submit on the first try.</p>
+      <p>Built by @xabito</p>
+      <p>May your exploits land and your flags submit on the first try</p>
     </footer>
 
     <Consent />

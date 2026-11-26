@@ -1,7 +1,7 @@
 ---
 title: Wordler
 challenge_type: Misc
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: lakectf-25-26-quals
 summary: |-
   yo dawg i heard you like words in your wordle so i put words in your words so words

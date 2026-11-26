@@ -1,8 +1,5 @@
-<div class="input-group">
-  <label for="url-plaintext">Plaintext</label>
-  <textarea id="url-plaintext" class="textarea" placeholder="Type plaintext here..." rows="3"></textarea>
-</div>
-<div class="input-group">
-  <label for="url-encoded">URL Encoded</label>
-  <textarea id="url-encoded" class="textarea" placeholder="Type URL encoded text here..." rows="3"></textarea>
-</div>
+---
+import UtilityField from "./UtilityField.astro";
+---
+<UtilityField id="url-plaintext" label="Plaintext" placeholder="Type plaintext here..." rows={3} />
+<UtilityField id="url-encoded" label="URL Encoded" placeholder="Type URL encoded text here..." rows={3} />

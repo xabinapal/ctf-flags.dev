@@ -1,8 +1,8 @@
 ---
 title: reto09
 challenge_type: Crypto
-difficulty: Easy
-writeup_author: "@xabito"
+difficulty: easy
+writeup_author: "xabito"
 competition: navarra-cyber-talent-25-4
 summary: |-
   We have a Ruby encoder. We have passed our flag through the encoder. See if you can figure out what it is.

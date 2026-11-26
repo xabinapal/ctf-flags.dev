@@ -1,7 +1,7 @@
 ---
 title: Polyglot
 challenge_type: Misc
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: v1t-ctf-2025
 summary: |-
   Look, read, and most importantly, **WATCH** the duck!

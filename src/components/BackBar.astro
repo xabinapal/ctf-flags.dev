@@ -1,0 +1,12 @@
+---
+import BackLink from "./BackLink.astro";
+
+interface Props {
+  href: string;
+}
+
+const { href } = Astro.props;
+---
+<div class="back-bar eyebrow">
+  <BackLink href={href}><slot /></BackLink>
+</div>

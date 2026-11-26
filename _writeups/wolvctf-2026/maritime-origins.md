@@ -1,9 +1,9 @@
 ---
 title: Maritime Origins
 challenge_type: OSINT
-difficulty: Medium
+difficulty: medium
 author: .nerdsmith
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   You see that ship there? The big one? That's been right there, somewhere on the world's second largest continent, for a long time. At least 5 years at this point. What is it's IMO number?
@@ -11,10 +11,6 @@ attachments:
   - title: Maritime_Origins.png
     url: /assets/files/wolvctf-2026/maritime-origins/Maritime_Origins.png
 ---
-
-The challenge is a single satellite screenshot of an African coastal port.
-
-![The source screenshot](/assets/files/wolvctf-2026/maritime-origins/Maritime_Origins.png)
 
 ## Recon
 

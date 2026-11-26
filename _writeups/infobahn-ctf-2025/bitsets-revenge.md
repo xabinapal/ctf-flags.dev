@@ -1,8 +1,8 @@
 ---
 title: bitsets-revenge
 challenge_type: Web
-author: "@rewhile @bawolff @yuu"
-writeup_author: "@xabito"
+author: ["rewhile", "bawolff", "yuu"]
+writeup_author: "xabito"
 competition: infobahn-ctf-2025
 summary: |-
   She was not happy that you broke her cookies jar!

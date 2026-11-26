@@ -1,0 +1,19 @@
+---
+interface Props {
+  id: string;
+  label: string;
+  placeholder: string;
+  rows?: number;
+  readonly?: boolean;
+}
+
+const { id, label, placeholder, rows, readonly } = Astro.props;
+---
+<div class="input-group">
+  <label for={id} class="field-label">{label}<slot name="label-end" /></label>
+  {rows === undefined ? (
+    <input type="text" id={id} class="input form-control" placeholder={placeholder} readonly={readonly} />
+  ) : (
+    <textarea id={id} class="textarea form-control" placeholder={placeholder} rows={rows} readonly={readonly}></textarea>
+  )}
+</div>

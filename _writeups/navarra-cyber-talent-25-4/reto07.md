@@ -1,9 +1,9 @@
 ---
 title: reto07
 challenge_type: Forensics
-difficulty: Easy
-author: "@lassault"
-writeup_author: "@xabito"
+difficulty: easy
+author: "lassault"
+writeup_author: "xabito"
 competition: navarra-cyber-talent-25-4
 summary: |-
   Someone has accessed our server and stolen sensitive information. Can you find any clues?

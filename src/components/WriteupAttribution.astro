@@ -1,0 +1,17 @@
+---
+import BylineSeparator from "./BylineSeparator.astro";
+import type { Attribution } from "../lib/archives";
+
+interface Props {
+  byline: Attribution[];
+}
+
+const { byline } = Astro.props;
+---
+{byline.length > 0 && (
+  <span class="writeup-attribution">{byline.map(({ label, names }, index) => (
+    <>{index > 0 && <BylineSeparator />}{label}{names?.map((name) => (
+      <>{" "}<span class="attribution-name">@{name}</span></>
+    ))}</>
+  ))}</span>
+)}

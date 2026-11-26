@@ -1,8 +1,5 @@
-<div class="input-group">
-  <label for="morse-plaintext">Plaintext</label>
-  <textarea id="morse-plaintext" class="textarea" placeholder="Type plaintext here..." rows="2"></textarea>
-</div>
-<div class="input-group">
-  <label for="morse-encoded">Morse Code</label>
-  <textarea id="morse-encoded" class="textarea" placeholder="Type Morse code here..." rows="3"></textarea>
-</div>
+---
+import UtilityField from "./UtilityField.astro";
+---
+<UtilityField id="morse-plaintext" label="Plaintext" placeholder="Type plaintext here..." rows={2} />
+<UtilityField id="morse-encoded" label="Morse Code" placeholder="Type Morse code here..." rows={3} />

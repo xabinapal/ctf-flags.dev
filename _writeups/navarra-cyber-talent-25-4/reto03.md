@@ -1,9 +1,9 @@
 ---
 title: reto03
 challenge_type: Web
-difficulty: Easy
-author: "@pedrit"
-writeup_author: "@xabito"
+difficulty: easy
+author: "pedrit"
+writeup_author: "xabito"
 competition: navarra-cyber-talent-25-4
 summary: This page opens portals to different worlds. One of them hides a flag. Will you be able to find it?
 connections:

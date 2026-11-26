@@ -1,8 +1,8 @@
 ---
 title: //
 challenge_type: Misc
-author: "@22sh"
-writeup_author: "@xabito"
+author: "22sh"
+writeup_author: "xabito"
 competition: infobahn-ctf-2025
 summary: |-
   unary-only

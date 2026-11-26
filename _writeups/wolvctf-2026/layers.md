@@ -1,9 +1,9 @@
 ---
 title: Layers
 challenge_type: Crypto
-difficulty: Beginner
+difficulty: beginner
 author: ".nerdsmith"
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   NjIgNjEgNzYgNjIgNjEgNjYgMmQgNzUgNmUgNjkgNzIgMmQgNzkgNmUgNmMgNzIgNjUgNjY=

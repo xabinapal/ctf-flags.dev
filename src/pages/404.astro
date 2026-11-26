@@ -1,11 +1,13 @@
 ---
+import BackBar from "../components/BackBar.astro";
+import FlagEyebrow from "../components/FlagEyebrow.astro";
 import Site from "../layouts/Site.astro";
 ---
-<Site path="/404.html">
-<section class="hero">
-  <h1>flag&#123;n0t_f0und&#125;</h1>
-  <p>
-    0x0404: teh page iz not found, go pwn somewhere else!
-  </p>
-</section>
+<Site path="/404.html" title="Page not found" description="This page could not be found on ctf-flags.dev." noindex>
+  <section class="masthead">
+    <FlagEyebrow value="n0t_f0und" />
+    <h1>Page not found</h1>
+    <p class="summary">That page could not be found.</p>
+  </section>
+  <BackBar href="/">Back to writeups</BackBar>
 </Site>

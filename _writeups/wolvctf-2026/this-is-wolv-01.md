@@ -1,9 +1,9 @@
 ---
 title: This Is Wolv-01
 challenge_type: OSINT
-difficulty: Easy
+difficulty: easy
 author: TalieMarks
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   A long time ago, the British Empire made a series of defensive forts, many of which still stand. In one of these towers, certain items are on display. What is the name of the man who founded and curated this?
@@ -14,11 +14,9 @@ attachments:
     url: /assets/files/wolvctf-2026/this-is-wolv-01/IMG_20260606_145557_1.jpg
 ---
 
-The challenge is a single photograph of a small museum room packed with vintage radio equipment.
-
-![The source photograph](/assets/files/wolvctf-2026/this-is-wolv-01/IMG_20260606_145557_1.jpg)
-
 ## Recon
+
+The challenge is a single photograph of a small museum room packed with vintage radio equipment.
 
 The description's phrase "a series of defensive forts" is a textbook reference
 to the **Martello towers**, the small round coastal forts the British built

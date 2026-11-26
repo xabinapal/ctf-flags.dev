@@ -1,7 +1,7 @@
 ---
 title: Misconfigured RSA
 challenge_type: Crypto
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: v1t-ctf-2025
 summary: |-
   Oops i did it again!

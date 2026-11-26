@@ -1,9 +1,9 @@
 ---
 title: reto06
-difficulty: Medium
+difficulty: medium
 challenge_type: Misc
-author: "@lassault"
-writeup_author: "@xabito"
+author: "lassault"
+writeup_author: "xabito"
 competition: navarra-cyber-talent-25-4
 summary: We found an exposed container on the network. Can you demonstrate what you are **capable** of?
 connections:

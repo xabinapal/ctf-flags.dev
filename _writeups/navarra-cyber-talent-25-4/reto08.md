@@ -1,8 +1,8 @@
 ---
 title: reto08
 challenge_type: Stego
-difficulty: Easy
-writeup_author: "@xabito"
+difficulty: easy
+writeup_author: "xabito"
 competition: navarra-cyber-talent-25-4
 summary: |-
   A psychophony may hide more than meets the eye.

@@ -2,6 +2,8 @@ import type { APIRoute } from "astro";
 import { root } from "astro:config/server";
 import { getCollection } from "astro:content";
 import { archivePath, loadArchive } from "../lib/archives";
+import { resourcePath } from "../lib/resources";
+import { utilityDetails, utilityPath } from "../lib/utilities";
 import { readGitLastModified } from "../lib/git-last-modified";
 
 export const GET: APIRoute = async ({ site }) => {
@@ -48,6 +50,18 @@ export const GET: APIRoute = async ({ site }) => {
         "partials/utilities/",
       ],
     },
+    ...resources.map((entry) => ({
+      path: resourcePath(entry.id),
+      sources: ["src/pages/resources/[...category].astro", entry.filePath],
+    })),
+    ...Object.keys(utilityDetails).map((id) => ({
+      path: utilityPath(id),
+      sources: [
+        "src/pages/utilities/[...utility].astro",
+        "src/components/utilities/",
+        `src/scripts/utilities/${id}.js`,
+      ],
+    })),
     ...competitions.map((entry) => ({
       path: archivePath(entry),
       sources: [

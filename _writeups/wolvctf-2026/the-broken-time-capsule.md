@@ -1,9 +1,9 @@
 ---
 title: The Broken Time Capsule
 challenge_type: Rev
-difficulty: Hard
+difficulty: hard
 author: ethandhomnic
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   We recovered a command-line restoration tool and a damaged time-capsule backup. The tool claims the backup is unreadable, but it may be waiting for the right sequence.

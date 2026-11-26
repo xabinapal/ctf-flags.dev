@@ -1,7 +1,7 @@
 ---
 title: RotBrain
 challenge_type: Misc
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: v1t-ctf-2025
 summary: |-
   Ts fr lwk pmo gng

@@ -1,0 +1,14 @@
+---
+import FlagEyebrow from "./FlagEyebrow.astro";
+
+interface Props {
+  flag: string;
+  subject: string;
+}
+
+const { flag, subject } = Astro.props;
+---
+<section class="masthead">
+  <FlagEyebrow value={flag} />
+  <h1>CTF <span class="title-accent">{subject}</span></h1>
+</section>

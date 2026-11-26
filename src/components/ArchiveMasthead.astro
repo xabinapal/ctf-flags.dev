@@ -1,0 +1,18 @@
+---
+import BackLink from "./BackLink.astro";
+
+interface Props {
+  title: string;
+  parentHref: string;
+  parentLabel: string;
+}
+
+const { title, parentHref, parentLabel } = Astro.props;
+---
+<header class="masthead archive-masthead">
+  <nav class="eyebrow" aria-label="Breadcrumb">
+    <BackLink href={parentHref}>{parentLabel}</BackLink>
+  </nav>
+  <h1>{title}</h1>
+  <slot />
+</header>

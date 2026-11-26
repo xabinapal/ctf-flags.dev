@@ -1,9 +1,9 @@
 ---
 title: reto13
 challenge_type: Crypto
-difficulty: Hard
-author: "@4nimanegra"
-writeup_author: "@xabito"
+difficulty: hard
+author: "4nimanegra"
+writeup_author: "xabito"
 competition: navarra-cyber-talent-25-4
 summary: |-
   We have an SSH server that uses the same RSA keys for everything. Password access is disabled and we don't know if that user will give us bash or not. We also know that the machine has an internal web server that will presumably return the flag.

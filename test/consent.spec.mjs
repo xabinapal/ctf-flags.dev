@@ -41,6 +41,43 @@ test("declining keeps analytics off for the session", async ({ page }) => {
   expect(requests()).toBe(0);
 });
 
+for (const reducedMotion of ["no-preference", "reduce"]) {
+  test(`consent dismissal respects ${reducedMotion} motion preferences`, async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion });
+    await page.goto("/");
+    const banner = page.locator("#cookie-consent-banner");
+    await expect(banner).toBeVisible();
+
+    const dismissal = await banner.evaluate(async (element) => {
+      await Promise.all(
+        element.getAnimations().map((animation) => animation.finished),
+      );
+      element.querySelector("#consent-decline").click();
+
+      return {
+        painted: getComputedStyle(element).display !== "none",
+        inert: element.inert,
+        transitions: element
+          .getAnimations()
+          .map((animation) => animation.transitionProperty),
+      };
+    });
+
+    expect(dismissal.inert).toBe(true);
+    if (reducedMotion === "reduce") {
+      expect(dismissal.painted).toBe(false);
+      expect(dismissal.transitions).toEqual([]);
+    } else {
+      expect(dismissal.painted).toBe(true);
+      expect(dismissal.transitions).toContain("opacity");
+      expect(dismissal.transitions).toContain("translate");
+    }
+    await expect(banner).toBeHidden();
+  });
+}
+
 test("both choices work when local and session storage are blocked", async ({
   page,
 }) => {

@@ -1,54 +1,51 @@
 ---
+import ArchiveRow from "../components/ArchiveRow.astro";
 import CompetitionDates from "../components/CompetitionDates.astro";
 import CompetitionResults from "../components/CompetitionResults.astro";
+import FlagEyebrow from "../components/FlagEyebrow.astro";
 import Site from "../layouts/Site.astro";
 import { archivePath, loadArchive } from "../lib/archives";
-import { plainText, renderSummary, truncateWords } from "../lib/markdown";
+import { htmlExcerpt } from "../lib/markdown";
 
-const description = "CTF writeups, challenge solutions, and cybersecurity insights from a solo enthusiast. Explore practical walkthroughs and tips for infosec challenges.";
+const description = "Capture-the-flag competition writeups, results, and references by xabito.";
 const { competitions, writeupsByCompetition } = await loadArchive();
-const cards = await Promise.all(competitions.map(async (entry) => ({
+const events = competitions.map((entry) => ({
   entry,
-  summary: truncateWords(plainText(await renderSummary(entry.data.summary))),
+  summary: htmlExcerpt(entry.rendered?.html),
   count: writeupsByCompetition.get(entry.data.key)?.length ?? 0,
-})));
+}));
 ---
 <Site path="/" description={description}>
-  <section class="hero">
-    <h1>flag&#123;w3lc0m3&#125;</h1>
-    <p class="summary">
-      This is one of those strange corners of the Internet where people break things to have fun. A
-      playground full of cursed binaries, glitchy websites, and riddles that make you question your
-      sanity. Here you will find writeups of all this chaos.
-    </p>
-  </section>
+  <header class="home-masthead">
+    <FlagEyebrow value="w3lc0m3" />
+    <h1>CTF <span class="title-accent">writeups</span></h1>
+    <p>This is one of those strange corners of the Internet where people break things to have fun. Here you’ll find cursed binaries, glitchy websites, and riddles that make you question your sanity.</p>
+  </header>
 
-  <section>
-    <h2>CTF Competitions</h2>
-    {cards.length > 0 ? (
-      <ul class="list competition-grid">
-        {cards.map(({ entry, summary, count }) => (
-          <li class="list-item">
-            <a href={archivePath(entry)} class="card-link">
-              <div class="card no-padding">
-                <div class="card-content">
-                  <h3 class="card-title">{entry.data.title}</h3>
-                  <div class="meta">
-                    <CompetitionDates start={entry.data.start_date} end={entry.data.end_date} />
-                  </div>
-                  <p class="summary">{summary}</p>
-                  <CompetitionResults ranking={entry.data.ranking} points={entry.data.points} />
-                  <p class="card-count">
-                    {count === 0 ? "No writeups yet" : count === 1 ? "1 writeup" : `${count} writeups`}
-                  </p>
-                </div>
+  <section id="competition-archive" aria-labelledby="archive-heading">
+    <div class="archive-index-heading">
+      <h2 id="archive-heading">Competition archive</h2>
+      <p><strong>{events.length}</strong> {events.length === 1 ? "competition" : "competitions"}</p>
+    </div>
+    {events.length > 0 ? (
+      <ul class="list competition-index">
+        {events.map(({ entry, summary, count }) => (
+          <li>
+            <ArchiveRow href={archivePath(entry)} class="competition-row" label={entry.data.title}>
+              <div class="competition-date">
+                <CompetitionDates start={entry.data.start_date} end={entry.data.end_date} />
               </div>
-            </a>
+              <div class="competition-title">
+                <h3>{entry.data.title}</h3>
+                {summary && <p>{summary}</p>}
+              </div>
+              <CompetitionResults writeupCount={count} ranking={entry.data.ranking} points={entry.data.points} />
+            </ArchiveRow>
           </li>
         ))}
       </ul>
     ) : (
-      <p class="empty-state">No competitions logged yet. Publish a writeup to get started.</p>
+      <p class="empty-state">No competitions logged yet.</p>
     )}
   </section>
 </Site>

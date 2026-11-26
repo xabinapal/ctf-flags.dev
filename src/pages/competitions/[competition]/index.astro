@@ -1,7 +1,13 @@
 ---
+import ArchiveRow from "../../../components/ArchiveRow.astro";
+import BackBar from "../../../components/BackBar.astro";
+import ArchiveMasthead from "../../../components/ArchiveMasthead.astro";
+import ExternalUrl from "../../../components/ExternalUrl.astro";
+import BylineSeparator from "../../../components/BylineSeparator.astro";
 import { render } from "astro:content";
 import CompetitionDates from "../../../components/CompetitionDates.astro";
 import CompetitionResults from "../../../components/CompetitionResults.astro";
+import WriteupAttribution from "../../../components/WriteupAttribution.astro";
 import Site from "../../../layouts/Site.astro";
 import {
   type Competition,
@@ -11,7 +17,7 @@ import {
   groupWriteups,
   loadArchive,
 } from "../../../lib/archives";
-import { plainText, renderSummary, truncateWords } from "../../../lib/markdown";
+import { htmlExcerpt, renderSummary } from "../../../lib/markdown";
 
 export async function getStaticPaths() {
   const { competitions, writeupsByCompetition } = await loadArchive();
@@ -29,68 +35,57 @@ interface Props {
 const { entry, writeups } = Astro.props;
 const { data } = entry;
 const { Content } = await render(entry);
-const overview = plainText(data.summary ?? "");
+const description = htmlExcerpt(entry.rendered?.html) || `Results and challenge writeups for ${data.title}.`;
 const groups = await Promise.all(groupWriteups(writeups).map(async ({ category, entries }) => ({
   category,
   cards: await Promise.all(entries.map(async (writeup) => ({
     writeup,
-    summary: truncateWords(plainText(await renderSummary(writeup.data.summary))),
+    summary: htmlExcerpt(await renderSummary(writeup.data.summary)),
   }))),
 })));
 ---
-<Site path={archivePath(entry)} title={data.title} description={truncateWords(overview)}>
-  <section class="hero">
-    <h1>{data.title}</h1>
-    {data.ctftime_url && (
-      <div class="meta">
-        <a href={data.ctftime_url} target="_blank" rel="noopener noreferrer">{data.ctftime_url}</a>
-      </div>
-    )}
-    <div class="meta">
+<Site path={archivePath(entry)} title={data.title} description={description}>
+  <ArchiveMasthead title={data.title} parentHref="/" parentLabel="All competitions">
+    <div class="archive-byline">
       <CompetitionDates start={data.start_date} end={data.end_date} />
+      {data.ctftime_url && (
+        <><BylineSeparator /><a href={data.ctftime_url} target="_blank" rel="noopener noreferrer" class="external-url">
+          <ExternalUrl url={data.ctftime_url} />
+        </a></>
+      )}
     </div>
-    <p class="summary">{overview}</p>
-    <CompetitionResults ranking={data.ranking} points={data.points} />
+    {entry.body?.trim() && <div class="archive-intro"><Content /></div>}
+    <CompetitionResults writeupCount={writeups.length} ranking={data.ranking} points={data.points} />
+  </ArchiveMasthead>
+
+  <section class="challenge-index">
+    {groups.length > 0 ? (
+      <>
+        <h2>Writeups from {data.title}</h2>
+        {groups.map(({ category, cards }) => (
+          <div class="challenge-group">
+            <h3 class="category-label">{category}</h3>
+            <ul class="list challenge-list">
+              {cards.map(({ writeup, summary }) => (
+                <li>
+                  <ArchiveRow href={archivePath(writeup)} class="challenge-row" label={writeup.data.title}>
+                    <h4>{writeup.data.title}</h4>
+                    <WriteupAttribution byline={attribution(writeup.data)} />
+                    {summary && <p>{summary}</p>}
+                  </ArchiveRow>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </>
+    ) : (
+      <>
+        <h2>No writeups yet</h2>
+        <p class="empty-state">We haven't published any writeups for this competition yet. Check back soon.</p>
+      </>
+    )}
   </section>
 
-  {entry.body?.trim() && (
-    <section class="section">
-      <div class="content"><Content /></div>
-    </section>
-  )}
-
-  {groups.length > 0 ? (
-    <section class="section">
-      <h2>Writeups from {data.title}</h2>
-      {groups.map(({ category, cards }) => (
-        <div class="category">
-          <h3 class="category-title">{category}</h3>
-          <ul class="list writeup-list">
-            {cards.map(({ writeup, summary }) => (
-              <li class="list-item">
-                <a href={archivePath(writeup)} class="card-link">
-                  <div class="card">
-                    <h4 class="card-title">{writeup.data.title}</h4>
-                    <div class="meta">
-                      {attribution(writeup.data).map((item, index) => (
-                        <>{index > 0 && <span>|</span>}<span>{item}</span></>
-                      ))}
-                    </div>
-                    {summary && <p class="summary">{summary}</p>}
-                  </div>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </section>
-  ) : (
-    <section>
-      <h2>No writeups yet</h2>
-      <p class="empty-state">We haven't published any writeups for this competition yet. Check back soon.</p>
-    </section>
-  )}
-
-  <div class="back-bar"><a class="back-link" href="/">&larr; Back to all competitions</a></div>
+  <BackBar href="/">Back to all competitions</BackBar>
 </Site>

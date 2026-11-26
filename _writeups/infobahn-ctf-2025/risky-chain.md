@@ -1,8 +1,8 @@
 ---
 title: Risky Chain
 challenge_type: Misc
-author: "@vielite"
-writeup_author: "@xabito"
+author: "vielite"
+writeup_author: "xabito"
 competition: infobahn-ctf-2025
 summary: |-
   Metal to the future!

@@ -26,11 +26,13 @@ mise exec -- npm run preview
 
 `npm test` validates the existing build in `dist/`. `npm run test:browser` starts Astro preview and checks the built site in Chromium using Playwright Test. Run `npm run format` to format supported application files. Markdown articles and their downloads are excluded from the formatter.
 
-Astro bundles the CSS from `src/styles/site.css` and serves IBM Plex Mono and Space Grotesk from the site itself. The original stylesheet URL, `/assets/css/style.css`, is also available.
+Astro builds `src/styles/site.css` into `/assets/css/style.css`. Pages link to a versioned stylesheet URL and preload the self-hosted Asul and Inconsolata fonts.
+
+Export square PNGs at 16, 32, 48, 96, 180, 192, and 512 px as `favicon_new_ctf_<size>.png`. Run `node scripts/generate-brand-assets.mjs <export-directory>` to install the original PNGs and package the ICO. Export social preview artwork separately as a 1200 × 630 PNG at `public/caption.png`.
 
 ## Publish a competition or writeup
 
-1. Create `_competitions/<key>.md` with `key`, `title`, `start_date`, and `end_date`. Use ISO calendar dates such as `2026-11-21`. The optional fields are `summary`, `ranking`, `points`, and `ctftime_url`. The Markdown body is optional. The filename determines the competition URL.
+1. Create `_competitions/<key>.md` with `key`, `title`, `start_date`, and `end_date`. Use ISO calendar dates such as `2026-11-21`. The optional fields are `ranking`, `points`, and `ctftime_url`. Write the competition description in the Markdown body. The homepage uses that same description for its excerpt. The filename determines the competition URL.
 2. Create `_writeups/<key>/<slug>.md`. Keep existing filenames stable because paths below `_writeups/` determine public permalinks. Use the competition's `key` as the `competition` value.
 
    ```markdown
@@ -39,13 +41,17 @@ Astro bundles the CSS from `src/styles/site.css` and serves IBM Plex Mono and Sp
    competition: sample-2026
    challenge_type: Misc
    summary: "Short challenge description."
-   writeup_author: "@handle"
+   writeup_author: "handle"
    ---
 
    ## Notes
 
    Write the article in Markdown.
    ```
+
+   Set optional `difficulty` to one of `beginner`, `easy`, `medium`, `hard`, or `insane`.
+
+   Write author names without `@` in `author` and `writeup_author`. Use a YAML list when a role has several authors.
 
 3. Put attachments and media in `public/assets/files/<key>/<slug>/`. Refer to downloads in the writeup's `attachments` list using fields `title`, `url`, and optionally `description`. Use the root-relative URL `/assets/files/<key>/<slug>/<filename>`.
 4. Preview the page, inspect its attachments, and run the checks above before opening a pull request.

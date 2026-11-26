@@ -1,9 +1,9 @@
 ---
 title: reto16
 challenge_type: Crypto
-difficulty: Hard
-author: "@4nimanegra"
-writeup_author: "@xabito"
+difficulty: hard
+author: "4nimanegra"
+writeup_author: "xabito"
 competition: navarra-cyber-talent-25-4
 summary: |-
   We have a server that uses SSL to accept connections and give the flag. We know it uses the same RSA keys for everything.

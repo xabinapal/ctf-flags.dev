@@ -1,20 +1,8 @@
-<div class="input-group">
-  <label for="ts-unix-seconds">Unix (seconds)</label>
-  <input type="text" id="ts-unix-seconds" class="input" placeholder="Unix timestamp in seconds...">
-</div>
-<div class="input-group">
-  <label for="ts-unix-milliseconds">Unix (milliseconds)</label>
-  <input type="text" id="ts-unix-milliseconds" class="input" placeholder="Unix timestamp in milliseconds...">
-</div>
-<div class="input-group">
-  <label for="ts-unix-nanoseconds">Unix (nanoseconds)</label>
-  <input type="text" id="ts-unix-nanoseconds" class="input" placeholder="Unix timestamp in nanoseconds...">
-</div>
-<div class="input-group">
-  <label for="ts-windows">Windows FILETIME</label>
-  <input type="text" id="ts-windows" class="input" placeholder="Windows FILETIME...">
-</div>
-<div class="input-group">
-  <label for="ts-iso8601">ISO 8601</label>
-  <input type="text" id="ts-iso8601" class="input" placeholder="ISO 8601 date...">
-</div>
+---
+import UtilityField from "./UtilityField.astro";
+---
+<UtilityField id="ts-unix-seconds" label="Unix (seconds)" placeholder="Unix timestamp in seconds..." />
+<UtilityField id="ts-unix-milliseconds" label="Unix (milliseconds)" placeholder="Unix timestamp in milliseconds..." />
+<UtilityField id="ts-unix-nanoseconds" label="Unix (nanoseconds)" placeholder="Unix timestamp in nanoseconds..." />
+<UtilityField id="ts-windows" label="Windows FILETIME" placeholder="Windows FILETIME..." />
+<UtilityField id="ts-iso8601" label="ISO 8601" placeholder="ISO 8601 date..." />

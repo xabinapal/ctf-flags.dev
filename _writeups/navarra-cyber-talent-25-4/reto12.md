@@ -1,9 +1,9 @@
 ---
 title: reto12
 challenge_type: Misc
-difficulty: Medium
-author: "@4nimanegra"
-writeup_author: "@xabito"
+difficulty: medium
+author: "4nimanegra"
+writeup_author: "xabito"
 competition: navarra-cyber-talent-25-4
 summary: |-
   The flag is stored on a network that we can access via SSH. There are several computers on the network, all of which are on the same subnet. All computers have an SSH server and a web page, but only one of them has the flag. It seems that you cannot open a terminal.

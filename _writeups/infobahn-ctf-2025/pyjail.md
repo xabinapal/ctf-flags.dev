@@ -1,8 +1,8 @@
 ---
 title: pyjail
 challenge_type: Jail
-author: "@GabeG888"
-writeup_author: "@xabito"
+author: "GabeG888"
+writeup_author: "xabito"
 competition: infobahn-ctf-2025
 summary: |-
   Can you escape the jail?

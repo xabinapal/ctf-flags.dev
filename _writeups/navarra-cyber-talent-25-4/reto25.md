@@ -1,9 +1,9 @@
 ---
 title: reto25
 challenge_type: Misc
-difficulty: Beginner
-author: "@4nimanegra"
-writeup_author: "@xabito"
+difficulty: beginner
+author: "4nimanegra"
+writeup_author: "xabito"
 competition: navarra-cyber-talent-25-4
 summary: |-
   The flag is stored on this page with a password system.

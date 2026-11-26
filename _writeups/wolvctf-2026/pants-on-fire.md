@@ -1,9 +1,9 @@
 ---
 title: Pants On Fire
 challenge_type: OSINT
-difficulty: Easy
+difficulty: easy
 author: .nerdsmith
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   I found this screenshot from sometime in the past year when clearing out my screenshots folder, any chance you can tell me the name of the body of water?
@@ -13,12 +13,6 @@ attachments:
   - title: Pants_On_Fire.png
     url: /assets/files/wolvctf-2026/pants-on-fire/Pants_On_Fire.png
 ---
-
-The handout is a single, metadata-free PNG screenshot (1431×597) and one
-question: what body of water is this? The answer goes in the flag in lowercase
-with spaces as dashes.
-
-![The source screenshot](/assets/files/wolvctf-2026/pants-on-fire/Pants_On_Fire.png)
 
 ## Recon
 

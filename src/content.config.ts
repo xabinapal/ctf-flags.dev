@@ -7,6 +7,7 @@ const date = z.preprocess(
   (value) => (value instanceof Date ? value.toISOString().slice(0, 10) : value),
   z.iso.date(),
 );
+const authorNames = z.union([z.string(), z.array(z.string())]);
 
 const competitions = defineCollection({
   loader: glob({
@@ -20,7 +21,6 @@ const competitions = defineCollection({
     start_date: date,
     end_date: date,
     ctftime_url: z.url().optional(),
-    summary: z.string().optional(),
     ranking: z.union([z.string(), z.number()]).optional(),
     points: z.union([z.string(), z.number()]).optional(),
   }),
@@ -42,9 +42,11 @@ const writeups = defineCollection({
     competition: slug,
     summary: z.string().optional(),
     challenge_type: z.string().optional(),
-    difficulty: z.string().optional(),
-    author: z.string().optional(),
-    writeup_author: z.string().optional(),
+    difficulty: z
+      .enum(["beginner", "easy", "medium", "hard", "insane"])
+      .optional(),
+    author: authorNames.optional(),
+    writeup_author: authorNames.optional(),
     image_width: z.literal("narrow").optional(),
     connections: z
       .array(

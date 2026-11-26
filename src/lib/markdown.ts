@@ -60,15 +60,30 @@ export function plainText(html: string) {
   return textContent(parseFragment(html)).replace(/\s+/gu, " ").trim();
 }
 
-export function writeupDescription(html: string) {
+export function htmlExcerpt(html = "") {
+  return truncateWords(plainText(html));
+}
+
+export function writeupIntro(html: string) {
   const content = parseFragment(html).childNodes;
+  const first = content.find(
+    (node) =>
+      "tagName" in node || ("value" in node && node.value.trim() !== ""),
+  );
+  const startsWithHeading = Boolean(
+    first && "tagName" in first && /^h[1-6]$/u.test(first.tagName),
+  );
   const heading = content.findIndex(
     (node) => "tagName" in node && node.tagName === "h2",
   );
-  if (heading === -1) return "";
-
-  const paragraph = content
-    .slice(heading + 1)
-    .find((node) => "tagName" in node && node.tagName === "p");
-  return paragraph ? truncateWords(textContent(paragraph)) : "";
+  const paragraph =
+    heading === -1
+      ? undefined
+      : content
+          .slice(heading + 1)
+          .find((node) => "tagName" in node && node.tagName === "p");
+  return {
+    startsWithHeading,
+    description: paragraph ? truncateWords(textContent(paragraph)) : "",
+  };
 }

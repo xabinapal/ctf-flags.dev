@@ -1,9 +1,9 @@
 ---
 title: Approved-ish
 challenge_type: Web
-difficulty: Medium
+difficulty: medium
 author: easonpxz
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   Our research data desk finally has a real release process.

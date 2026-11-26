@@ -1,7 +1,7 @@
 ---
 title: gamblecore
 challenge_type: Web
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: lakectf-25-26-quals
 summary: |-
   Let's go gambling!

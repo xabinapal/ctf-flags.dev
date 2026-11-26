@@ -1,9 +1,9 @@
 ---
 title: Bus Tracker
 challenge_type: Pwn
-difficulty: Easy
+difficulty: easy
 author: 0xir0nroot
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   The Blue Bus app crashes whenever I type my stop name. Dispatch says there's still an admin override compiled in somewhere.

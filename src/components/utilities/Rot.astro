@@ -1,16 +1,9 @@
-<div class="input-group">
-  <label for="rot-plaintext">Plaintext</label>
-  <textarea id="rot-plaintext" class="textarea" placeholder="Type plaintext here..." rows="3"></textarea>
-</div>
-<div class="input-group">
-  <label for="rot-rotn">ROTN <input type="number" id="rot-n" class="input" value="13" min="0" max="26" style="width: 5rem; margin-left: 0.5rem;"></label>
-  <textarea id="rot-rotn" class="textarea" placeholder="Type ROTN here..." rows="3"></textarea>
-</div>
-<div class="input-group">
-  <label for="rot-rot47">ROT47</label>
-  <textarea id="rot-rot47" class="textarea" placeholder="Type ROT47 here..." rows="3"></textarea>
-</div>
-<div class="input-group">
-  <label for="rot-rot8000">ROT8000</label>
-  <textarea id="rot-rot8000" class="textarea" placeholder="Type ROT8000 here..." rows="3"></textarea>
-</div>
+---
+import UtilityField from "./UtilityField.astro";
+---
+<UtilityField id="rot-plaintext" label="Plaintext" placeholder="Type plaintext here..." rows={3} />
+<UtilityField id="rot-rotn" label="ROTN " placeholder="Type ROTN here..." rows={3}>
+  <input slot="label-end" type="number" id="rot-n" class="input form-control" value="13" min="0" max="26" style="width: 5rem; margin-left: 0.5rem;">
+</UtilityField>
+<UtilityField id="rot-rot47" label="ROT47" placeholder="Type ROT47 here..." rows={3} />
+<UtilityField id="rot-rot8000" label="ROT8000" placeholder="Type ROT8000 here..." rows={3} />

@@ -1,9 +1,9 @@
 ---
 title: Spoofify
 challenge_type: Web
-difficulty: Easy
+difficulty: easy
 author: s_jams
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   Spoofify has Free and Premium tiers. Premium listeners get no ads, offline downloads, and an unlock code for this week's unreleased drop.
@@ -15,11 +15,11 @@ connections:
   - url: https://spoofify-web.wolvctf-2026.kctf.cloud
 ---
 
+## Exploitation
+
 Spoofify advertises Free and Premium listening plans, and this week's unreleased-track unlock code is reserved for Premium. There is no login flow, so the plan tier has to live somewhere the browser sends back on every request.
 
 ![Spoofify homepage showing the Free plan](/assets/files/wolvctf-2026/spoofify/home.png)
-
-## Cookie tampering
 
 The homepage's response reveals how the plan is stored: the very first visit sets a cookie.
 

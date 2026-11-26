@@ -1,0 +1,16 @@
+@font-face {
+  font-family: "Asul";
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url("@fontsource/asul/files/asul-latin-700-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inconsolata";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("@fontsource/inconsolata/files/inconsolata-latin-400-normal.woff2")
+    format("woff2");
+}

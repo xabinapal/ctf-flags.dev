@@ -1,8 +1,8 @@
 ---
 title: speechless
 challenge_type: Jail
-author: "@quasar098"
-writeup_author: "@xabito"
+author: "quasar098"
+writeup_author: "xabito"
 competition: infobahn-ctf-2025
 summary: |-
   wow i'm in jail??? i'm speechless...

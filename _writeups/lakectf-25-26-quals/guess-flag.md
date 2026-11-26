@@ -1,7 +1,7 @@
 ---
 title: Guess Flag
 challenge_type: Crypto
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: lakectf-25-26-quals
 summary: |-
   You will never guess the flag

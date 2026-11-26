@@ -1,9 +1,9 @@
 ---
 title: reto05
 challenge_type: Web
-difficulty: Hard
-author: "@lassault"
-writeup_author: "@xabito"
+difficulty: hard
+author: "lassault"
+writeup_author: "xabito"
 competition: navarra-cyber-talent-25-4
 summary: CryptoX uses a token-based authentication scheme to protect its endpoints. Explore the API and find a way to access the restricted area.
 connections:

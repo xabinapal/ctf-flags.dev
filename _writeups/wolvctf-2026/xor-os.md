@@ -1,9 +1,9 @@
 ---
 title: XOR OS
 challenge_type: Crypto
-difficulty: Hard
+difficulty: hard
 author: MetricBead
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   We found this disk image just lying around. Unfortunately, the unlock key wasn't included.

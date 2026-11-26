@@ -1,8 +1,8 @@
 ---
 title: Specimen 512
 challenge_type: Misc
-author: "@Shah Ji"
-writeup_author: "@xabito"
+author: "Shah Ji"
+writeup_author: "xabito"
 competition: v1t-ctf-2025
 summary: |-
   An unmarked data file was recovered from an abandoned research server labeled only as Specimen 512. No accompanying documentation, no metadata, and no obvious contents — just a massive file filled with strange sequences. Some say it hides a secret

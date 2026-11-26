@@ -1,7 +1,10 @@
 ---
+import ExternalUrl from "../../components/ExternalUrl.astro";
 import { type CollectionEntry, getCollection } from "astro:content";
+import SectionMasthead from "../../components/SectionMasthead.astro";
+import SectionTab from "../../components/SectionTab.astro";
 import Site from "../../layouts/Site.astro";
-import { resourcePath } from "../../lib/resources";
+import { resourceMetadata, resourcePath } from "../../lib/resources";
 
 export async function getStaticPaths() {
   const groups = (await getCollection("resources"))
@@ -18,38 +21,34 @@ interface Props {
 
 const { groups } = Astro.props;
 const { category } = Astro.params;
-const description = "A curated collection of essential resources for CTF competitions, covering a range of categories such as cryptography, forensics, exploitation, and more.";
+const { title, description } = resourceMetadata(category);
 const options = [
-  { id: "", label: "All" },
+  { id: "", label: "all" },
   ...groups.map(({ id }) => ({ id, label: id })),
 ];
 ---
-<Site path={resourcePath()} title="Resources" description={description}>
-  <section class="hero">
-    <h1>flag&#123;r3s0urc3s&#125;</h1>
-    <p class="summary">{description}</p>
-  </section>
+<Site path={resourcePath(category)} title={title} description={description}>
+  <SectionMasthead flag="r3s0urc3s" subject="toolkit" />
 
-  <section class="section">
-    <div class="controls" data-resource-controls inert>
-      <div class="search-container">
+  <section class="feature-section resource-catalog" aria-label="Resource directory">
+    <div class="resource-controls" data-resource-controls inert>
+      <div class="resource-search">
+        <label for="resource-search" class="field-label">Search resources</label>
         <input
           type="text"
           id="resource-search"
-          class="search-input"
-          placeholder="Search resources by name or description..."
-          aria-label="Search resources"
+          class="search-input form-control"
+          placeholder="By name or description"
           autocomplete="off"
         />
       </div>
-      <div class="filters" role="group" aria-label="Resource categories">
+      <div class="resource-tabs" role="group" aria-label="Resource categories">
         {options.map((option) => (
-          <button
-            type="button"
-            class:list={["chip-rounded", { active: option.id === (category ?? "") }]}
+          <SectionTab
+            class="resource-tab"
             data-category={option.id}
-            aria-pressed={option.id === (category ?? "") ? "true" : "false"}
-          >{option.label}</button>
+            selected={option.id === (category ?? "")}
+          >{option.label}</SectionTab>
         ))}
       </div>
     </div>
@@ -57,27 +56,16 @@ const options = [
     <div id="resources-container">
       {groups.map(({ id, data: { resources } }) => (
         <div class="category" data-category={id} hidden={Boolean(category && id !== category)}>
-          <h2 class="category-title">{id}</h2>
+          <h2 class="category-label">{id}</h2>
           <ul class="list resource-list">
             {resources.toSorted((left, right) =>
               left.name.localeCompare(right.name, "en", { sensitivity: "base" }),
             ).map((resource) => (
               <li class="list-item" data-name={resource.name.toLowerCase()} data-description={resource.description.toLowerCase()}>
-                <a href={resource.url} target="_blank" rel="noopener noreferrer" class="card-link">
-                  <div class="card">
-                    <div class="resource-header">
-                      <h3 class="card-title resource-title">{resource.name}</h3>
-                      <div class="resource-icon">
-                        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M11 3L17 9M17 9H12M17 9V4M16 18H4C2.89543 18 2 17.1046 2 16V4C2 2.89543 2.89543 2 4 2H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="resource-content">
-                      <span class="resource-url">{resource.url}</span>
-                      <p class="resource-description">{resource.description}</p>
-                    </div>
-                  </div>
+                <a href={resource.url} target="_blank" rel="noopener noreferrer" class="resource-row" aria-label={resource.name}>
+                  <h3 class="resource-title">{resource.name}</h3>
+                  <p class="resource-description">{resource.description}</p>
+                  <span class="external-url resource-url"><ExternalUrl url={resource.url} /></span>
                 </a>
               </li>
             ))}

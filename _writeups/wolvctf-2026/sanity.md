@@ -1,8 +1,8 @@
 ---
 title: Sanity
 challenge_type: Misc
-difficulty: Beginner
-writeup_author: "@xabito"
+difficulty: beginner
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   Join our discord and read the rules.

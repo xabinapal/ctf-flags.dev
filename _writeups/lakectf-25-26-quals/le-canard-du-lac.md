@@ -1,7 +1,7 @@
 ---
 title: Le Canard du Lac
 challenge_type: Web
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: lakectf-25-26-quals
 summary: |-
   Le Canard du Lac is a news website run by a collective of hackers from Lake Leman (or Geneva). No brute-forcing is required.

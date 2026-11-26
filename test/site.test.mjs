@@ -42,10 +42,6 @@ function relativePath(base, path) {
   return relative(base, path).split(sep).join("/");
 }
 
-function canonicalPath(path) {
-  return path.match(/^\/(resources|utilities)\//)?.[0] ?? path;
-}
-
 const distFiles = filesUnder(dist);
 
 const publicPages = (async () => {
@@ -100,12 +96,106 @@ test("static pages match the archive source paths and use their production canon
     const canonical = nodes.find(
       (node) => node.tagName === "link" && attr(node, "rel") === "canonical",
     );
+    assert.equal(attr(canonical, "href"), new URL(path, origin).href, path);
+  }
+});
+
+test("every page has complete Open Graph and X preview metadata", async () => {
+  const imagePath = "/caption.png";
+  const image = await readFile(join(dist, imagePath));
+  const width = image.readUInt32BE(16);
+  const height = image.readUInt32BE(20);
+  assert.deepEqual([width, height], [1200, 630]);
+
+  for (const [path, { nodes }] of await publicPages) {
+    const metadata = (attribute, key) => {
+      const tags = nodes.filter(
+        (node) => node.tagName === "meta" && attr(node, attribute) === key,
+      );
+      assert.equal(tags.length, 1, `${path} ${key}`);
+      const value = attr(tags[0], "content");
+      assert.ok(value?.trim(), `${path} ${key}`);
+      return value;
+    };
+    const og = (key) => metadata("property", `og:${key}`);
+    const card = (key) => metadata("name", `twitter:${key}`);
+    const pageUrl = new URL(path, origin).href;
+    const imageUrl = new URL(imagePath, origin).href;
+
+    assert.equal(og("url"), pageUrl);
+    assert.equal(og("description"), metadata("name", "description"));
+    assert.ok(["website", "article"].includes(og("type")));
+    assert.equal(og("site_name"), "ctf-flags.dev");
+    assert.equal(og("locale"), "en_US");
+    assert.equal(og("image"), imageUrl);
+    assert.equal(og("image:type"), "image/png");
+    assert.equal(og("image:width"), String(width));
+    assert.equal(og("image:height"), String(height));
+    assert.equal(card("card"), "summary_large_image");
+    for (const key of ["url", "title", "description", "image", "image:alt"])
+      assert.equal(card(key), og(key), `${path} ${key}`);
+
+    if (path === "/404.html")
+      assert.equal(metadata("name", "robots"), "noindex,follow");
+  }
+});
+
+test("site icons match their declared sizes", async () => {
+  const manifest = JSON.parse(
+    await readFile(join(dist, "site.webmanifest"), "utf8"),
+  );
+  const pngIcons = [
+    ...manifest.icons,
+    { src: "/favicon-96.png", sizes: "96x96" },
+    { src: "/favicon-512.png", sizes: "512x512" },
+    { src: "/icon-180.png", sizes: "180x180" },
+  ];
+  for (const { src, sizes } of pngIcons) {
+    const icon = await readFile(join(dist, src));
     assert.equal(
-      attr(canonical, "href"),
-      new URL(canonicalPath(path), origin).href,
-      path,
+      `${icon.readUInt32BE(16)}x${icon.readUInt32BE(20)}`,
+      sizes,
+      src,
     );
   }
+
+  const svg = await readFile(join(dist, "favicon.svg"), "utf8");
+  assert.match(svg, /<svg\b/);
+  const home = (await publicPages).get("/");
+  assert.ok(
+    home.nodes.some(
+      (node) =>
+        node.tagName === "link" &&
+        attr(node, "rel") === "icon" &&
+        attr(node, "type") === "image/svg+xml" &&
+        attr(node, "sizes") === "any" &&
+        attr(node, "href") === "/favicon.svg",
+    ),
+  );
+
+  const favicon = await readFile(join(dist, "favicon.ico"));
+  assert.equal(favicon.readUInt16LE(0), 0);
+  assert.equal(favicon.readUInt16LE(2), 1);
+  assert.equal(favicon.readUInt16LE(4), 3);
+  let offset = 54;
+  for (const [index, size] of [16, 32, 48].entries()) {
+    const entry = 6 + index * 16;
+    assert.deepEqual(
+      [...favicon.subarray(entry, entry + 4)],
+      [size, size, 0, 0],
+    );
+    assert.equal(favicon.readUInt16LE(entry + 4), 1);
+    assert.equal(favicon.readUInt16LE(entry + 6), 32);
+    assert.equal(favicon.readUInt32LE(entry + 12), offset);
+    assert.equal(
+      favicon.subarray(offset, offset + 8).toString("hex"),
+      "89504e470d0a1a0a",
+    );
+    assert.equal(favicon.readUInt32BE(offset + 16), size);
+    assert.equal(favicon.readUInt32BE(offset + 20), size);
+    offset += favicon.readUInt32LE(entry + 8);
+  }
+  assert.equal(offset, favicon.length);
 });
 
 test("published links, media and heading fragments resolve within the static artifact", async () => {
@@ -144,9 +234,8 @@ test("sitemap contains every public canonical page except the 404", async () => 
   );
   const canonical = [...(await publicPages).keys()]
     .filter((path) => path !== "/404.html")
-    .map((path) => new URL(canonicalPath(path), origin).href);
-  const uniqueCanonical = [...new Set(canonical)];
-  assert.deepEqual(entries.sort(), uniqueCanonical.sort());
+    .map((path) => new URL(path, origin).href);
+  assert.deepEqual(entries.sort(), canonical.sort());
   const dates = [...xml.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)];
   for (const [, date] of dates) {
     assert.ok(Number.isFinite(Date.parse(date)), date);
@@ -154,7 +243,7 @@ test("sitemap contains every public canonical page except the 404", async () => 
   if (process.env.GITHUB_ACTIONS === "true") {
     assert.equal(
       dates.length,
-      uniqueCanonical.length,
+      canonical.length,
       "The Pages build has full Git history",
     );
   }

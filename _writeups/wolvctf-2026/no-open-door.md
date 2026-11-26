@@ -1,9 +1,9 @@
 ---
 title: No Open Door
 challenge_type: Pwn
-difficulty: Medium
+difficulty: medium
 author: .ayushmk
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: wolvctf-2026
 summary: |-
   The landlord blocked exec and open with seccomp and insists /flag is safe. Read the filter and find what they missed.

@@ -1,15 +1,19 @@
 
-<div id="cookie-consent-banner" class="consent-banner" hidden>
+<aside id="cookie-consent-banner" class="consent-banner" aria-labelledby="consent-title" hidden>
   <div class="consent-content">
-    <p class="consent-message">
-      We use cookies and trackers. Agree if you don't mind friendly gremlins watching.
-    </p>
+    <div>
+      <h2 id="consent-title">Optional analytics</h2>
+      <p class="consent-message">
+        Google Analytics measures how this site is used if you accept.
+        Agree if you don’t mind friendly gremlins watching.
+      </p>
+    </div>
     <div class="consent-actions">
-      <button type="button" id="consent-decline" class="chip-squared consent-btn consent-btn-decline">Decline</button>
-      <button type="button" id="consent-accept" class="chip-squared consent-btn consent-btn-accept">Accept</button>
+      <button type="button" id="consent-decline" class="consent-btn">Decline</button>
+      <button type="button" id="consent-accept" class="consent-btn">Accept</button>
     </div>
   </div>
-</div>
+</aside>
 
 <script>
   import "../scripts/analytics-consent";

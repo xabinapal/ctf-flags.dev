@@ -1,7 +1,7 @@
 ---
 title: Blank
 challenge_type: Stego
-writeup_author: "@xabito"
+writeup_author: "xabito"
 competition: v1t-ctf-2025
 summary: |-
   This image is blank is it?

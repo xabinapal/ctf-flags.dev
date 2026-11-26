@@ -1,8 +1,8 @@
 ---
 title: reto10
 challenge_type: Forensics
-difficulty: Medium
-writeup_author: "@xabito"
+difficulty: medium
+writeup_author: "xabito"
 competition: navarra-cyber-talent-25-4
 summary: |-
   Help me review this access log that looks like the flag is hidden somewhere.
