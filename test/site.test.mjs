@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { createReadStream } from "node:fs";
-import { readdir, readFile, stat } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import { join, relative, resolve, sep } from "node:path";
 import { test } from "node:test";
 import { parse } from "parse5";
@@ -32,8 +32,10 @@ function relativePath(base, path) {
   return relative(base, path).split(sep).join("/");
 }
 
+const distFiles = filesUnder(dist);
+
 const publicPages = (async () => {
-  const files = await filesUnder(dist);
+  const files = await distFiles;
   const pages = files.filter((file) => {
     const path = relativePath(dist, file);
     return (
@@ -83,7 +85,9 @@ test("static pages match the archive source paths and use their production canon
 
 test("published links, media and heading fragments resolve within the static artifact", async () => {
   const pages = await publicPages;
-  const checkedFiles = new Set();
+  const filePaths = new Set(
+    (await distFiles).map((file) => `/${relativePath(dist, file)}`),
+  );
 
   for (const [path, { nodes }] of pages) {
     for (const node of nodes) {
@@ -100,10 +104,8 @@ test("published links, media and heading fragments resolve within the static art
               page.ids.has(decodeURIComponent(url.hash.slice(1))),
               `${path} -> ${target}`,
             );
-        } else if (!checkedFiles.has(pathname)) {
-          const file = await stat(join(dist, pathname)).catch(() => undefined);
-          assert.ok(file?.isFile(), `${path} -> ${target}`);
-          checkedFiles.add(pathname);
+        } else {
+          assert.ok(filePaths.has(pathname), `${path} -> ${target}`);
         }
       }
     }

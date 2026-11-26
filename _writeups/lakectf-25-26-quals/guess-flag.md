@@ -9,7 +9,7 @@ connections:
   - url: chall.polygl0ts.ch:6001
 attachments:
   - title: Guessflag.py
-    url: /assets/files/lakectf-25-26-quals/guess-flag/guessflag.py
+    url: /assets/files/lakectf-25-26-quals/guess-flag/Guessflag.py
 ---
 
 By reviewing the source code, we found a flaw in how user input is checked. The code compares each character of the user's input with the flag, and stops right away if it detects a mismatch. The important detail is that the program checks only as many characters as the user provides.
